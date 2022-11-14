@@ -23,7 +23,7 @@ public class DBConnection {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 try {
                     String user = "sa";
-                    String pW = "abc123";
+                    String pW = "";
                     String url = "jdbc:sqlserver://localhost:1433;databaseName = DuAn1_QuanLiBanQuanAo; encrypt = true; trustServerCertificate = true";
 
                     conn = DriverManager.getConnection(url, user, pW);
