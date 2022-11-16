@@ -1,11 +1,14 @@
-﻿CREATE DATABASE DuAn1_QuanLiBanQuanAo
+﻿ 
+CREATE DATABASE DuAn1_QuanLiBanQuanAo
 GO
 USE DuAn1_QuanLiBanQuanAo
+GO 
 ---ChucVu
 CREATE TABLE ChucVu (
 IdCV UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 MaChucVu VARCHAR(20) UNIQUE,
-ChucVu NVARCHAR(50) DEFAULT NULL
+ChucVu NVARCHAR(50) DEFAULT NULL,
+TrangThai INT DEFAULT 1,
 )
 GO
 -- NhanVien
@@ -33,7 +36,8 @@ NgaySinh DATE DEFAULT NULL,
 Sdt VARCHAR(30) DEFAULT NULL,
 DiaChi NVARCHAR(100) DEFAULT NULL,
 ThanhPho NVARCHAR(50) DEFAULT NULL,
-QuocGia NVARCHAR(50) DEFAULT NULL
+QuocGia NVARCHAR(50) DEFAULT NULL,
+TrangThai INT DEFAULT 1,
 )
 GO
 --HoaDon
@@ -45,6 +49,7 @@ IdPTTT UNIQUEIDENTIFIER,
 MaHD VARCHAR(20) UNIQUE,
 NgayTao DATE DEFAULT NULL,
 NgayThanhToan DATE DEFAULT NULL,
+NgayHen DATE DEFAULT NULL,
 NgayShip DATE DEFAULT NULL,
 NgayNhan DATE DEFAULT NULL,
 TenNguoiNhan NVARCHAR(50) DEFAULT NULL,
@@ -115,6 +120,7 @@ SoLuong INT,
 GiaNhap DECIMAL(20,0) DEFAULT 0,
 GiaBan DECIMAL(20,0) DEFAULT 0,
 MoTa NVARCHAR(50) DEFAULT NULL,
+TrangThai INT DEFAULT 1,
 )
 GO
 
@@ -130,20 +136,21 @@ CONSTRAINT FK1 FOREIGN KEY(IdHoaDon) REFERENCES HoaDon(IdHoaDon),
 CONSTRAINT FK2 FOREIGN KEY(IdCTSP) REFERENCES ChiTietSP(IdCTSP),
 )
 GO
--- PTTT
-CREATE TABLE PTTT(
-IdPTTT UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
-IdLoaiHinhTT UNIQUEIDENTIFIER NOT NULL,
-TenPTTT NVARCHAR(50) DEFAULT NULL,
-SoTien MONEY NULL
-)
-
 -- LoaiHinhTT
 CREATE TABLE LoaiHinhTT(
 IdLHTT UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
-TenLHTT NVARCHAR(50) DEFAULT NULL
+TenLHTT NVARCHAR(50) DEFAULT NULL,
+TrangThai INT DEFAULT 1,
 )
-
+-- PTTT
+CREATE TABLE PTTT(
+IdHoaDon UNIQUEIDENTIFIER,
+IdLHTT UNIQUEIDENTIFIER,
+SoTien MONEY NULL,
+CONSTRAINT PK_PTTT PRIMARY KEY (IdHoaDon,IdLHTT),
+CONSTRAINT FK_PTTT_LHTT FOREIGN KEY(IdLHTT) REFERENCES dbo.LoaiHinhTT(IdLHTT),
+CONSTRAINT FK_PTTT_HoaDon FOREIGN KEY(IdHoaDon) REFERENCES dbo.HoaDon(IdHoaDon),
+)
 GO
 --TẠO QUAN HỆ GIỮA CÁC BẢNG
 --NhanVien - ChucVu
@@ -152,11 +159,6 @@ ALTER TABLE NhanVien ADD FOREIGN KEY (IdCV) REFERENCES dbo.ChucVu(IdCV)
 ALTER TABLE dbo.HoaDon ADD FOREIGN KEY (IdNV) REFERENCES dbo.NhanVien(IdNV)
 --HoaDon - KhachHang
 ALTER TABLE dbo.HoaDon ADD FOREIGN KEY (IdKH) REFERENCES dbo.KhachHang(IdKH)
---HoaDon - PTTT
-ALTER TABLE dbo.HoaDon ADD FOREIGN KEY (IdPTTT) REFERENCES dbo.PTTT(IdPTTT)
---PTTT - LoaiHinhThanhToan
-ALTER TABLE dbo.PTTT ADD FOREIGN KEY (IdPTTT) REFERENCES dbo.LoaiHinhTT(IdLHTT)
---PTTT - LoaiHinhThanhToan
 --CTSP - Thuong Hieu
 ALTER TABLE dbo.ChiTietSP ADD FOREIGN KEY (IdThuongHieu) REFERENCES dbo.ThuongHieu(IdThuongHieu)
 --CTSP - Size
@@ -171,3 +173,55 @@ ALTER TABLE dbo.ChiTietSP ADD FOREIGN KEY (IdNSX) REFERENCES dbo.NSX(IdNSX)
 ALTER TABLE dbo.ChiTietSP ADD FOREIGN KEY (IdMauSac) REFERENCES dbo.MauSac(IdMauSac)
 --CTSP - SanPham
 ALTER TABLE dbo.ChiTietSP ADD FOREIGN KEY (IdSP) REFERENCES dbo.SanPham(IdSP)
+
+
+
+------Update 1.1
+-----Insert Các bảng
+ALTER TABLE dbo.Size
+ALTER COLUMN SoSize NVARCHAR(50);
+-----Insert Các bảng
+-----Insert Bảng Chất Liệu
+INSERT INTO dbo.ChatLieu (IdChatLieu,Ma,TenChatLieu) VALUES (   DEFAULT, N'CL01' ,N'Vải Cotton' )
+INSERT INTO dbo.ChatLieu (IdChatLieu,Ma,TenChatLieu) VALUES (   DEFAULT, N'CL02' ,N'Vải Kaki' )
+INSERT INTO dbo.ChatLieu (IdChatLieu,Ma,TenChatLieu) VALUES (   DEFAULT, N'CL03' ,N'Vải Jeans' )
+INSERT INTO dbo.ChatLieu (IdChatLieu,Ma,TenChatLieu) VALUES (   DEFAULT, N'CL04' ,N'Vải Kate' )
+INSERT INTO dbo.ChatLieu (IdChatLieu,Ma,TenChatLieu) VALUES (   DEFAULT, N'CL05' ,N'Vải Nỉ' )
+INSERT INTO dbo.ChatLieu (IdChatLieu,Ma,TenChatLieu) VALUES (   DEFAULT, N'CL06' ,N'Vải Len' )
+INSERT INTO dbo.ChatLieu (IdChatLieu,Ma,TenChatLieu) VALUES (   DEFAULT, N'CL07' ,N'Vải Thô' )
+INSERT INTO dbo.ChatLieu (IdChatLieu,Ma,TenChatLieu) VALUES (   DEFAULT, N'CL08' ,N'Vải Voan' )
+INSERT INTO dbo.ChatLieu (IdChatLieu,Ma,TenChatLieu) VALUES (   DEFAULT, N'CL09' ,N'Vải Lanh' )
+INSERT INTO dbo.ChatLieu (IdChatLieu,Ma,TenChatLieu) VALUES (   DEFAULT, N'CL10' ,N'Vải Đũi' )
+INSERT INTO dbo.ChatLieu (IdChatLieu,Ma,TenChatLieu) VALUES (   DEFAULT, N'CL11' ,N'Vải Ren' )
+INSERT INTO dbo.ChatLieu (IdChatLieu,Ma,TenChatLieu) VALUES (   DEFAULT, N'CL13' ,N'Vải FE' )
+INSERT INTO dbo.ChatLieu (IdChatLieu,Ma,TenChatLieu) VALUES (   DEFAULT, N'CL14' ,N'Vải Nỉ Lông' )
+INSERT INTO dbo.ChatLieu (IdChatLieu,Ma,TenChatLieu) VALUES (   DEFAULT, N'CL15' ,N'Vải Spandex' )
+INSERT INTO dbo.ChatLieu (IdChatLieu,Ma,TenChatLieu) VALUES (   DEFAULT, N'CL16' ,N'Vải Hoa Văn' )
+INSERT INTO dbo.ChatLieu (IdChatLieu,Ma,TenChatLieu) VALUES (   DEFAULT, N'CL17' ,N'Vải Thun Lạnh' )
+-----Insert Bảng NSX
+INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N001', N'Công Ty Cổ Phần May Đồng Na')
+INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N001', N'Công Ty Cổ Phần Dệt 10/10')
+INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N001', N'Công Ty Cổ Phần May Sông Hồng')
+INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N001', N'Công ty cổ phần Dệt-May 29/3')
+INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N001', N'Tập đoàn dệt may Việt Nam')
+INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N001', N'Tổng công ty dệt may Hà Nội')
+INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N001', N'Tổng công ty cổ phần may Việt Tiến')
+-----Insert Bảng Size
+INSERT INTO dbo.Size (IdSize,SoSize) VALUES (DEFAULT, N'XXS')
+INSERT INTO dbo.Size (IdSize,SoSize) VALUES (DEFAULT, N'XS')
+INSERT INTO dbo.Size (IdSize,SoSize) VALUES (DEFAULT, N'S')
+INSERT INTO dbo.Size (IdSize,SoSize) VALUES (DEFAULT, N'M')
+INSERT INTO dbo.Size (IdSize,SoSize) VALUES (DEFAULT, N'L')
+INSERT INTO dbo.Size (IdSize,SoSize) VALUES (DEFAULT, N'XL')
+INSERT INTO dbo.Size (IdSize,SoSize) VALUES (DEFAULT, N'XXL')
+
+-----Insert Bảng Thương Hiệu
+INSERT INTO dbo.ThuongHieu (IdThuongHieu,Ma,TenChatLieu) VALUES (DEFAULT,N'TT01',N'Jody')
+INSERT INTO dbo.ThuongHieu (IdThuongHieu,Ma,TenChatLieu) VALUES (DEFAULT,N'TT02',N'Việt Tiến')
+INSERT INTO dbo.ThuongHieu (IdThuongHieu,Ma,TenChatLieu) VALUES (DEFAULT,N'TT03',N'May10')
+INSERT INTO dbo.ThuongHieu (IdThuongHieu,Ma,TenChatLieu) VALUES (DEFAULT,N'TT04',N'Owen')
+INSERT INTO dbo.ThuongHieu (IdThuongHieu,Ma,TenChatLieu) VALUES (DEFAULT,N'TT05',N'CoolMate')
+INSERT INTO dbo.ThuongHieu (IdThuongHieu,Ma,TenChatLieu) VALUES (DEFAULT,N'TT06',N'Top4Man')
+-----Insert Bảng Chức Vụ
+INSERT INTO dbo.ChucVu (IdCV,MaChucVu,ChucVu,TrangThai) VALUES (DEFAULT,N'CV01',N'Admin',1)
+INSERT INTO dbo.ChucVu (IdCV,MaChucVu,ChucVu,TrangThai) VALUES (DEFAULT,N'CV02',N'NhanVien',1)
