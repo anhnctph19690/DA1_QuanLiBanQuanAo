@@ -44,7 +44,7 @@ public class SanPhamService implements ISanPhamService{
 
     @Override
     public void update(QLSanPham qlSP, String id) {
-   SanPham spd = new SanPham("", qlSP.getMaSP(), qlSP.getTenSP());
+   SanPham spd = new SanPham(qlSP.getIdSanPham(), qlSP.getMaSP(), qlSP.getTenSP());
         this.sanPhamRepository.update(spd, id);
     }
 
