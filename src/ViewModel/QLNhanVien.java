@@ -1,6 +1,6 @@
-package Models;
+package ViewModel;
 
-public class NhanVien {
+public class QLNhanVien {
 
     private String idNhanVien;
     private String maNV;
@@ -13,10 +13,10 @@ public class NhanVien {
     private Integer trangThai;
     private String idCV;
 
-    public NhanVien() {
+    public QLNhanVien() {
     }
 
-    public NhanVien(String idNhanVien, String maNV, String tenNV, String diaChi, String sDT, String gioiTinh, String ngaySinh, String matKhau, Integer trangThai, String idCV) {
+    public QLNhanVien(String idNhanVien, String maNV, String tenNV, String diaChi, String sDT, String gioiTinh, String ngaySinh, String matKhau, Integer trangThai, String idCV) {
         this.idNhanVien = idNhanVien;
         this.maNV = maNV;
         this.tenNV = tenNV;
