@@ -1,29 +1,63 @@
 package Servicer.Impl;
 
+import Models.NhanVien;
+import Repository.INhanVienRepository;
+import Repository.Impl.NhanVienRepository;
 import Servicer.INhanVienServicer;
 import ViewModel.QLNhanVien;
+import java.util.ArrayList;
 import java.util.List;
 
 public class NhanVienServicer implements INhanVienServicer {
 
-    @Override
+    INhanVienRepository NhanVienRepo;
+
+    public NhanVienServicer() {
+
+        NhanVienRepo = new NhanVienRepository();
+    }
+
     public List<QLNhanVien> getList() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<QLNhanVien> listQlnv = new ArrayList<>();
+        List<NhanVien> listNV = this.NhanVienRepo.getAll();
+
+        for (NhanVien nv : listNV) {
+            QLNhanVien qlNV = new QLNhanVien(nv.getIdNhanVien(), nv.getMaNV(),
+                    nv.getTenNV(), nv.getDiaChi(), nv.getsDT(),
+                    nv.getGioiTinh(), nv.getNgaySinh(),
+                    nv.getMatKhau(), nv.getTrangThai(), nv.getIdCV());
+
+            listQlnv.add(qlNV);
+        }
+        return listQlnv;
+
     }
 
-    @Override
     public void insert(QLNhanVien qlNV) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        NhanVien NV = new NhanVien(qlNV.getIdNhanVien(), qlNV.getMaNV(),
+                qlNV.getTenNV(), qlNV.getDiaChi(), qlNV.getsDT(),
+                qlNV.getGioiTinh(), qlNV.getNgaySinh(),
+                qlNV.getMatKhau(), qlNV.getTrangThai(), qlNV.getIdCV());
+
+        NhanVienRepo.insert(NV);
     }
 
-    @Override
     public void update(QLNhanVien qlNV) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        NhanVien NV = new NhanVien(qlNV.getIdNhanVien(), qlNV.getMaNV(),
+                qlNV.getTenNV(), qlNV.getDiaChi(), qlNV.getsDT(),
+                qlNV.getGioiTinh(), qlNV.getNgaySinh(),
+                qlNV.getMatKhau(), qlNV.getTrangThai(), qlNV.getIdCV());
+
+        NhanVienRepo.update(NV);
     }
 
-    @Override
     public void delete(QLNhanVien qlNV) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        NhanVien NV = new NhanVien(qlNV.getIdNhanVien(), qlNV.getMaNV(),
+                qlNV.getTenNV(), qlNV.getDiaChi(), qlNV.getsDT(),
+                qlNV.getGioiTinh(), qlNV.getNgaySinh(),
+                qlNV.getMatKhau(), qlNV.getTrangThai(), qlNV.getIdCV());
+
+        NhanVienRepo.delete(NV);
     }
 
 }
