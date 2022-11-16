@@ -39,7 +39,7 @@ public class NhanVienRepository implements INhanVienRepository {
                 listNhanVien.add(nv);
             }
 
-            System.out.println("Select ok dmmmm");
+            System.out.println("Select ok");
         } catch (Exception e) {
             System.out.println("Select X");
             e.printStackTrace();
