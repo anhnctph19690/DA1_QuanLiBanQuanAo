@@ -5,7 +5,9 @@
 package view;
 
 import Servicer.Impl.ChatLieuServices;
+import Servicer.Impl.NSXService;
 import ViewModel.QLChatLieu;
+import ViewModel.QLNSX;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -23,10 +25,16 @@ public class SanPhamView extends javax.swing.JFrame {
     private List<QLChatLieu> listqlcl = new ArrayList<>();
     private DefaultComboBoxModel dcbChatLieu;
     
+    
+    private NSXService nSXService = new NSXService();
+    private List<QLNSX> listnsx = new ArrayList<>();
+    
+    
     public SanPhamView() {
         initComponents();
         
         loadChatLieu();
+        LoadNSX();
     }
     private void loadChatLieu(){
         
@@ -36,6 +44,14 @@ public class SanPhamView extends javax.swing.JFrame {
             dcbChatLieu.addElement(x.getMa());
         }
        
+    }
+    
+    private void LoadNSX(){
+       DefaultComboBoxModel dcb = (DefaultComboBoxModel) CbbNSX.getModel();
+       listnsx = nSXService.getAll();
+        for (QLNSX nsx : listnsx) {
+            dcb.addElement(nsx.getMa());
+        }
     }
 
     /**
@@ -76,7 +92,7 @@ public class SanPhamView extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
         cbcchatLieu = new javax.swing.JComboBox<>();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        CbbNSX = new javax.swing.JComboBox<>();
         jTextField7 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -181,6 +197,12 @@ public class SanPhamView extends javax.swing.JFrame {
             }
         });
 
+        CbbNSX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CbbNSXActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -209,7 +231,7 @@ public class SanPhamView extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(CbbNSX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addGap(18, 18, 18)
@@ -280,7 +302,7 @@ public class SanPhamView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(CbbNSX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
@@ -393,7 +415,7 @@ public class SanPhamView extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -418,6 +440,10 @@ public class SanPhamView extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void CbbNSXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbbNSXActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CbbNSXActionPerformed
 
     /**
      * @param args the command line arguments
@@ -456,6 +482,7 @@ public class SanPhamView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> CbbNSX;
     private javax.swing.JComboBox<String> cbcchatLieu;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -463,7 +490,6 @@ public class SanPhamView extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
