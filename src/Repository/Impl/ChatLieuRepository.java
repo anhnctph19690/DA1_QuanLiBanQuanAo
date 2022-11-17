@@ -29,7 +29,7 @@ public class ChatLieuRepository implements IChatLieuRepository {
             
             ResultSet rs = ps.getResultSet();
             while (rs.next()) {
-               String id = rs.getString("IdChatLieu,Ma,TenChatlieu");
+               String id = rs.getString("IdChatLieu");
                 String ma = rs.getString("Ma");
                 String ten = rs.getString("TenChatlieu");
                 
