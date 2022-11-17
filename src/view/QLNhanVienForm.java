@@ -47,13 +47,14 @@ public class QLNhanVienForm extends javax.swing.JFrame {
                 QLnv.getIdNhanVien(),
                 QLnv.getMaNV(),
                 QLnv.getTenNV(),
+                QLnv.getTenChucVu(),
                 QLnv.getDiaChi(),
                 QLnv.getsDT(),
                 QLnv.getGioiTinh(),
                 QLnv.getNgaySinh(),
                 QLnv.getMatKhau(),
                 QLnv.getTrangThai(),
-                QLnv.getIdCV(),};
+                };
             dtm.addRow(rowData);
         }
 
@@ -61,51 +62,51 @@ public class QLNhanVienForm extends javax.swing.JFrame {
 
     @SuppressWarnings("unchecked")
 
-    public QLNhanVien getData() {
-        String id = lbID.getText();
-        String ma = txtMa.getText().trim();
-        String ten = txtTen.getText().trim();
-        String diaChi = txtdiaChi.getText().trim();
-        String sDt = txtSdt.getText().trim();
-        String gioiTinh = txtGioiTinh.getText().trim();
-        String ngaySinh = txtNam.getText().trim()
-                + "-" + txtThang.getText().trim() + "-" + txtNgay.getText().trim();
+//    public QLNhanVien getData() {
+//        String id = lbID.getText();
+//        String ma = txtMa.getText().trim();
+//        String ten = txtTen.getText().trim();
+//        String diaChi = txtdiaChi.getText().trim();
+//        String sDt = txtSdt.getText().trim();
+//        String gioiTinh = txtGioiTinh.getText().trim();
+//        String ngaySinh = txtNam.getText().trim()
+//                + "-" + txtThang.getText().trim() + "-" + txtNgay.getText().trim();
+//
+//        String matKhau = txtMK.getText().trim();
+//       
+//        Integer trangThai = -1;
+//        if (checkTT.isSelected()) {
+//            trangThai = 0;
+//        }
+//
+//        if (ma.isEmpty() == true) {
+//            JOptionPane.showMessageDialog(this, "Mã Trống");
+//            return null;
+//        } else if (ten.isEmpty() == true) {
+//            JOptionPane.showMessageDialog(this, "Tên Trống");
+//            return null;
+//        } else if (diaChi.isEmpty() == true) {
+//            JOptionPane.showMessageDialog(this, "Địa chỉ Nhân Viên trống");
+//            return null;
+//        } else if (sDt.isEmpty() == true) {
+//            JOptionPane.showMessageDialog(this, "Số điện Thoại Trống");
+//            return null;
+//        } else if (gioiTinh.isEmpty() == true) {
+//            JOptionPane.showMessageDialog(this, "Giới Tính Trống");
+//            return null;
+//        } else if (ngaySinh.isEmpty() == true) {
+//            JOptionPane.showMessageDialog(this, "Ngày Sinh Trống");
+//            return null;
+//        }  else if (matKhau.isEmpty() == true) {
+//            JOptionPane.showMessageDialog(this, "Mat Khau Trống");
+//            return null;
+//        }
+//        String cv = cbbChucVu.getSelectedItem().toString(); ///?????
+//        
+//        QLNhanVien qlNV =QLNhanVien();
+//        return qlNV;
 
-        String matKhau = txtMK.getText().trim();
-       
-        Integer trangThai = -1;
-        if (checkTT.isSelected()) {
-            trangThai = 0;
-        }
-
-        if (ma.isEmpty() == true) {
-            JOptionPane.showMessageDialog(this, "Mã Trống");
-            return null;
-        } else if (ten.isEmpty() == true) {
-            JOptionPane.showMessageDialog(this, "Tên Trống");
-            return null;
-        } else if (diaChi.isEmpty() == true) {
-            JOptionPane.showMessageDialog(this, "Địa chỉ Nhân Viên trống");
-            return null;
-        } else if (sDt.isEmpty() == true) {
-            JOptionPane.showMessageDialog(this, "Số điện Thoại Trống");
-            return null;
-        } else if (gioiTinh.isEmpty() == true) {
-            JOptionPane.showMessageDialog(this, "Giới Tính Trống");
-            return null;
-        } else if (ngaySinh.isEmpty() == true) {
-            JOptionPane.showMessageDialog(this, "Ngày Sinh Trống");
-            return null;
-        }  else if (matKhau.isEmpty() == true) {
-            JOptionPane.showMessageDialog(this, "Mat Khau Trống");
-            return null;
-        }
-        String cv = cbbChucVu.getSelectedItem().toString(); ///?????
-        
-        QLNhanVien qlNV = new QLNhanVien("", ma, ten, diaChi, sDt, gioiTinh, ngaySinh, matKhau, trangThai, cv);
-        return qlNV;
-
-    }
+//    }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -187,7 +188,7 @@ public class QLNhanVienForm extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Mã", "Tên", "Địa Chỉ", "SĐT", "Giới Tính", "Ngày Sinh", "Mật Khẩu", "Trạng Thái", "IDCV"
+                "ID", "Mã", "Tên", "Chức Vụ", "Địa Chỉ", "SĐT", "Giới Tính", "Ngày Sinh", "Mật Khẩu", "Trạng Thái"
             }
         ));
         tableNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -364,41 +365,41 @@ public class QLNhanVienForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        QLNhanVien qlNV = getData();
-        if (qlNV == null) {
-            return;
-        }
-        if (JOptionPane.showConfirmDialog(this, "Insert", "Xac Nhan ", JOptionPane.OK_CANCEL_OPTION) == 0) {
-            this.nhanVienServicer.insert(qlNV);
-            loadTable();
-        }
+//        QLNhanVien qlNV = getData();
+//        if (qlNV == null) {
+//            return;
+//        }
+//        if (JOptionPane.showConfirmDialog(this, "Insert", "Xac Nhan ", JOptionPane.OK_CANCEL_OPTION) == 0) {
+//            this.nhanVienServicer.insert(qlNV);
+//            loadTable();
+//        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        QLNhanVien qlNV = getData();
-        String ma = txtMa.getText().trim();
-
-        if (qlNV == null) {
-            return;
-        }
-        if (JOptionPane.showConfirmDialog(this, "Sửa", "Xác Nhận ", JOptionPane.OK_CANCEL_OPTION) == 0) {
-            this.nhanVienServicer.update(qlNV);
-            loadTable();
-        }
+//        QLNhanVien qlNV = getData();
+//        String ma = txtMa.getText().trim();
+//
+//        if (qlNV == null) {
+//            return;
+//        }
+//        if (JOptionPane.showConfirmDialog(this, "Sửa", "Xác Nhận ", JOptionPane.OK_CANCEL_OPTION) == 0) {
+//            this.nhanVienServicer.update(qlNV);
+//            loadTable();
+//        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-
-        QLNhanVien qlNV = new QLNhanVien(lbID.getText(), "", "", "", "", "", "", "", 0, "");
-
-        if (qlNV.getIdNhanVien().isEmpty() == true) {
-            JOptionPane.showMessageDialog(this, "Click vào Nhân Viên Để Xóa Nhân Viên");
-            return;
-        }
-        if (JOptionPane.showConfirmDialog(this, "Xác Nhận ", "Xóa", JOptionPane.OK_CANCEL_OPTION) == 0) {
-            nhanVienServicer.delete(qlNV);
-            loadTable();
-        }
+//
+//        QLNhanVien qlNV = new QLNhanVien(lbID.getText(), "", "", "", "", "", "", "", 0, "");
+//
+//        if (qlNV.getIdNhanVien().isEmpty() == true) {
+//            JOptionPane.showMessageDialog(this, "Click vào Nhân Viên Để Xóa Nhân Viên");
+//            return;
+//        }
+//        if (JOptionPane.showConfirmDialog(this, "Xác Nhận ", "Xóa", JOptionPane.OK_CANCEL_OPTION) == 0) {
+//            nhanVienServicer.delete(qlNV);
+//            loadTable();
+//        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void tableNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableNhanVienMouseClicked

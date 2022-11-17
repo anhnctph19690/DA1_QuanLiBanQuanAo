@@ -5,28 +5,28 @@ public class QLNhanVien {
     private String idNhanVien;
     private String maNV;
     private String tenNV;
+    private String tenChucVu;
     private String diaChi;
     private String sDT;
     private String gioiTinh;
     private String ngaySinh;
     private String matKhau;
     private Integer trangThai;
-    private String idCV;
 
     public QLNhanVien() {
     }
 
-    public QLNhanVien(String idNhanVien, String maNV, String tenNV, String diaChi, String sDT, String gioiTinh, String ngaySinh, String matKhau, Integer trangThai, String idCV) {
+    public QLNhanVien(String idNhanVien, String maNV, String tenNV, String tenChucVu, String diaChi, String sDT, String gioiTinh, String ngaySinh, String matKhau, Integer trangThai) {
         this.idNhanVien = idNhanVien;
         this.maNV = maNV;
         this.tenNV = tenNV;
+        this.tenChucVu = tenChucVu;
         this.diaChi = diaChi;
         this.sDT = sDT;
         this.gioiTinh = gioiTinh;
         this.ngaySinh = ngaySinh;
         this.matKhau = matKhau;
         this.trangThai = trangThai;
-        this.idCV = idCV;
     }
 
     public String getIdNhanVien() {
@@ -51,6 +51,14 @@ public class QLNhanVien {
 
     public void setTenNV(String tenNV) {
         this.tenNV = tenNV;
+    }
+
+    public String getTenChucVu() {
+        return tenChucVu;
+    }
+
+    public void setTenChucVu(String tenChucVu) {
+        this.tenChucVu = tenChucVu;
     }
 
     public String getDiaChi() {
@@ -100,13 +108,8 @@ public class QLNhanVien {
     public void setTrangThai(Integer trangThai) {
         this.trangThai = trangThai;
     }
+    
 
-    public String getIdCV() {
-        return idCV;
-    }
 
-    public void setIdCV(String idCV) {
-        this.idCV = idCV;
-    }
 
 }

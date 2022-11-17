@@ -1,11 +1,12 @@
 package Repository;
 
 import Models.NhanVien;
+import ViewModel.QLNhanVien;
 import java.util.List;
 
 public interface INhanVienRepository {
 
-    public List<NhanVien> getAll();
+    public List<QLNhanVien> getAll();
 
     public void insert(NhanVien nv);
 
