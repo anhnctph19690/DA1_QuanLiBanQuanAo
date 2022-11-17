@@ -242,3 +242,21 @@ INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N004', N'Công ty cổ ph
 INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N005', N'Tập đoàn dệt may Việt Nam')
 INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N006', N'Tổng công ty dệt may Hà Nội')
 INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N007', N'Công ty cổ phần may Việt Tiến')
+SELECT * FROM dbo.NhanVien
+UPDATE dbo.NhanVien SET NgaySinh = '05-12-2003'
+
+--- Update 1.3
+---Insert bảng mầu sắc
+INSERT iNTO dbo.MauSac VALUES (DEFAULT,'M001',N'Xanh')
+INSERT iNTO dbo.MauSac VALUES (DEFAULT,'M002',N'Vàng')
+INSERT iNTO dbo.MauSac VALUES (DEFAULT,'M003',N'Nâu')
+---Insert bảng Loại SP
+INSERT iNTO dbo.LoaiSanPham VALUES (DEFAULT,'Quần Dài ')
+INSERT iNTO dbo.LoaiSanPham VALUES (DEFAULT,'Áo Thu Đông')
+INSERT iNTO dbo.LoaiSanPham VALUES (DEFAULT,'Áo Ngắn Tay')
+
+-----Ô Hà Muốn insert được SP phải thay đổi Các ID 
+INSERT INTO dbo.ChiTietSP(IdCTSP,IdSP,IdNSX,IdMauSac,IdLoaiSP,IdChatLieu,IdThuongHieu,IdSize,SoLuong,GiaNhap,GiaBan,MoTa,TrangThai)
+VALUES
+(DEFAULT, '318A8FCB-C228-405B-B5B5-2B2C59042345', '0D6CA241-D929-489A-A48E-0951D155F06B',    '794CF330-45E0-4FF0-B321-149EFDCFD0B7',    'FC146770-C845-4CCF-9B58-037A4A33B499',   '3A1635E1-901B-42B1-9479-004301E5120E',    'E056C589-54CA-4BA1-B05F-199B11F71A79',    'FC63351D-350E-43F0-AA8B-3C28ACD50D25',    100,    100000, 150000, N'Mô Tả 1', 1)
+
