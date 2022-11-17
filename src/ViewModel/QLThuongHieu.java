@@ -10,12 +10,14 @@ package ViewModel;
  */
 public class QLThuongHieu {
     private String ma;
+    private String tenTH;
 
     public QLThuongHieu() {
     }
 
-    public QLThuongHieu(String ma) {
+    public QLThuongHieu(String ma, String tenTH) {
         this.ma = ma;
+        this.tenTH = tenTH;
     }
 
     public String getMa() {
@@ -26,10 +28,16 @@ public class QLThuongHieu {
         this.ma = ma;
     }
 
-    @Override
-    public String toString() {
-        return "QLThuongHieu{" + "ma=" + ma + '}';
+    public String getTenTH() {
+        return tenTH;
     }
+
+    public void setTenTH(String tenTH) {
+        this.tenTH = tenTH;
+    }
+    
+
+   
     
     
 }

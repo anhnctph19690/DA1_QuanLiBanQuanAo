@@ -5,9 +5,13 @@
 package view;
 
 import Servicer.Impl.ChatLieuServices;
+import Servicer.Impl.KichThuocService;
 import Servicer.Impl.NSXService;
+import Servicer.Impl.ThuongHieuService;
 import ViewModel.QLChatLieu;
+import ViewModel.QLKichThuoc;
 import ViewModel.QLNSX;
+import ViewModel.QLThuongHieu;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -21,34 +25,58 @@ public class SanPhamView extends javax.swing.JFrame {
     /**
      * Creates new form NhanVienView
      */
-    private ChatLieuServices chatLieuservice = new ChatLieuServices();
     private List<QLChatLieu> listqlcl = new ArrayList<>();
-    private DefaultComboBoxModel dcbChatLieu;
-    
-    
-    private NSXService nSXService = new NSXService();
+    private List<QLThuongHieu> listqlTH = new ArrayList<>();
     private List<QLNSX> listnsx = new ArrayList<>();
-    
-    
+    private List<QLKichThuoc> listSize = new ArrayList<>();
+
+    private DefaultComboBoxModel dcbChatLieu;
+    private DefaultComboBoxModel dcbThuongHieu;
+    private DefaultComboBoxModel dcbSize;
+
+    private ChatLieuServices chatLieuservice = new ChatLieuServices();
+    private NSXService nSXService = new NSXService();
+    private ThuongHieuService thuongHieuServicer = new ThuongHieuService();
+    private KichThuocService KTServicer = new KichThuocService();
+
     public SanPhamView() {
         initComponents();
-        
+
         loadChatLieu();
         LoadNSX();
+        loadThuongHieu();
+        loadSize();
     }
-    private void loadChatLieu(){
-        
+
+    public void loadSize() {
+        dcbSize = (DefaultComboBoxModel) cbbSize.getModel();
+        listSize = KTServicer.getAllsKichThuoc();
+        for (QLKichThuoc x : listSize) {
+            dcbSize.addElement(x.getSoSize());
+        }
+    }
+
+    public void loadThuongHieu() {
+        dcbThuongHieu = (DefaultComboBoxModel) CbbThuongHieu.getModel();
+        listqlTH = thuongHieuServicer.getAll();
+        for (QLThuongHieu x : listqlTH) {
+            dcbThuongHieu.addElement(x.getTenTH());
+        }
+    }
+
+    private void loadChatLieu() {
+
         dcbChatLieu = (DefaultComboBoxModel) cbcchatLieu.getModel();
         listqlcl = chatLieuservice.getAll();
         for (QLChatLieu x : listqlcl) {
             dcbChatLieu.addElement(x.getMa());
         }
-       
+
     }
-    
-    private void LoadNSX(){
-       DefaultComboBoxModel dcb = (DefaultComboBoxModel) CbbNSX.getModel();
-       listnsx = nSXService.getAll();
+
+    private void LoadNSX() {
+        DefaultComboBoxModel dcb = (DefaultComboBoxModel) CbbNSX.getModel();
+        listnsx = nSXService.getAll();
         for (QLNSX nsx : listnsx) {
             dcb.addElement(nsx.getTen());
         }
@@ -89,8 +117,8 @@ public class SanPhamView extends javax.swing.JFrame {
         jRadioButton2 = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cbbSize = new javax.swing.JComboBox<>();
+        CbbThuongHieu = new javax.swing.JComboBox<>();
         cbcchatLieu = new javax.swing.JComboBox<>();
         CbbNSX = new javax.swing.JComboBox<>();
         jTextField7 = new javax.swing.JTextField();
@@ -185,9 +213,9 @@ public class SanPhamView extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cbbSize.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cbbSizeActionPerformed(evt);
             }
         });
 
@@ -225,7 +253,7 @@ public class SanPhamView extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(93, 93, 93)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -235,7 +263,7 @@ public class SanPhamView extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(CbbThuongHieu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
@@ -285,7 +313,7 @@ public class SanPhamView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbbSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
@@ -306,7 +334,7 @@ public class SanPhamView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(CbbThuongHieu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
@@ -364,10 +392,7 @@ public class SanPhamView extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Mã Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "Giá Bán", "Giá Nhập", "Size", "Loại Sản Phẩm", "Chất Liệu", "Màu Sắc", "Nhà Sản Xuất", "Thương Hiệu", "Trang Thái", "Mô Tả"
@@ -437,9 +462,9 @@ public class SanPhamView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbcchatLieuActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void cbbSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSizeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_cbbSizeActionPerformed
 
     private void CbbNSXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbbNSXActionPerformed
         // TODO add your handling code here:
@@ -483,13 +508,13 @@ public class SanPhamView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CbbNSX;
+    private javax.swing.JComboBox<String> CbbThuongHieu;
+    private javax.swing.JComboBox<String> cbbSize;
     private javax.swing.JComboBox<String> cbcchatLieu;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
