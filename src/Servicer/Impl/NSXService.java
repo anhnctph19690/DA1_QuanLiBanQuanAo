@@ -30,7 +30,7 @@ public class NSXService implements INSXService{
        List<NSX> list = this.nSXRepository.getAll();
        
         for (NSX nsx : list) {
-            QLNSX dsnsx = new QLNSX(nsx.getMaNSX());
+            QLNSX dsnsx = new QLNSX(nsx.getTenNSX());
             
             ds.add(dsnsx);
         }

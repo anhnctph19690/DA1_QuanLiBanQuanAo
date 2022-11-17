@@ -50,7 +50,7 @@ public class SanPhamView extends javax.swing.JFrame {
        DefaultComboBoxModel dcb = (DefaultComboBoxModel) CbbNSX.getModel();
        listnsx = nSXService.getAll();
         for (QLNSX nsx : listnsx) {
-            dcb.addElement(nsx.getMa());
+            dcb.addElement(nsx.getTen());
         }
     }
 
