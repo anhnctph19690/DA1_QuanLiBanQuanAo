@@ -200,12 +200,7 @@ INSERT INTO dbo.ChatLieu (IdChatLieu,Ma,TenChatLieu) VALUES (   DEFAULT, N'CL16'
 INSERT INTO dbo.ChatLieu (IdChatLieu,Ma,TenChatLieu) VALUES (   DEFAULT, N'CL17' ,N'Vải Thun Lạnh' )
 -----Insert Bảng NSX
 INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N001', N'Công Ty Cổ Phần May Đồng Na')
-INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N001', N'Công Ty Cổ Phần Dệt 10/10')
-INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N001', N'Công Ty Cổ Phần May Sông Hồng')
-INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N001', N'Công ty cổ phần Dệt-May 29/3')
-INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N001', N'Tập đoàn dệt may Việt Nam')
-INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N001', N'Tổng công ty dệt may Hà Nội')
-INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N001', N'Tổng công ty cổ phần may Việt Tiến')
+
 -----Insert Bảng Size
 INSERT INTO dbo.Size (IdSize,SoSize) VALUES (DEFAULT, N'XXS')
 INSERT INTO dbo.Size (IdSize,SoSize) VALUES (DEFAULT, N'XS')
@@ -225,3 +220,25 @@ INSERT INTO dbo.ThuongHieu (IdThuongHieu,Ma,TenChatLieu) VALUES (DEFAULT,N'TT06'
 -----Insert Bảng Chức Vụ
 INSERT INTO dbo.ChucVu (IdCV,MaChucVu,ChucVu,TrangThai) VALUES (DEFAULT,N'CV01',N'Admin',1)
 INSERT INTO dbo.ChucVu (IdCV,MaChucVu,ChucVu,TrangThai) VALUES (DEFAULT,N'CV02',N'NhanVien',1)
+SELECT IdCV FROM dbo.ChucVu WHERE ChucVu = N'NhanVien'
+
+------Update 1.2
+-----Sửa tên bảng thương hiệu
+ALTER TABLE dbo.ThuongHieu
+DROP COLUMN TenChatLieu
+ALTER TABLE dbo.ThuongHieu
+ADD  TenThuongHieu NVARCHAR(50);
+--- Insert TenthuongHieu
+UPDATE dbo.ThuongHieu SET TenThuongHieu = N'Jody' WHERE Ma = N'TT01'
+UPDATE dbo.ThuongHieu SET TenThuongHieu = N'Việt Tiến' WHERE Ma = N'TT02'
+UPDATE dbo.ThuongHieu SET TenThuongHieu = N'May10' WHERE Ma = N'TT03'
+UPDATE dbo.ThuongHieu SET TenThuongHieu = N'Owen' WHERE Ma = N'TT04'
+UPDATE dbo.ThuongHieu SET TenThuongHieu = N'CoolMate' WHERE Ma = N'TT05'
+UPDATE dbo.ThuongHieu SET TenThuongHieu = N'Top4Man' WHERE Ma = N'TT06'
+---Insert bảng NSX
+INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N002', N'Công Ty Cổ Phần Dệt 10/10')
+INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N003', N'Công Ty Cổ Phần May Sông Hồng')
+INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N004', N'Công ty cổ phần Dệt-May 29/3')
+INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N005', N'Tập đoàn dệt may Việt Nam')
+INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N006', N'Tổng công ty dệt may Hà Nội')
+INSERT INTO dbo.NSX (IdNSX,Ma,Ten) VALUES ( DEFAULT, N'N007', N'Công ty cổ phần may Việt Tiến')

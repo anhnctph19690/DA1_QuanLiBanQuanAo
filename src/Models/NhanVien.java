@@ -1,5 +1,7 @@
 package Models;
 
+import java.util.Date;
+
 public class NhanVien {
 
     private String idNhanVien;
