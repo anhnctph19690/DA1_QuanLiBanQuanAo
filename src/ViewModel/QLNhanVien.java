@@ -1,5 +1,7 @@
 package ViewModel;
 
+import java.util.Date;
+
 public class QLNhanVien {
 
     private String idNhanVien;

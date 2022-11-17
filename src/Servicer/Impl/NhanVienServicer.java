@@ -25,28 +25,18 @@ public class NhanVienServicer implements INhanVienServicer {
 
     }
 
-    public void insert(QLNhanVien qlNV) {
-       
+    public void insert(NhanVien NV) {
 
-       // NhanVienRepo.insert(NV);
+        this.NhanVienRepo.insert(NV);
     }
 
-    public void update(QLNhanVien qlNV) {
-//        NhanVien NV = new NhanVien(qlNV.getIdNhanVien(), qlNV.getMaNV(),
-//                qlNV.getTenNV(), qlNV.getDiaChi(), qlNV.getsDT(),
-//                qlNV.getGioiTinh(), qlNV.getNgaySinh(),
-//                qlNV.getMatKhau(), qlNV.getTrangThai(), qlNV.getIdCV());
-//
-//        NhanVienRepo.update(NV);
+    public void delete(String IdNV) {
+        this.NhanVienRepo.delete(IdNV);
     }
 
-    public void delete(QLNhanVien qlNV) {
-//        NhanVien NV = new NhanVien(qlNV.getIdNhanVien(), qlNV.getMaNV(),
-//                qlNV.getTenNV(), qlNV.getDiaChi(), qlNV.getsDT(),
-//                qlNV.getGioiTinh(), qlNV.getNgaySinh(),
-//                qlNV.getMatKhau(), qlNV.getTrangThai(), qlNV.getIdCV());
-//
-//        NhanVienRepo.delete(NV);
+    @Override
+    public void update(NhanVien nV, String IdNV) {
+        this.NhanVienRepo.update(nV, IdNV);
     }
 
 }
