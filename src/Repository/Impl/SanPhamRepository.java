@@ -21,33 +21,35 @@ import java.sql.SQLException;
  */
 public class SanPhamRepository implements ISanPhamRepository {
 
-    Connection conn = DBConnection.getConnection();
     final String SELECT_BY = "select idSP from sanpham where maSP = ?";
     final String sql = "insert into SanPham "
             + "(MaSP,Ten)"
             + "VALUES(?,?)";
+    final String InsertNewProduct = "{call InsertNewProduct(?)}";
 
     @Override
-    public boolean add(SanPham sp) {
-        int check = 0;
-        try (Connection conn = DBConnection.getConnection()) {
-            PreparedStatement ps = conn.prepareStatement(sql);
+    public SanPham add(String name) {
+        try ( Connection conn = DBConnection.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(InsertNewProduct);
 
-            ps.setString(1, sp.getMaSP());
-            ps.setString(2, sp.getTenSP());
-
-            check = ps.executeUpdate();
+            ps.setString(1, name);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                SanPham sp = new SanPham();
+                sp.setTenSP(name);
+                return sp;
+            }
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return check > 0;
+        return null;
     }
 
     @Override
-    public boolean updateTenSanPham(String name, String id) {
+    public boolean update(String name, String id) {
         int check = 0;
-        try (Connection conn = DBConnection.getConnection()) {
+        try ( Connection conn = DBConnection.getConnection()) {
             String sql = "UPDATE SanPham SET "
                     + "Ten=? WHERE MaSP = ? ";
 
@@ -67,7 +69,7 @@ public class SanPhamRepository implements ISanPhamRepository {
     @Override
     public boolean delete(String id) {
         int check = 0;
-        try (Connection conn = DBConnection.getConnection();) {
+        try ( Connection conn = DBConnection.getConnection();) {
             String sql = "DELETE SanPham "
                     + " WHERE IdSP =? ";
 
@@ -84,7 +86,7 @@ public class SanPhamRepository implements ISanPhamRepository {
 
     @Override
     public SanPham getOne(String id) {
-        try (PreparedStatement ps = conn.prepareStatement(SELECT_BY)) {
+        try ( Connection conn = DBConnection.getConnection();  PreparedStatement ps = conn.prepareStatement(SELECT_BY)) {
             ps.setObject(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -97,25 +99,6 @@ public class SanPhamRepository implements ISanPhamRepository {
             e.printStackTrace();
         }
         return null;
-    }
-
-    @Override
-    public String getIdByTenSP(String tenSP) {
-        String query = "SELECT * FROM SanPham WHERE Ten = ?";
-        String IdSP = null;
-        try {
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, tenSP);
-            ps.execute();
-            ResultSet rs = ps.getResultSet();
-            while (rs.next()) {
-                IdSP = rs.getString("IdSP");
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-
-        return IdSP;
     }
 
 }

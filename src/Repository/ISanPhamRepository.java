@@ -13,12 +13,12 @@ import java.util.List;
  */
 public interface ISanPhamRepository {
 
-    boolean add(SanPham sp);
+    SanPham add(String name);
 
-    boolean updateTenSanPham(String name, String id);
+    boolean update(String name, String id);
 
     boolean delete(String id);
 
     SanPham getOne(String id);
-    public String getIdByTenSP (String tenSP);
+
 }

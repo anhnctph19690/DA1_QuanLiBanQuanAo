@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface ISanPhamService {
 
-    void add(SanPham sanPham);
+    SanPham add(String name);
 
     void updateTenSanPham(String name, String id);
 

@@ -24,13 +24,13 @@ public class SanPhamService implements ISanPhamService {
     }
 
     @Override
-    public void add(SanPham sanPham) {
-        _iSanPhamRepository.add(sanPham);
+    public SanPham add(String name) {
+        return _iSanPhamRepository.add(name);
     }
 
     @Override
     public void updateTenSanPham(String name, String id) {
-        _iSanPhamRepository.updateTenSanPham(name, id);
+        _iSanPhamRepository.update(name, id);
     }
 
     @Override
