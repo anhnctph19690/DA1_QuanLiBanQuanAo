@@ -36,7 +36,7 @@ public class SanPhamRepository implements ISanPhamRepository {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 SanPham sp = new SanPham();
-                sp.setTenSP(name);
+                sp.setMaSP(rs.getString(1));
                 return sp;
             }
 
@@ -99,6 +99,10 @@ public class SanPhamRepository implements ISanPhamRepository {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void main(String[] args) {
+        new SanPhamRepository().add("Ao 1");
     }
 
 }

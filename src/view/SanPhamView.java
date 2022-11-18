@@ -595,22 +595,28 @@ public class SanPhamView extends javax.swing.JFrame {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
+        SanPham newSanPham = _iSanPhamService.add(txtTenSP.getText());
 
-        ChiTietSanPham ctsp = getForm();
-        String maSP = txtMaSP.getText();
-        String tenSP = txtTenSP.getText();
-        sanPhamService.add(new SanPham("", maSP, tenSP));
-        String IdSP = sanPhamRepository.getIdByTenSP(tenSP);
-        
-        
-        ChiTietSanPham chiTietSanPham = new ChiTietSanPham("", IdSP, ctsp.getIdNhaSanXuat(), ctsp.getIdMauSac(), ctsp.getIdLoaiSanPham(), ctsp.getIdChatLieu(), ctsp.getIdThuongHieu(), ctsp.getIdSize(), ctsp.getSoLuong(), ctsp.getGiaNhap(), ctsp.getGiaBan(), ctsp.getMoTa(), ctsp.getTrangThai());
-        
-        
-//        _iSanPhamService.updateTenSanPham(txtTenSP.getText(), getIdSanPham.getIdSanPham());
-        JOptionPane.showMessageDialog(this, _iChiTietSanPhamService.add(chiTietSanPham));
-        JOptionPane.showMessageDialog(this ,    "Thêm Thành Công!!!!");
+        SanPham sanPham = _iSanPhamService.getOne(newSanPham.getMaSP());
+
+        ChiTietSanPham ctsp = new ChiTietSanPham();
+        ctsp.setIdSanPham(sanPham.getIdSanPham());
+        ctsp.setIdNhaSanXuat("7148A7A0-B6D5-4391-B869-6722C16F3A00");
+        ctsp.setIdMauSac("4EB92ECE-823F-4CC6-B0CA-12CD149085A1");
+        ctsp.setIdLoaiSanPham("9B050835-A580-4517-B9AC-38356925ABC5");
+        ctsp.setIdChatLieu("F4B9662E-444C-4736-8FFD-0079BEB402FC");
+        ctsp.setIdThuongHieu("E5A2228F-39F6-4E92-975F-1779A7029492");
+        ctsp.setIdSize("7BA55748-FE9E-4CB2-B45E-0581068A6195");
+        ctsp.setSoLuong(100);
+        ctsp.setTrangThai(1);
+        ctsp.setGiaNhap(new BigDecimal(200000));
+        ctsp.setGiaBan(new BigDecimal(500000));
+        ctsp.setMoTa("New");
+
+        JOptionPane.showMessageDialog(this, _iChiTietSanPhamService.add(ctsp));
         _listChiTietSP = _iChiTietSanPhamService.getAll();
         showDataTableChiTietSanPham(_listChiTietSP);
+
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
