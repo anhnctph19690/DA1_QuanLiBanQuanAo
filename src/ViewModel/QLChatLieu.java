@@ -9,33 +9,26 @@ package ViewModel;
  * @author ADMIN
  */
 public class QLChatLieu {
-    private String ma;
- 
+    private String tenChatLieu;
 
     public QLChatLieu() {
     }
 
-    public QLChatLieu(String ma) {
-        this.ma = ma;
-       
+    public QLChatLieu( String tenChatLieu) {
+      
+        this.tenChatLieu = tenChatLieu;
     }
 
-    public String getMa() {
-        return ma;
+   
+    public String getTenChatLieu() {
+        return tenChatLieu;
     }
 
-    public void setMa(String ma) {
-        this.ma = ma;
-    }
-
-    @Override
-    public String toString() {
-        return "QLChatLieu{" + "ma=" + ma + '}';
+    public void setTenChatLieu(String tenChatLieu) {
+        this.tenChatLieu = tenChatLieu;
     }
     
-    public Object[] todataRow(){
-        return new Object[]{ma};
-    }
+    
     
     
 }

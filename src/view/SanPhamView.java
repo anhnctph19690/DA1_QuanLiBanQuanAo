@@ -41,11 +41,10 @@ public class SanPhamView extends javax.swing.JFrame {
         dcbChatLieu = (DefaultComboBoxModel) cbcchatLieu.getModel();
         listqlcl = chatLieuservice.getAll();
         for (QLChatLieu x : listqlcl) {
-            dcbChatLieu.addElement(x.getMa());
+            dcbChatLieu.addElement(x.getTenChatLieu());
         }
        
     }
-    
     private void LoadNSX(){
        DefaultComboBoxModel dcb = (DefaultComboBoxModel) CbbNSX.getModel();
        listnsx = nSXService.getAll();

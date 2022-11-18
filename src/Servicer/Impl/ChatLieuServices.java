@@ -20,15 +20,15 @@ public class ChatLieuServices implements IChatLieuService{
     ChatLieuRepository chatLieuRepo = new ChatLieuRepository();
     @Override
     public List<QLChatLieu> getAll() {
-          List<QLChatLieu> listChatLieu = new ArrayList<>();
+          List<QLChatLieu> ds = new ArrayList<>();
         
-        List<ChatLieu> ListRepo = this.chatLieuRepo.getAll();
-        
-        for (ChatLieu o : ListRepo) {
-          listChatLieu.add(new QLChatLieu(o.getMa()));
+       List<ChatLieu> list = this.chatLieuRepo.getAll();
+       
+        for (ChatLieu ct : list) {
+            QLChatLieu dsct = new QLChatLieu(ct.getTenChatLieu());
+            
+            ds.add(dsct);
         }
-        
-        return listChatLieu;
+        return ds;
     }
-    
 }
