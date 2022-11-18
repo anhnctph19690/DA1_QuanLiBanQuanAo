@@ -30,7 +30,7 @@ public class ThuongHieuService implements IThuongHieuServicer{
         List<ThuongHieu> ListRepo = this.thuongHieurs.getAll();
         
         for (ThuongHieu th : ListRepo) {
-          listThuongHieu.add(new QLThuongHieu(th.getMa()));
+          listThuongHieu.add(new QLThuongHieu(th.getMa(),th.getTenThuongHieu()));
         }
         
         return listThuongHieu;

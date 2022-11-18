@@ -21,7 +21,7 @@ public class ThuongHieuRepository implements IThuongHieuRepository{
     
     @Override
     public ArrayList<ThuongHieu> getAll() {
-        String query = "SELECT idThuongHieu,Ma ,TenChatLieu FROM dbo.ThuongHieu";
+        String query = "SELECT idThuongHieu,Ma ,TenThuongHieu FROM dbo.ThuongHieu";
         ArrayList<ThuongHieu> ThList = new ArrayList<>();
         try {
             PreparedStatement ps = conn.prepareStatement(query);
