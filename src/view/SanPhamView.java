@@ -4,17 +4,21 @@
  */
 package view;
 
+import Servicer.IChiTietSanPhamService;
 import Servicer.Impl.ChatLieuServices;
+import Servicer.Impl.ChiTietSanPhamService;
 import Servicer.Impl.KichThuocService;
 import Servicer.Impl.NSXService;
 import Servicer.Impl.ThuongHieuService;
 import ViewModel.QLChatLieu;
+import ViewModel.QLChiTietSanPham;
 import ViewModel.QLKichThuoc;
 import ViewModel.QLNSX;
 import ViewModel.QLThuongHieu;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -29,11 +33,14 @@ public class SanPhamView extends javax.swing.JFrame {
     private List<QLThuongHieu> listqlTH = new ArrayList<>();
     private List<QLNSX> listnsx = new ArrayList<>();
     private List<QLKichThuoc> listSize = new ArrayList<>();
+    private List<QLChiTietSanPham> _listChiTietSP = new ArrayList<>();
 
     private DefaultComboBoxModel dcbChatLieu;
     private DefaultComboBoxModel dcbThuongHieu;
     private DefaultComboBoxModel dcbSize;
+    private DefaultTableModel dtmChiTietSanPham;
 
+    private IChiTietSanPhamService _iChiTietSanPhamService = new ChiTietSanPhamService();
     private ChatLieuServices chatLieuservice = new ChatLieuServices();
     private NSXService nSXService = new NSXService();
     private ThuongHieuService thuongHieuServicer = new ThuongHieuService();
@@ -46,6 +53,9 @@ public class SanPhamView extends javax.swing.JFrame {
         LoadNSX();
         loadThuongHieu();
         loadSize();
+
+        _listChiTietSP = _iChiTietSanPhamService.getAll();
+        showDataTableChiTietSanPham(_listChiTietSP);
     }
 
     public void loadSize() {
@@ -80,6 +90,12 @@ public class SanPhamView extends javax.swing.JFrame {
         for (QLNSX nsx : listnsx) {
             dcb.addElement(nsx.getTen());
         }
+    }
+
+    private void showDataTableChiTietSanPham(List<QLChiTietSanPham> list) {
+        dtmChiTietSanPham = (DefaultTableModel) tableChiTietSP.getModel();
+        dtmChiTietSanPham.setRowCount(0);
+        _listChiTietSP.forEach(s -> dtmChiTietSanPham.addRow(new Object[]{s.getMaSanPham(), s.getTenSanPham(), s.getTenNhaSanXuat(), s.getTenMauSac(), s.getTenLoai(), s.getTenChatLieu(), s.getTenThuongHieu(), s.getSoSize(), s.getSoLuongTonKho(), s.getGiaNhap(), s.getGiaBan(), s.getMoTa(), s.getTrangThai()}));
     }
 
     /**
@@ -129,7 +145,7 @@ public class SanPhamView extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tableChiTietSP = new javax.swing.JTable();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -390,7 +406,7 @@ public class SanPhamView extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tableChiTietSP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -398,7 +414,7 @@ public class SanPhamView extends javax.swing.JFrame {
                 "Mã Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "Giá Bán", "Giá Nhập", "Size", "Loại Sản Phẩm", "Chất Liệu", "Màu Sắc", "Nhà Sản Xuất", "Thương Hiệu", "Trang Thái", "Mô Tả"
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(tableChiTietSP);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -537,7 +553,6 @@ public class SanPhamView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
@@ -546,5 +561,6 @@ public class SanPhamView extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JTable tableChiTietSP;
     // End of variables declaration//GEN-END:variables
 }
