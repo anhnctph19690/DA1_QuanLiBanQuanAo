@@ -133,7 +133,6 @@ public class QLChiTietSanPham {
         this.giaBan = giaBan;
     }
 
-
     public String getMoTa() {
         return moTa;
     }

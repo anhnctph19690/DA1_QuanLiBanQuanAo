@@ -18,4 +18,5 @@ public interface IChiTietSanPhamService {
 
     String add(ChiTietSanPham ctsp);
 
+    String autoMaSanPham();
 }

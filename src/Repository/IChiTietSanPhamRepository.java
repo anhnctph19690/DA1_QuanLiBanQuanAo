@@ -18,4 +18,5 @@ public interface IChiTietSanPhamRepository {
 
     boolean add(ChiTietSanPham chiTietSanPham);
 
+
 }

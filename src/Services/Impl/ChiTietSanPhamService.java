@@ -18,6 +18,7 @@ import java.util.List;
 public class ChiTietSanPhamService implements IChiTietSanPhamService {
 
     private IChiTietSanPhamRepository _iChiTietSanPhamRepository = new ChiTietSanPhamRepository();
+    private int index = 0;
 
     @Override
     public List<QLChiTietSanPham> getAll() {
@@ -30,6 +31,12 @@ public class ChiTietSanPhamService implements IChiTietSanPhamService {
             return "Thêm thành công";
         }
         return "Thêm thất bại";
+    }
+
+    @Override
+    public String autoMaSanPham() {
+        String defaultMaSP = "SP0000";
+        return defaultMaSP + String.valueOf(this);
     }
 
 }
