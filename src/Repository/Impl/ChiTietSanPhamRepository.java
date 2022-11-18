@@ -14,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,6 +23,7 @@ import java.util.ArrayList;
  */
 public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
 
+    Connection conn = DBConnection.getConnection();
     final String SELECT_ALL = "select sp.MaSP, sp.Ten, nsx.Ten, ms.TenMauSac, lsp.TenLoaiSP, cl.TenChatLieu, th.TenThuongHieu, s.SoSize, ctsp.SoLuong, ctsp.GiaNhap, ctsp.GiaBan, ctsp.MoTa, ctsp.TrangThai\n"
             + "from SanPham sp, ChiTietSP ctsp, NSX nsx, MauSac ms, LoaiSanPham lsp, ChatLieu cl, ThuongHieu th, Size s\n"
             + "where sp.IdSP = ctsp.IdSP\n"
@@ -36,9 +39,12 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
 
     @Override
     public List<QLChiTietSanPham> getAll() {
-        try ( Connection conn = DBConnection.getConnection();  PreparedStatement ps = conn.prepareStatement(SELECT_ALL)) {
+
+        List<QLChiTietSanPham> list = new ArrayList<>();
+        try {
+            PreparedStatement ps = conn.prepareStatement(SELECT_ALL);
             ResultSet rs = ps.executeQuery();
-            List<QLChiTietSanPham> list = new ArrayList<>();
+
             while (rs.next()) {
                 QLChiTietSanPham qlctsp = new QLChiTietSanPham();
                 qlctsp.setMaSanPham(rs.getString(1));
@@ -56,19 +62,19 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
                 qlctsp.setTrangThai(rs.getInt(13));
                 list.add(qlctsp);
             }
-            return list;
-
-        } catch (SQLException e) {
-            e.printStackTrace(System.out);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
 
-        return null;
+        return list;
+
     }
 
     @Override
     public boolean add(ChiTietSanPham chiTietSanPham) {
         int check = 0;
-        try ( Connection conn = DBConnection.getConnection();  PreparedStatement ps = conn.prepareStatement(INSERT_SQL)) {
+        try {
+            PreparedStatement ps = conn.prepareStatement(INSERT_SQL);
             ps.setObject(1, chiTietSanPham.getIdSanPham());
             ps.setObject(2, chiTietSanPham.getIdNhaSanXuat());
             ps.setObject(3, chiTietSanPham.getIdMauSac());
@@ -84,9 +90,10 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
 
             check = ps.executeUpdate();
 
-        } catch (SQLException e) {
-            e.printStackTrace(System.out);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
+
         return check > 0;
 
     }

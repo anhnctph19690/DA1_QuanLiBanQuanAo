@@ -4,7 +4,10 @@
  */
 package view;
 
+import Models.ChiTietSanPham;
 import Models.LoaiSanPham;
+import Models.MauSac;
+import Repository.Impl.MauSacRepository;
 import Servicer.IChiTietSanPhamService;
 import Servicer.Impl.ChatLieuServices;
 import Servicer.Impl.ChiTietSanPhamService;
@@ -21,6 +24,7 @@ import ViewModel.QLThuongHieu;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -38,12 +42,14 @@ public class SanPhamView extends javax.swing.JFrame {
     private List<QLKichThuoc> listSize = new ArrayList<>();
     private List<QLChiTietSanPham> _listChiTietSP = new ArrayList<>();
     private List<QLLoaiSanPham> listLSP = new ArrayList<>();
+    private List<MauSac> listMauSac = new ArrayList<>();
 
     private DefaultComboBoxModel dcbChatLieu;
     private DefaultComboBoxModel dcbThuongHieu;
     private DefaultComboBoxModel dcbSize;
     private DefaultTableModel dtmChiTietSanPham;
      private DefaultComboBoxModel dmtLSP;
+     private DefaultComboBoxModel dmtMauSac;
 
     private IChiTietSanPhamService _iChiTietSanPhamService = new ChiTietSanPhamService();
     private ChatLieuServices chatLieuservice = new ChatLieuServices();
@@ -51,6 +57,12 @@ public class SanPhamView extends javax.swing.JFrame {
     private ThuongHieuService thuongHieuServicer = new ThuongHieuService();
     private KichThuocService KTServicer = new KichThuocService();
     private LoaiSanPhamService loaiSPhamService = new LoaiSanPhamService();
+    
+    
+    
+    private MauSacRepository mauSacRepository = new MauSacRepository();
+            
+            
 
     public SanPhamView() {
         initComponents();
@@ -60,7 +72,8 @@ public class SanPhamView extends javax.swing.JFrame {
         loadThuongHieu();
         loadSize();
         LoadLoaiSP();
-
+        LoadMausac();
+        
         _listChiTietSP = _iChiTietSanPhamService.getAll();
         showDataTableChiTietSanPham(_listChiTietSP);
     }
@@ -109,6 +122,13 @@ public class SanPhamView extends javax.swing.JFrame {
     }
     
 
+     private void LoadMausac(){
+         dmtMauSac = (DefaultComboBoxModel) cboMauSac.getModel();
+         listMauSac = this.mauSacRepository.getAllsMauSac();
+         for (MauSac o : listMauSac) {
+             dmtMauSac.addElement(o.getTenMauSac());
+         }
+     }
 
     private void showDataTableChiTietSanPham(List<QLChiTietSanPham> list) {
         dtmChiTietSanPham = (DefaultTableModel) tableChiTietSP.getModel();
@@ -146,7 +166,6 @@ public class SanPhamView extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -156,6 +175,7 @@ public class SanPhamView extends javax.swing.JFrame {
         cbcchatLieu = new javax.swing.JComboBox<>();
         CbbNSX = new javax.swing.JComboBox<>();
         cbbLSP = new javax.swing.JComboBox<>();
+        cboMauSac = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -315,9 +335,9 @@ public class SanPhamView extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(jLabel9))
                         .addGap(43, 43, 43)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbcchatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cbcchatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -353,7 +373,7 @@ public class SanPhamView extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(cbbLSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 45, Short.MAX_VALUE))
+                        .addGap(0, 51, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -361,7 +381,7 @@ public class SanPhamView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cboMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
@@ -386,6 +406,11 @@ public class SanPhamView extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton1.setText("Thêm");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setText("Sửa");
@@ -505,6 +530,15 @@ public class SanPhamView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CbbNSXActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        ChiTietSanPham ctsp = new ChiTietSanPham();
+        JOptionPane.showMessageDialog(this, _iChiTietSanPhamService.add(ctsp));
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -547,6 +581,7 @@ public class SanPhamView extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbbLSP;
     private javax.swing.JComboBox<String> cbbSize;
     private javax.swing.JComboBox<String> cbcchatLieu;
+    private javax.swing.JComboBox<String> cboMauSac;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -579,7 +614,6 @@ public class SanPhamView extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTable tableChiTietSP;
     // End of variables declaration//GEN-END:variables
 }
