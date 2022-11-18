@@ -1,9 +1,9 @@
-package Servicer.Impl;
+package Services.Impl;
 
 import Models.NhanVien;
 import Repository.INhanVienRepository;
 import Repository.Impl.NhanVienRepository;
-import Servicer.INhanVienServicer;
+import Services.INhanVienServicer;
 import ViewModel.QLNhanVien;
 import java.util.ArrayList;
 import java.util.List;

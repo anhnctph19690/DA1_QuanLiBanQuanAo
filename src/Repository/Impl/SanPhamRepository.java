@@ -13,6 +13,7 @@ import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -20,93 +21,82 @@ import java.sql.ResultSet;
  */
 public class SanPhamRepository implements ISanPhamRepository{
 
-    @Override
-    public List<SanPham> getAll() {
-        ArrayList<SanPham> ListSanPham = new ArrayList<>();
-        try {
-            Connection conn = DBConnection.getConnection();
-            String puery = "SELECT * FROM SanPham";
-            
-            PreparedStatement ps = conn.prepareStatement(puery);
-            ps.execute();
-            
-            ResultSet rs = ps.getResultSet();
-            
-            while(rs.next()== true){
-            String id = rs.getString("IdSP");
-                String ma = rs.getString("MaSP");
-                String ten = rs.getString("Ten");
-                
-                SanPham sp = new SanPham(id, ma, ten);
-                ListSanPham.add(sp);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            
-        }
-        return ListSanPham;
-    }
+ final String SELECT_BY = "select idSP from sanpham where maSP = ?";
+    final String sql = "insert into SanPham "
+            + "(MaSP,Ten)"
+            + "VALUES(?,?)";
 
     @Override
-    public void insert(SanPham sp) {
-         try {
-            Connection conn = DBConnection.getConnection();
-            String sql = "insert into SanPham "
-                    + "(MaSP,Ten)"
-                    + "VALUES(?,?)";
-
+    public boolean add(SanPham sp) {
+        int check = 0;
+        try ( Connection conn = DBConnection.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(sql);
+
             ps.setString(1, sp.getMaSP());
             ps.setString(2, sp.getTenSP());
 
-            ps.execute();
+            check = ps.executeUpdate();
 
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
+        return check > 0;
     }
 
     @Override
-    public void update(SanPham sp, String id) {
-        try {
-            Connection conn = DBConnection.getConnection();
+    public boolean updateTenSanPham(String name, String id) {
+        int check = 0;
+        try ( Connection conn = DBConnection.getConnection()) {
             String sql = "UPDATE SanPham SET "
-                    + " MaSP =?,Ten=? WHERE IdSP = ? ";
-                    
+                    + "Ten=? WHERE MaSP = ? ";
 
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, sp.getMaSP());
-            ps.setString(2, sp.getTenSP());
-            ps.setString(3, id);
-            
-            ps.execute();
+            ps.setString(1, name);
+            ps.setString(2, id);
 
-        } catch (Exception ex) {
+            check = ps.executeUpdate();
+
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        return check > 0;
 
     }
 
     @Override
-    public void delete(String id) {
-        try {
-            Connection conn = DBConnection.getConnection();
+    public boolean delete(String id) {
+        int check = 0;
+        try ( Connection conn = DBConnection.getConnection();) {
             String sql = "DELETE SanPham "
                     + " WHERE IdSP =? ";
-                    
 
             PreparedStatement ps = conn.prepareStatement(sql);
-           
             ps.setString(1, id);
-            
-            ps.execute();
 
-        } catch (Exception ex) {
+            check = ps.executeUpdate();
+
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        return check > 0;
     }
 
+    @Override
+    public SanPham getOne(String id) {
+        try ( Connection conn = DBConnection.getConnection();  PreparedStatement ps = conn.prepareStatement(SELECT_BY)) {
+            ps.setObject(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                SanPham sanPham = new SanPham();
+                sanPham.setIdSanPham(rs.getString(1));
+                return sanPham;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     
     
 }

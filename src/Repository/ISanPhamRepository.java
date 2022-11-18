@@ -12,11 +12,12 @@ import java.util.List;
  * @author PC- ASUS
  */
 public interface ISanPhamRepository {
-    public List<SanPham> getAll();
-    
-     public void insert(SanPham sp);
 
-    public void update(SanPham sp, String id);
+    boolean add(SanPham sp);
 
-    public void delete(String id);
+    boolean updateTenSanPham(String name, String id);
+
+    boolean delete(String id);
+
+    SanPham getOne(String id);
 }

@@ -107,7 +107,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jTextField3" min="-2" pref="151" max="-2" attributes="0"/>
                       <Component id="jTextField2" min="-2" pref="151" max="-2" attributes="0"/>
-                      <Component id="jTextField1" min="-2" pref="151" max="-2" attributes="0"/>
+                      <Component id="txtTenSP" min="-2" pref="151" max="-2" attributes="0"/>
                       <Component id="jTextField4" min="-2" pref="151" max="-2" attributes="0"/>
                       <Component id="jTextField5" min="-2" pref="151" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
@@ -171,7 +171,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtTenSP" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -247,7 +247,7 @@
             <Property name="text" type="java.lang.String" value="M&#xe3; S&#x1ea3;n Ph&#x1ea9;m"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="txtTenSP">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>

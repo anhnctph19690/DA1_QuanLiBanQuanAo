@@ -7,14 +7,17 @@ package view;
 import Models.ChiTietSanPham;
 import Models.LoaiSanPham;
 import Models.MauSac;
+import Models.SanPham;
 import Repository.Impl.MauSacRepository;
-import Servicer.IChiTietSanPhamService;
-import Servicer.Impl.ChatLieuServices;
-import Servicer.Impl.ChiTietSanPhamService;
-import Servicer.Impl.KichThuocService;
-import Servicer.Impl.LoaiSanPhamService;
-import Servicer.Impl.NSXService;
-import Servicer.Impl.ThuongHieuService;
+import Services.IChiTietSanPhamService;
+import Services.ISanPhamService;
+import Services.Impl.ChatLieuServices;
+import Services.Impl.ChiTietSanPhamService;
+import Services.Impl.KichThuocService;
+import Services.Impl.LoaiSanPhamService;
+import Services.Impl.NSXService;
+import Services.Impl.SanPhamService;
+import Services.Impl.ThuongHieuService;
 import ViewModel.QLChatLieu;
 import ViewModel.QLChiTietSanPham;
 import ViewModel.QLKichThuoc;
@@ -48,8 +51,8 @@ public class SanPhamView extends javax.swing.JFrame {
     private DefaultComboBoxModel dcbThuongHieu;
     private DefaultComboBoxModel dcbSize;
     private DefaultTableModel dtmChiTietSanPham;
-     private DefaultComboBoxModel dmtLSP;
-     private DefaultComboBoxModel dmtMauSac;
+    private DefaultComboBoxModel dmtLSP;
+    private DefaultComboBoxModel dmtMauSac;
 
     private IChiTietSanPhamService _iChiTietSanPhamService = new ChiTietSanPhamService();
     private ChatLieuServices chatLieuservice = new ChatLieuServices();
@@ -57,12 +60,9 @@ public class SanPhamView extends javax.swing.JFrame {
     private ThuongHieuService thuongHieuServicer = new ThuongHieuService();
     private KichThuocService KTServicer = new KichThuocService();
     private LoaiSanPhamService loaiSPhamService = new LoaiSanPhamService();
-    
-    
-    
+    private ISanPhamService _iSanPhamService = new SanPhamService();
+
     private MauSacRepository mauSacRepository = new MauSacRepository();
-            
-            
 
     public SanPhamView() {
         initComponents();
@@ -73,7 +73,7 @@ public class SanPhamView extends javax.swing.JFrame {
         loadSize();
         LoadLoaiSP();
         LoadMausac();
-        
+
         _listChiTietSP = _iChiTietSanPhamService.getAll();
         showDataTableChiTietSanPham(_listChiTietSP);
     }
@@ -104,7 +104,6 @@ public class SanPhamView extends javax.swing.JFrame {
 
     }
 
-    
     private void LoadNSX() {
         DefaultComboBoxModel dcb = (DefaultComboBoxModel) CbbNSX.getModel();
         listnsx = nSXService.getAll();
@@ -112,23 +111,22 @@ public class SanPhamView extends javax.swing.JFrame {
             dcb.addElement(nsx.getTen());
         }
     }
-    
-     private void LoadLoaiSP() {
+
+    private void LoadLoaiSP() {
         dmtLSP = (DefaultComboBoxModel) cbbLSP.getModel();
         listLSP = loaiSPhamService.getAll();
         for (QLLoaiSanPham lsp : listLSP) {
             dmtLSP.addElement(lsp.getTenLSP());
         }
     }
-    
 
-     private void LoadMausac(){
-         dmtMauSac = (DefaultComboBoxModel) cboMauSac.getModel();
-         listMauSac = this.mauSacRepository.getAllsMauSac();
-         for (MauSac o : listMauSac) {
-             dmtMauSac.addElement(o.getTenMauSac());
-         }
-     }
+    private void LoadMausac() {
+        dmtMauSac = (DefaultComboBoxModel) cboMauSac.getModel();
+        listMauSac = this.mauSacRepository.getAllsMauSac();
+        for (MauSac o : listMauSac) {
+            dmtMauSac.addElement(o.getTenMauSac());
+        }
+    }
 
     private void showDataTableChiTietSanPham(List<QLChiTietSanPham> list) {
         dtmChiTietSanPham = (DefaultTableModel) tableChiTietSP.getModel();
@@ -149,7 +147,7 @@ public class SanPhamView extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTenSP = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -303,7 +301,7 @@ public class SanPhamView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -352,7 +350,7 @@ public class SanPhamView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -532,13 +530,22 @@ public class SanPhamView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+        SanPham newSanPham = new SanPham();
+        newSanPham.setMaSP("SP333");
+        newSanPham.setTenSP(txtTenSP.getText());
+        _iSanPhamService.add(newSanPham);
+
+        SanPham getIdSanPham = _iSanPhamService.getOne(newSanPham.getMaSP());
+
         ChiTietSanPham ctsp = new ChiTietSanPham();
+        ctsp.setIdSanPham(getIdSanPham.getIdSanPham());
+
+//        _iSanPhamService.updateTenSanPham(txtTenSP.getText(), getIdSanPham.getIdSanPham());
         JOptionPane.showMessageDialog(this, _iChiTietSanPhamService.add(ctsp));
+        _listChiTietSP = _iChiTietSanPhamService.getAll();
+        showDataTableChiTietSanPham(_listChiTietSP);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    
-    
     /**
      * @param args the command line arguments
      */
@@ -609,11 +616,11 @@ public class SanPhamView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTable tableChiTietSP;
+    private javax.swing.JTextField txtTenSP;
     // End of variables declaration//GEN-END:variables
 }

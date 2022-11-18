@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Servicer.Impl;
+package Services.Impl;
 
 import Models.LoaiSanPham;
 import Repository.Impl.LoaiSanPhamRepository;
-import Servicer.ILoaiSanPhamService;
+import Services.ILoaiSanPhamService;
 import ViewModel.QLLoaiSanPham;
 import java.util.ArrayList;
 import java.util.List;

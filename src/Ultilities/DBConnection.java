@@ -4,43 +4,42 @@
  */
 package Ultilities;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  *
- * @author tuane_nluzcuo
+ * @author Sammy Guergachi <sguergachi at gmail.com>
  */
 public class DBConnection {
 
-    private static Connection conn;
+    public static final String HOSTNAME = "localhost";
+    public static final String PORT = "1433";
+    public static final String DBNAME = "DuAn1_QuanLiBanQuanAo";
+    public static final String USERNAME = "sa";
+    public static final String PASSWORD = "123456";
 
+    /**
+     * Get connection to MSSQL Server
+     *
+     * @return Connection
+     */
     public static Connection getConnection() {
-        if (conn == null) {
 
-            try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                try {
-                    String user = "sa";
-                    String pW = "123456";
-                    String url = "jdbc:sqlserver://localhost:1433;databaseName = DuAn1_QuanLiBanQuanAo; encrypt = true; trustServerCertificate = true";
+        // Create a variable for the connection string.
+        String connectionUrl = "jdbc:sqlserver://" + HOSTNAME + ":" + PORT + ";"
+                + "databaseName=" + DBNAME + ";encrypt=true;trustServerCertificate=true;";
 
-                    conn = DriverManager.getConnection(url, user, pW);
-                    System.out.println("Ket noi Thanh Cong !!!");
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
-                System.out.println("Loi Driver???");
-            }
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            return DriverManager.getConnection(connectionUrl, USERNAME, PASSWORD);
+        } // Handle any errors that may have occurred.
+        catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace(System.out);
         }
-
-        return conn;
+        return null;
     }
 
     public static void main(String[] args) {
-        Connection conn = DBConnection.getConnection();
+        System.out.println(getConnection());
     }
 }

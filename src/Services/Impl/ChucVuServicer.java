@@ -1,9 +1,9 @@
-package Servicer.Impl;
+package Services.Impl;
 
 import Models.ChucVuModel;
 import Repository.IChucVurepository;
 import Repository.Impl.ChucVuRepository;
-import Servicer.IChucVuServicer;
+import Services.IChucVuServicer;
 import ViewModel.QLChucVu;
 import java.util.ArrayList;
 import java.util.List;

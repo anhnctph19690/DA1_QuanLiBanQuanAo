@@ -95,7 +95,39 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
         }
 
         return check > 0;
-
     }
 
+    public static void main(String[] args) {
+        ChiTietSanPham ctsp = new ChiTietSanPham();
+        ctsp.setIdSanPham("B4081F38-285D-493D-A541-052B60B31B17");
+        ctsp.setIdNhaSanXuat("7148A7A0-B6D5-4391-B869-6722C16F3A00");
+        ctsp.setIdMauSac("4EB92ECE-823F-4CC6-B0CA-12CD149085A1");
+        ctsp.setIdLoaiSanPham("9B050835-A580-4517-B9AC-38356925ABC5");
+        ctsp.setIdChatLieu("F4B9662E-444C-4736-8FFD-0079BEB402FC");
+        ctsp.setIdThuongHieu("E5A2228F-39F6-4E92-975F-1779A7029492");
+        ctsp.setIdSize("7BA55748-FE9E-4CB2-B45E-0581068A6195");
+        ctsp.setSoLuong(100);
+        ctsp.setTrangThai(922);
+        ctsp.setGiaNhap(null);
+        ctsp.setGiaBan(null);
+        ctsp.setMoTa(null);
+
+        ChiTietSanPham ctsp1 = new ChiTietSanPham();
+        ctsp1.setIdSanPham("4C87DB70-ACEE-4F12-A09E-2B044B308AFE");
+        ctsp1.setTrangThai(933);
+        ctsp1.setIdSanPham("B4081F38-285D-493D-A541-052B60B31B17");
+        ctsp1.setIdNhaSanXuat("7148A7A0-B6D5-4391-B869-6722C16F3A00");
+        ctsp1.setIdMauSac("4EB92ECE-823F-4CC6-B0CA-12CD149085A1");
+        ctsp1.setIdLoaiSanPham("9B050835-A580-4517-B9AC-38356925ABC5");
+        ctsp1.setIdChatLieu("F4B9662E-444C-4736-8FFD-0079BEB402FC");
+        ctsp1.setIdThuongHieu("E5A2228F-39F6-4E92-975F-1779A7029492");
+        ctsp1.setIdSize("7BA55748-FE9E-4CB2-B45E-0581068A6195");
+        ctsp1.setSoLuong(100);
+        ctsp1.setGiaNhap(null);
+        ctsp1.setGiaBan(null);
+        ctsp1.setMoTa(null);
+
+        new ChiTietSanPhamRepository().add(ctsp);
+        new ChiTietSanPhamRepository().add(ctsp1);
+    }
 }

@@ -2,16 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package Servicer;
+package Services;
 
-import ViewModel.QLSanPham;
-import ViewModel.QLThuongHieu;
+import ViewModel.QLLoaiSanPham;
 import java.util.List;
 
 /**
  *
- * @author ADMIN
+ * @author PC- ASUS
  */
-public interface IThuongHieuServicer {
-    public List<QLThuongHieu> getAll();
+public interface ILoaiSanPhamService {
+    public List<QLLoaiSanPham> getAll();
 }

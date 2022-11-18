@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Servicer.Impl;
+package Services.Impl;
 
 import Models.KichThuoc;
 import java.util.ArrayList;
 import Repository.IKichThuocRepo;
 import Repository.Impl.KichThuocRepo;
-import Servicer.IKichThuocServices;
+import Services.IKichThuocServices;
 import ViewModel.QLKichThuoc;
 
 /**

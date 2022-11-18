@@ -2,10 +2,10 @@ package View;
 
 import Models.NhanVien;
 import Repository.Impl.NhanVienRepository;
-import Servicer.IChucVuServicer;
-import Servicer.INhanVienServicer;
-import Servicer.Impl.ChucVuServicer;
-import Servicer.Impl.NhanVienServicer;
+import Services.IChucVuServicer;
+import Services.INhanVienServicer;
+import Services.Impl.ChucVuServicer;
+import Services.Impl.NhanVienServicer;
 import ViewModel.QLChucVu;
 import ViewModel.QLNhanVien;
 import java.text.ParseException;

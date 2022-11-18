@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Servicer.Impl;
+package Services.Impl;
 
 import Models.ChatLieu;
 import Repository.IChatLieuRepository;
 import Repository.Impl.ChatLieuRepository;
-import Servicer.IChatLieuService;
+import Services.IChatLieuService;
 import ViewModel.QLChatLieu;
 import java.util.ArrayList;
 import java.util.List;
