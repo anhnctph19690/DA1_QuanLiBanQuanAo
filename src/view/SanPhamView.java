@@ -4,15 +4,18 @@
  */
 package view;
 
+import Models.LoaiSanPham;
 import Servicer.IChiTietSanPhamService;
 import Servicer.Impl.ChatLieuServices;
 import Servicer.Impl.ChiTietSanPhamService;
 import Servicer.Impl.KichThuocService;
+import Servicer.Impl.LoaiSanPhamService;
 import Servicer.Impl.NSXService;
 import Servicer.Impl.ThuongHieuService;
 import ViewModel.QLChatLieu;
 import ViewModel.QLChiTietSanPham;
 import ViewModel.QLKichThuoc;
+import ViewModel.QLLoaiSanPham;
 import ViewModel.QLNSX;
 import ViewModel.QLThuongHieu;
 import java.util.ArrayList;
@@ -34,17 +37,20 @@ public class SanPhamView extends javax.swing.JFrame {
     private List<QLNSX> listnsx = new ArrayList<>();
     private List<QLKichThuoc> listSize = new ArrayList<>();
     private List<QLChiTietSanPham> _listChiTietSP = new ArrayList<>();
+    private List<QLLoaiSanPham> listLSP = new ArrayList<>();
 
     private DefaultComboBoxModel dcbChatLieu;
     private DefaultComboBoxModel dcbThuongHieu;
     private DefaultComboBoxModel dcbSize;
     private DefaultTableModel dtmChiTietSanPham;
+     private DefaultComboBoxModel dmtLSP;
 
     private IChiTietSanPhamService _iChiTietSanPhamService = new ChiTietSanPhamService();
     private ChatLieuServices chatLieuservice = new ChatLieuServices();
     private NSXService nSXService = new NSXService();
     private ThuongHieuService thuongHieuServicer = new ThuongHieuService();
     private KichThuocService KTServicer = new KichThuocService();
+    private LoaiSanPhamService loaiSPhamService = new LoaiSanPhamService();
 
     public SanPhamView() {
         initComponents();
@@ -53,6 +59,7 @@ public class SanPhamView extends javax.swing.JFrame {
         LoadNSX();
         loadThuongHieu();
         loadSize();
+        LoadLoaiSP();
 
         _listChiTietSP = _iChiTietSanPhamService.getAll();
         showDataTableChiTietSanPham(_listChiTietSP);
@@ -92,6 +99,15 @@ public class SanPhamView extends javax.swing.JFrame {
             dcb.addElement(nsx.getTen());
         }
     }
+    
+     private void LoadLoaiSP() {
+        dmtLSP = (DefaultComboBoxModel) cbbLSP.getModel();
+        listLSP = loaiSPhamService.getAll();
+        for (QLLoaiSanPham lsp : listLSP) {
+            dmtLSP.addElement(lsp.getTenLSP());
+        }
+    }
+    
 
 
     private void showDataTableChiTietSanPham(List<QLChiTietSanPham> list) {
@@ -139,7 +155,7 @@ public class SanPhamView extends javax.swing.JFrame {
         CbbThuongHieu = new javax.swing.JComboBox<>();
         cbcchatLieu = new javax.swing.JComboBox<>();
         CbbNSX = new javax.swing.JComboBox<>();
-        jTextField7 = new javax.swing.JTextField();
+        cbbLSP = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -265,13 +281,14 @@ public class SanPhamView extends javax.swing.JFrame {
                     .addComponent(jLabel7))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbbSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(cbbLSP, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbbSize, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(93, 93, 93)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -335,8 +352,8 @@ public class SanPhamView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(cbbLSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 45, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -362,7 +379,7 @@ public class SanPhamView extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(24, Short.MAX_VALUE))))
+                        .addContainerGap(27, Short.MAX_VALUE))))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -527,6 +544,7 @@ public class SanPhamView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CbbNSX;
     private javax.swing.JComboBox<String> CbbThuongHieu;
+    private javax.swing.JComboBox<String> cbbLSP;
     private javax.swing.JComboBox<String> cbbSize;
     private javax.swing.JComboBox<String> cbcchatLieu;
     private javax.swing.JButton jButton1;
@@ -562,7 +580,6 @@ public class SanPhamView extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JTable tableChiTietSP;
     // End of variables declaration//GEN-END:variables
 }
