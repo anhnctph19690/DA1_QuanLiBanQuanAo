@@ -65,5 +65,19 @@ public class LoaiSanPhamRepository implements ILoaiSanPhamRepository{
 
         return idLoaiSP;
     }
+
+    @Override
+    public boolean addCbbLoaiSanPham(LoaiSanPham lsp) {
+        int check = 0;
+        String query = "insert into LoaiSanPham(TenLoaiSP) values (?)";
+        try ( PreparedStatement ps = conn.prepareStatement(query);) {
+            ps.setObject(1, lsp.getTenLSP());
+            check = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return check > 0;
+    }
+    
     
 }

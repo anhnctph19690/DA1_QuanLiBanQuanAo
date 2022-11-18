@@ -57,7 +57,22 @@ public class KichThuocRepo implements IKichThuocRepo {
         return IdSize;
     }
 
-    
-    
+    @Override
+    public boolean addCbbKichThuoc(KichThuoc kt) {
+        int check = 0;
+        String query = "insert into Size(sosize) values (?)";
+        try (PreparedStatement ps = conn.prepareStatement(query);) {
+            ps.setObject(1, kt.getSoSize());
+            check = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return check > 0;
+    }
 
+    public static void main(String[] args) {
+        KichThuoc kt = new KichThuoc();
+        kt.setSoSize("YGH");
+        new KichThuocRepo().addCbbKichThuoc(kt);
+    }
 }

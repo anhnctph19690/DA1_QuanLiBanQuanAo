@@ -4,16 +4,12 @@
  */
 package Services;
 
-import Models.ChatLieu;
-import ViewModel.QLChatLieu;
-import java.util.List;
+import Models.MauSac;
 
 /**
  *
  * @author ADMIN
  */
-public interface IChatLieuService {
-    List<QLChatLieu> getAll();
-    
-    String addCbbChatLieu(ChatLieu cl);
+public interface IMauSacSerVice {
+    String addCbbMauSac(MauSac ms);
 }

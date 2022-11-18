@@ -4,6 +4,7 @@
  */
 package Services;
 
+import Models.ThuongHieu;
 import ViewModel.QLSanPham;
 import ViewModel.QLThuongHieu;
 import java.util.List;
@@ -14,4 +15,6 @@ import java.util.List;
  */
 public interface IThuongHieuServicer {
     public List<QLThuongHieu> getAll();
+    
+    String addCbbThuongHieu(ThuongHieu th);
 }

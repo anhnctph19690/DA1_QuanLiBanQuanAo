@@ -36,6 +36,16 @@ public class NSXService implements INSXService{
         }
         return ds;
     }
+
+    @Override
+    public String addCbbNSX(NSX nsx) {
+         boolean add = nSXRepository.addCbbNSX(nsx);
+        if (add) {
+            return "Thanh cong";
+        }return "That bai";
+    }
+    
+    
     
     
 }

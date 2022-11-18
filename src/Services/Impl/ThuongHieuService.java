@@ -35,4 +35,12 @@ public class ThuongHieuService implements IThuongHieuServicer{
         
         return listThuongHieu;
     }
+
+    @Override
+    public String addCbbThuongHieu(ThuongHieu th) {
+         boolean add = thuongHieurs.addCbbThuongHieu(th);
+        if (add) {
+            return "Thanh cong";
+        }return "That bai";
+    }
 }

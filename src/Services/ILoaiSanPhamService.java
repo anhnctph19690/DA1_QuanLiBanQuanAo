@@ -4,6 +4,7 @@
  */
 package Services;
 
+import Models.LoaiSanPham;
 import ViewModel.QLLoaiSanPham;
 import java.util.List;
 
@@ -13,4 +14,6 @@ import java.util.List;
  */
 public interface ILoaiSanPhamService {
     public List<QLLoaiSanPham> getAll();
+    
+    String addCbbLoaiSanPham(LoaiSanPham lsp);
 }

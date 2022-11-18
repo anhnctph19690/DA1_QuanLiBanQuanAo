@@ -15,4 +15,6 @@ public interface IKichThuocRepo {
 
     public ArrayList<KichThuoc> getAllsKichThuoc();
     public String getIDBySize(String tenSize);
+    
+    boolean addCbbKichThuoc(KichThuoc kt);
 }

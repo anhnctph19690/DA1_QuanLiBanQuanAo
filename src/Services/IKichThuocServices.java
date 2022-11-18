@@ -4,6 +4,7 @@
  */
 package Services;
 
+import Models.KichThuoc;
 import ViewModel.QLKichThuoc;
 import java.util.ArrayList;
 
@@ -13,4 +14,5 @@ import java.util.ArrayList;
  */
 public interface IKichThuocServices {
     public ArrayList<QLKichThuoc> getAllsKichThuoc();
+    String addCbbKichThuoc(KichThuoc kt);
 }

@@ -55,5 +55,26 @@ public class ThuongHieuRepository implements IThuongHieuRepository{
 
         return IdThuongHieu;
     }
+
+    @Override
+    public boolean addCbbThuongHieu(ThuongHieu th) {
+        int check = 0;
+        String query = "insert into ThuongHieu(ma,tenthuonghieu) values (?,?)";
+        try ( PreparedStatement ps =  conn.prepareStatement(query);) {
+            ps.setObject(1, th.getMa());
+            ps.setObject(2, th.getTenThuongHieu());
+            check = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return check > 0;
+    }
     
+    public static void main(String[] args) {
+        ThuongHieu th = new ThuongHieu();
+        th.setMa("TH23yyyuasw636");
+        th.setTenThuongHieu("ABCDE");
+        new ThuongHieuRepository().addCbbThuongHieu(th);
+        
+    }
 }

@@ -12,6 +12,10 @@ import java.util.List;
  * @author ADMIN
  */
 public interface IChatLieuRepository {
+
     List<ChatLieu> getAll();
-    public String getIDByChatLieu (String tenChatLieu);
+
+    public String getIDByChatLieu(String tenChatLieu);
+
+    boolean addcbbChatLieu(ChatLieu cl);
 }

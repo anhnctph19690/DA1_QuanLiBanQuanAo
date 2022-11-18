@@ -14,4 +14,5 @@ import java.util.List;
 public interface IThuongHieuRepository {
     public List<ThuongHieu> getAll();
     public String getIDByThuongHieu (String tenThuongHieu);
+    boolean addCbbThuongHieu(ThuongHieu th);
 }

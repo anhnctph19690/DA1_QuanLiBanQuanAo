@@ -6,4 +6,6 @@ import java.util.List;
 public interface IChucVuServicer {
 
     public List<QLChucVu> getList();
+    
+  
 }

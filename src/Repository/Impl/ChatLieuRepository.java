@@ -64,4 +64,25 @@ public class ChatLieuRepository implements IChatLieuRepository {
         return IdChatLieu;
     }
 
+    @Override
+    public boolean addcbbChatLieu(ChatLieu cl) {
+        int check = 0;
+        String query = "insert into ChatLieu(ma,tenChatLieu) values (?,?)";
+        try (PreparedStatement ps = conn.prepareStatement(query);) {
+            ps.setObject(1, cl.getMa());
+            ps.setObject(2, cl.getTenChatLieu());
+            check = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return check > 0;
+    }
+    
+    public static void main(String[] args) {
+        ChatLieu cl = new ChatLieu();
+        cl.setMa("CL123456");
+        cl.setTenChatLieu("CLCLCL012");
+        new ChatLieuRepository().addcbbChatLieu(cl);
+    }
+
 }

@@ -32,6 +32,14 @@ public class KichThuocService implements IKichThuocServices{
         return kTList;
     }
 
+    @Override
+    public String addCbbKichThuoc(KichThuoc kt) {
+         boolean add =kichThuocRepo.addCbbKichThuoc(kt);
+        if (add) {
+            return "Thanh cong";
+        }return "That bai";
+    }
+
 
     
 }

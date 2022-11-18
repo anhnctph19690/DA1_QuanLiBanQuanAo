@@ -5,6 +5,7 @@
 package Services;
 
 
+import Models.NSX;
 import ViewModel.QLNSX;
 import java.util.List;
 
@@ -14,4 +15,6 @@ import java.util.List;
  */
 public interface INSXService {
      public List<QLNSX> getAll();
+     
+     String addCbbNSX(NSX nsx);
 }

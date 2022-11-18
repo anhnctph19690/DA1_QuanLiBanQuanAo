@@ -31,4 +31,13 @@ public class ChatLieuServices implements IChatLieuService{
         }
         return ds;
     }
+
+    @Override
+    public String addCbbChatLieu(ChatLieu cl) {
+        boolean add = chatLieuRepo.addcbbChatLieu(cl);
+        if (add) {
+            return "Thanh cong";
+        }return "That bai";
+    }
+    
 }

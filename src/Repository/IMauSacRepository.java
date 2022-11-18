@@ -14,5 +14,6 @@ import java.util.ArrayList;
 public interface IMauSacRepository {
     public String getIdMauSac(String ID);
     public ArrayList<MauSac> getAllsMauSac();
+    boolean addCbbMauSac(MauSac ms);
     
 }

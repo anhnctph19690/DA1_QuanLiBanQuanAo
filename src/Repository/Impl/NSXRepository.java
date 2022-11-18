@@ -67,4 +67,24 @@ public class NSXRepository implements INSXRepository {
         return IdNSX;
     }
 
+    @Override
+    public boolean addCbbNSX(NSX nsx) {
+        int check = 0;
+        String query = "insert into NSX(ma,ten) values (?,?)";
+        try ( PreparedStatement ps = conn.prepareStatement(query);) {
+            ps.setObject(1, nsx.getMaNSX());
+            ps.setObject(2, nsx.getTenNSX());
+            check = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return check > 0;
+    }
+
+    public static void main(String[] args) {
+        NSX nsx = new NSX();
+        nsx.setMaNSX("nsx123");
+        nsx.setTenNSX("N10928");
+        new NSXRepository().addCbbNSX(nsx);
+    }
 }
