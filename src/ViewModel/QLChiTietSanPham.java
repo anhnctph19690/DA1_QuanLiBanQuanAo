@@ -12,6 +12,7 @@ import java.math.BigDecimal;
  */
 public class QLChiTietSanPham {
 
+    private int STT;
     private String maSanPham;
     private String tenSanPham;
     private String tenNhaSanXuat;
@@ -43,6 +44,14 @@ public class QLChiTietSanPham {
         this.giaBan = giaBan;
         this.moTa = moTa;
         this.trangThai = trangThai;
+    }
+
+    public int getSTT() {
+        return STT;
+    }
+
+    public void setSTT(int STT) {
+        this.STT = STT;
     }
 
     public String getMaSanPham() {
@@ -151,7 +160,12 @@ public class QLChiTietSanPham {
 
     @Override
     public String toString() {
-        return "QLChiTietSanPham{" + "maSanPham=" + maSanPham + ", tenSanPham=" + tenSanPham + ", tenNhaSanXuat=" + tenNhaSanXuat + ", tenMauSac=" + tenMauSac + ", tenLoai=" + tenLoai + ", tenChatLieu=" + tenChatLieu + ", tenThuongHieu=" + tenThuongHieu + ", soSize=" + soSize + ", soLuongTonKho=" + soLuongTonKho + ", giaNhap=" + giaNhap + ", giaBan=" + giaBan + ", moTa=" + moTa + ", trangThai=" + trangThai + '}';
+        return "QLChiTietSanPham{" + "STT=" + STT + ", maSanPham=" + maSanPham + ", tenSanPham=" + tenSanPham + ", tenNhaSanXuat=" + tenNhaSanXuat + ", tenMauSac=" + tenMauSac + ", tenLoai=" + tenLoai + ", tenChatLieu=" + tenChatLieu + ", tenThuongHieu=" + tenThuongHieu + ", soSize=" + soSize + ", soLuongTonKho=" + soLuongTonKho + ", giaNhap=" + giaNhap + ", giaBan=" + giaBan + ", moTa=" + moTa + ", trangThai=" + trangThai + '}';
     }
+
+    public Object[] toDataRow(){
+        return new Object[]{STT, maSanPham, tenSanPham, tenNhaSanXuat, tenMauSac, tenLoai, tenChatLieu, tenThuongHieu, soSize, soLuongTonKho, giaNhap, giaBan, moTa, trangThai == 1 ? "Còn hàng" : "Hết hàng"};
+    }
+
 
 }
