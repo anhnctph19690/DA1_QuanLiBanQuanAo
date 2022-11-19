@@ -51,7 +51,7 @@ public class SanPhamRepository implements ISanPhamRepository {
         int check = 0;
         try ( Connection conn = DBConnection.getConnection()) {
             String sql = "UPDATE SanPham SET "
-                    + "Ten=? WHERE MaSP = ? ";
+                    + "Ten=? WHERE IdSP = ? ";
 
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, name);
