@@ -23,7 +23,6 @@ import java.util.logging.Logger;
  */
 public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
 
-    Connection conn = DBConnection.getConnection();
     final String SELECT_ALL = "select ROW_NUMBER() OVER (ORDER BY sp.MaSP), sp.MaSP, sp.Ten, nsx.Ten, ms.TenMauSac, lsp.TenLoaiSP, cl.TenChatLieu, th.TenThuongHieu, s.SoSize, ctsp.SoLuong, ctsp.GiaNhap, ctsp.GiaBan, ctsp.MoTa, ctsp.TrangThai\n"
             + "from SanPham sp, ChiTietSP ctsp, NSX nsx, MauSac ms, LoaiSanPham lsp, ChatLieu cl, ThuongHieu th, Size s \n"
             + "where sp.IdSP = ctsp.IdSP\n"
@@ -41,7 +40,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     public List<QLChiTietSanPham> getAll() {
 
         List<QLChiTietSanPham> list = new ArrayList<>();
-        try {
+        try ( Connection conn = DBConnection.getConnection();) {
             PreparedStatement ps = conn.prepareStatement(SELECT_ALL);
             ResultSet rs = ps.executeQuery();
 
@@ -74,7 +73,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     @Override
     public boolean add(ChiTietSanPham chiTietSanPham) {
         int check = 0;
-        try {
+        try ( Connection conn = DBConnection.getConnection();) {
             PreparedStatement ps = conn.prepareStatement(INSERT_SQL);
             ps.setObject(1, chiTietSanPham.getIdSanPham());
             ps.setObject(2, chiTietSanPham.getIdNhaSanXuat());
