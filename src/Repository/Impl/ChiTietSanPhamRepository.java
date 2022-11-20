@@ -36,6 +36,8 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     final String INSERT_SQL = "INSERT INTO dbo.ChiTietSP(IdSP,IdNSX,IdMauSac,IdLoaiSP,IdChatLieu,IdThuongHieu,IdSize,SoLuong,GiaNhap,GiaBan,MoTa,TrangThai)\n"
             + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+    final String DELETE_BY_ID = "delete from ChiTietSP where IdSP = ?";
+
     @Override
     public List<QLChiTietSanPham> getAll() {
 
@@ -94,6 +96,27 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
             ex.printStackTrace();
         }
 
+        return check > 0;
+    }
+
+    @Override
+    public boolean update(ChiTietSanPham chiTietSanPham, String id) {
+        int check = 0;
+        return check > 0;
+    }
+
+    @Override
+    public boolean delete(String id) {
+        int check = 0;
+        try ( Connection conn = DBConnection.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(DELETE_BY_ID);
+            ps.setObject(1, id);
+
+            check = ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return check > 0;
     }
 

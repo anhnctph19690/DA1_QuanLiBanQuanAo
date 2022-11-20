@@ -455,6 +455,11 @@ public class SanPhamView extends javax.swing.JFrame {
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton4.setText("Xoá");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -565,39 +570,22 @@ public class SanPhamView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CbbNSXActionPerformed
 
-    public ChiTietSanPham getForm() {
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-
-        String maSP = txtMaSP.getText().trim();
-        String tenSP = txtTenSP.getText().trim();
-        int soLuong = Integer.parseInt(txtSoLuong.getText().trim());
-        BigDecimal giaNhap = BigDecimal.valueOf(Double.valueOf(txtGiaNhap.getText().trim()));
-        BigDecimal giaBan = BigDecimal.valueOf(Double.valueOf(txtGiaNhap.getText().trim()));
-        String sizeID = this.kichThuocRepo.getIDBySize(cbbSize.getSelectedItem().toString());
-        String loaiSPID = this.loaiSanPhamRepository.getIDByLoaiSP(cbbLSP.getSelectedItem().toString());
-        String chatLieuID = this.chatLieuRepository.getIDByChatLieu(cbcchatLieu.getSelectedItem().toString());
-        String mauSacID = this.mauSacRepository.getIdMauSac(cboMauSac.getSelectedItem().toString());
-        String nSXID = this.nSXRepository.getIDByNSX(CbbNSX.getSelectedItem().toString());
-        String thuongHieuID = this.hieuRepository.getIDByThuongHieu(CbbThuongHieu.getSelectedItem().toString());
-        String moTa = txtMota.getText().trim();
-        int trangThai = radioConHang.isSelected() == true ? 1 : 0;
-        ChiTietSanPham cTSP = new ChiTietSanPham("", "", nSXID, mauSacID, loaiSPID, chatLieuID, thuongHieuID, sizeID, soLuong, giaNhap, giaBan, moTa, trangThai);
-        return cTSP;
-    }
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         SanPham newSanPham = _iSanPhamService.add(txtTenSP.getText());
-
         SanPham sanPham = _iSanPhamService.getOne(newSanPham.getMaSP());
+        ChiTietSanPham ctsp = getChiTietSanPhamByForm(sanPham.getIdSanPham());
 
+        JOptionPane.showMessageDialog(this, _iChiTietSanPhamService.add(ctsp));
+        _listChiTietSP = _iChiTietSanPhamService.getAll();
+        showDataTableChiTietSanPham(_listChiTietSP);
+
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    public ChiTietSanPham getChiTietSanPhamByForm(String idSanPham) {
         ChiTietSanPham ctsp = new ChiTietSanPham();
-        ctsp.setIdSanPham(sanPham.getIdSanPham());
+        ctsp.setIdSanPham(idSanPham);
         ctsp.setIdNhaSanXuat(nSXRepository.getIDByNSX(CbbNSX.getSelectedItem().toString()));
         ctsp.setIdMauSac(mauSacRepository.getIdMauSac(cboMauSac.getSelectedItem().toString()));
         ctsp.setIdLoaiSanPham(loaiSanPhamRepository.getIDByLoaiSP(cbbLSP.getSelectedItem().toString()));
@@ -609,18 +597,37 @@ public class SanPhamView extends javax.swing.JFrame {
         ctsp.setGiaNhap(new BigDecimal(txtGiaNhap.getText()));
         ctsp.setGiaBan(new BigDecimal(txtGiaBan.getText()));
         ctsp.setMoTa(txtMota.getText());
-
-        JOptionPane.showMessageDialog(this, _iChiTietSanPhamService.add(ctsp));
-        _listChiTietSP = _iChiTietSanPhamService.getAll();
-        showDataTableChiTietSanPham(_listChiTietSP);
-
-    }//GEN-LAST:event_btnThemActionPerformed
+        return ctsp;
+    }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
 
 
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        int row = tableChiTietSP.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn sản phẩm");
+        } else {
+            int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa sản phẩm này không?");
+            if (confirm == JOptionPane.NO_OPTION) {
+                JOptionPane.showMessageDialog(this, "Đã hủy");
+
+            } else {
+                String maSanPham = dtmChiTietSanPham.getValueAt(row, 1).toString();
+                SanPham sp = _iSanPhamService.getOne(maSanPham);
+                if (_iChiTietSanPhamService.delete(sp.getIdSanPham())) {
+                    JOptionPane.showMessageDialog(this, _iSanPhamService.delete(sp.getIdSanPham()));
+                    _listChiTietSP = _iChiTietSanPhamService.getAll();
+                    showDataTableChiTietSanPham(_listChiTietSP);
+                }
+            }
+        }
+
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

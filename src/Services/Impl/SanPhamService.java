@@ -38,4 +38,12 @@ public class SanPhamService implements ISanPhamService {
         return _iSanPhamRepository.getOne(id);
     }
 
+    @Override
+    public String delete(String id) {
+        if (_iSanPhamRepository.delete(id)) {
+            return "Xóa thành công";
+        }
+        return "Xóa thất bại";
+    }
+
 }

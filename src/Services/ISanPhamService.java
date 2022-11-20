@@ -20,5 +20,5 @@ public interface ISanPhamService {
 
     SanPham getOne(String id);
 
-//    public void delete(String id);
+    String delete(String id);
 }

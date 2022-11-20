@@ -18,5 +18,5 @@ public interface IChiTietSanPhamService {
 
     String add(ChiTietSanPham ctsp);
 
-    String autoMaSanPham();
+    boolean delete(String id);
 }

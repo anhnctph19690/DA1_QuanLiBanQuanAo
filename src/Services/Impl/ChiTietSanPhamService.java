@@ -34,9 +34,11 @@ public class ChiTietSanPhamService implements IChiTietSanPhamService {
     }
 
     @Override
-    public String autoMaSanPham() {
-        String defaultMaSP = "SP0000";
-        return defaultMaSP + String.valueOf(this);
+    public boolean delete(String id) {
+        if (_iChiTietSanPhamRepository.delete(id)) {
+            return true;
+        }
+        return false;
     }
 
 }
