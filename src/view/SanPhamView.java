@@ -619,7 +619,7 @@ public class SanPhamView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn sản phẩm");
         } else {
             int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa sản phẩm này không?");
-            if (confirm == JOptionPane.NO_OPTION) {
+            if (confirm == JOptionPane.NO_OPTION || confirm == JOptionPane.CANCEL_OPTION) {
                 JOptionPane.showMessageDialog(this, "Đã hủy");
             } else {
                 String maSanPham = dtmChiTietSanPham.getValueAt(row, 1).toString();
@@ -641,7 +641,7 @@ public class SanPhamView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn sản phẩm");
         } else {
             int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn sửa sản phẩm này không?");
-            if (confirm == JOptionPane.NO_OPTION) {
+            if (confirm == JOptionPane.NO_OPTION || confirm == JOptionPane.CANCEL_OPTION) {
                 JOptionPane.showMessageDialog(this, "Đã hủy");
             } else {
                 String maSanPham = dtmChiTietSanPham.getValueAt(row, 1).toString();
