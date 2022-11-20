@@ -41,4 +41,12 @@ public class ChiTietSanPhamService implements IChiTietSanPhamService {
         return false;
     }
 
+    @Override
+    public boolean update(ChiTietSanPham ctsp, String id) {
+        if (_iChiTietSanPhamRepository.update(ctsp, id)) {
+            return true;
+        }
+        return false;
+    }
+
 }

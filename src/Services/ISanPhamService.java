@@ -16,7 +16,7 @@ public interface ISanPhamService {
 
     SanPham add(String name);
 
-    void updateTenSanPham(String name, String id);
+    String update(String name, String id);
 
     SanPham getOne(String id);
 

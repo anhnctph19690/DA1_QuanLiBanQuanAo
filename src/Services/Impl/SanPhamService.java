@@ -29,8 +29,11 @@ public class SanPhamService implements ISanPhamService {
     }
 
     @Override
-    public void updateTenSanPham(String name, String id) {
-        _iSanPhamRepository.update(name, id);
+    public String update(String name, String id) {
+        if (_iSanPhamRepository.update(name, id)) {
+            return "Sửa thành công";
+        }
+        return "Sửa thất bại";
     }
 
     @Override

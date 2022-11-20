@@ -444,6 +444,11 @@ public class SanPhamView extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setText("Sửa");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton3.setText("Làm Mới");
@@ -575,7 +580,8 @@ public class SanPhamView extends javax.swing.JFrame {
         // TODO add your handling code here:
         SanPham newSanPham = _iSanPhamService.add(txtTenSP.getText());
         SanPham sanPham = _iSanPhamService.getOne(newSanPham.getMaSP());
-        ChiTietSanPham ctsp = getChiTietSanPhamByForm(sanPham.getIdSanPham());
+        ChiTietSanPham ctsp = getChiTietSanPhamByForm();
+        ctsp.setIdSanPham(sanPham.getIdSanPham());
 
         JOptionPane.showMessageDialog(this, _iChiTietSanPhamService.add(ctsp));
         _listChiTietSP = _iChiTietSanPhamService.getAll();
@@ -583,9 +589,9 @@ public class SanPhamView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnThemActionPerformed
 
-    public ChiTietSanPham getChiTietSanPhamByForm(String idSanPham) {
+    public ChiTietSanPham getChiTietSanPhamByForm() {
         ChiTietSanPham ctsp = new ChiTietSanPham();
-        ctsp.setIdSanPham(idSanPham);
+        ctsp.setIdSanPham(null);
         ctsp.setIdNhaSanXuat(nSXRepository.getIDByNSX(CbbNSX.getSelectedItem().toString()));
         ctsp.setIdMauSac(mauSacRepository.getIdMauSac(cboMauSac.getSelectedItem().toString()));
         ctsp.setIdLoaiSanPham(loaiSanPhamRepository.getIDByLoaiSP(cbbLSP.getSelectedItem().toString()));
@@ -615,7 +621,6 @@ public class SanPhamView extends javax.swing.JFrame {
             int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa sản phẩm này không?");
             if (confirm == JOptionPane.NO_OPTION) {
                 JOptionPane.showMessageDialog(this, "Đã hủy");
-
             } else {
                 String maSanPham = dtmChiTietSanPham.getValueAt(row, 1).toString();
                 SanPham sp = _iSanPhamService.getOne(maSanPham);
@@ -628,6 +633,29 @@ public class SanPhamView extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        int row = tableChiTietSP.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn sản phẩm");
+        } else {
+            int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn sửa sản phẩm này không?");
+            if (confirm == JOptionPane.NO_OPTION) {
+                JOptionPane.showMessageDialog(this, "Đã hủy");
+            } else {
+                String maSanPham = dtmChiTietSanPham.getValueAt(row, 1).toString();
+                SanPham sp = _iSanPhamService.getOne(maSanPham);
+                ChiTietSanPham ctsp = getChiTietSanPhamByForm();
+                ctsp.setIdSanPham(sp.getIdSanPham());
+                if (_iChiTietSanPhamService.update(ctsp, ctsp.getIdSanPham())) {
+                    JOptionPane.showMessageDialog(this, _iSanPhamService.update(txtTenSP.getText(), sp.getIdSanPham()));
+                    _listChiTietSP = _iChiTietSanPhamService.getAll();
+                    showDataTableChiTietSanPham(_listChiTietSP);
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

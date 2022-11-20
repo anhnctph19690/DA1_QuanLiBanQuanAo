@@ -19,4 +19,6 @@ public interface IChiTietSanPhamService {
     String add(ChiTietSanPham ctsp);
 
     boolean delete(String id);
+
+    boolean update(ChiTietSanPham ctsp, String id);
 }

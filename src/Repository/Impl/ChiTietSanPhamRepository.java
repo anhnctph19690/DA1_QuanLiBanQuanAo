@@ -38,6 +38,8 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
 
     final String DELETE_BY_ID = "delete from ChiTietSP where IdSP = ?";
 
+    final String UPDATE_SQL = "	update ChiTietSP set IdNSX = ?, IdMauSac = ?, IdLoaiSP = ?, IdChatLieu = ?, IdThuongHieu = ?, IdSize = ?, SoLuong = ?, GiaNhap = ?, GiaBan = ?, MoTa = ?, TrangThai = ? where IdSP = ?";
+
     @Override
     public List<QLChiTietSanPham> getAll() {
 
@@ -102,6 +104,27 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     @Override
     public boolean update(ChiTietSanPham chiTietSanPham, String id) {
         int check = 0;
+        try ( Connection conn = DBConnection.getConnection();) {
+            PreparedStatement ps = conn.prepareStatement(UPDATE_SQL);
+            ps.setObject(1, chiTietSanPham.getIdNhaSanXuat());
+            ps.setObject(2, chiTietSanPham.getIdMauSac());
+            ps.setObject(3, chiTietSanPham.getIdLoaiSanPham());
+            ps.setObject(4, chiTietSanPham.getIdChatLieu());
+            ps.setObject(5, chiTietSanPham.getIdThuongHieu());
+            ps.setObject(6, chiTietSanPham.getIdSize());
+            ps.setObject(7, chiTietSanPham.getSoLuong());
+            ps.setObject(8, chiTietSanPham.getGiaNhap());
+            ps.setObject(9, chiTietSanPham.getGiaBan());
+            ps.setObject(10, chiTietSanPham.getMoTa());
+            ps.setObject(11, chiTietSanPham.getTrangThai());
+            ps.setObject(12, id);
+
+            check = ps.executeUpdate();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
         return check > 0;
     }
 
@@ -121,6 +144,9 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     }
 
     public static void main(String[] args) {
-        new ChiTietSanPhamRepository().getAll().forEach(s -> System.out.println(s.toString()));
+//        new ChiTietSanPhamRepository().getAll().forEach(s -> System.out.println(s.toString()));
+          ChiTietSanPham ctsp = new ChiTietSanPham();
+          ctsp.setTrangThai(999);
+          new ChiTietSanPhamRepository().update(ctsp, "7BBBA41E-C3BD-45FC-B192-086D9F37C516");
     }
 }
