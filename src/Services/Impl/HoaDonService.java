@@ -17,12 +17,12 @@ import java.util.*;
  *
  * @author tuane_nluzcuo
  */
-public class HoaDonService implements IHoaDonServices{
+public class HoaDonService implements IHoaDonServices {
 
     HoaDonRepository hoaDonRepository = new HoaDonRepository();
     NhanVienRepository nhanVienRepository = new NhanVienRepository();
-    
-    public String getTenNhanVien(String IdNhanVien){
+
+    public String getTenNhanVien(String IdNhanVien) {
         List<QLNhanVien> NVList = this.nhanVienRepository.getAll();
         String Ten = null;
         for (QLNhanVien o : NVList) {
@@ -32,11 +32,18 @@ public class HoaDonService implements IHoaDonServices{
         }
         return Ten;
     }
-    
+
     @Override
     public ArrayList<QLHoaDon> getHoaDonAlls() {
         return this.hoaDonRepository.getHoaDonAlls();
     }
-    
-    
+
+    @Override
+    public String add(HoaDon hd) {
+        if (hoaDonRepository.add(hd)) {
+            return "Tạo thành công";
+        }
+        return "Tạo thất bại";
+    }
+
 }

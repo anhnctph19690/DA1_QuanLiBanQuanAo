@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Date;
 
 /**
  *
@@ -21,7 +22,6 @@ public class HoaDonRepository implements IHoaDonRepository {
 
     Connection conn = DBConnection.getConnection();
 
-    
     @Override
     public ArrayList<QLHoaDon> getHoaDonAlls() {
 
@@ -42,9 +42,8 @@ public class HoaDonRepository implements IHoaDonRepository {
 
         return HDList;
     }
-    
-    
-    public String getIDKHBMaKH(String MaKH){
+
+    public String getIDKHBMaKH(String MaKH) {
         String query = "SELECT IdKH FROM dbo.KhachHang WHERE MaKH = ?";
         String IDKH = null;
         try {
@@ -52,7 +51,7 @@ public class HoaDonRepository implements IHoaDonRepository {
             ps.setString(1, MaKH);
             ps.execute();
             ResultSet rs = ps.getResultSet();
-            while (true) {                
+            while (true) {
                 IDKH = rs.getString("IdKH");
             }
         } catch (SQLException ex) {
@@ -60,6 +59,32 @@ public class HoaDonRepository implements IHoaDonRepository {
         }
         return IDKH;
     }
+
+    @Override
+    public boolean add(HoaDon hoaDon) {
+        int check = 0;
+        String query = "{call procThemHdTaiQuay(?, ?, ?, ?)}";
+        try ( Connection conn = DBConnection.getConnection();  PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setObject(1, hoaDon.getNgayTao());
+            ps.setObject(2, hoaDon.getIdNhanVien());
+            ps.setObject(3, hoaDon.getIdKhachHang());
+            ps.setObject(4, hoaDon.getTrangThai());
+
+            check = ps.executeUpdate();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return check > 0;
+    }
+
+    public static void main(String[] args) {
+        HoaDon hd = new HoaDon();
+        hd.setNgayTao(new Date());
+        hd.setIdNhanVien("2F94B972-79D2-4581-BD54-A1C4E72292A7");
+        hd.setIdKhachHang("E0BFE464-AC4A-40AD-A4A3-899879FB9566");
+        hd.setTrangThai(0);
+
+        new HoaDonRepository().add(hd);
+    }
 }
-
-

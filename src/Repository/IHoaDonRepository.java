@@ -17,4 +17,6 @@ public interface IHoaDonRepository {
     Connection conn = DBConnection.getConnection();
     
     public ArrayList<QLHoaDon> getHoaDonAlls();
+
+    boolean add(HoaDon hoaDon);
 }

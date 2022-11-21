@@ -4,6 +4,7 @@
  */
 package Services;
 
+import Models.HoaDon;
 import ViewModel.QLHoaDon;
 import java.util.ArrayList;
 
@@ -14,4 +15,7 @@ import java.util.ArrayList;
  */
 public interface IHoaDonServices {
     public ArrayList<QLHoaDon> getHoaDonAlls();
+
+    String add(HoaDon hd);
+
 }

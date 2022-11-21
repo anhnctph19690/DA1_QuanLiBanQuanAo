@@ -56,6 +56,9 @@ public class QLHoaDon {
         this.trangThai = trangThai;
     }
     
+//    public Object[] toDataRow(){
+        
+//    }
     
     
 }

@@ -11,12 +11,13 @@ import java.util.Date;
  * @author tuane_nluzcuo
  */
 public class HoaDon {
+
     private String IdHoaDon;
     private String IdKhachHang;
     private String IdNhanVien;
     private String IdPTTT;
     private String maHoaDon;
-    private String NgayTao;
+    private Date NgayTao;
     private String NgayThanhToan;
     private String NgayHen;
     private String NgayShip;
@@ -29,7 +30,7 @@ public class HoaDon {
     public HoaDon() {
     }
 
-    public HoaDon(String IdHoaDon, String IdKhachHang, String IdNhanVien, String IdPTTT, String maHoaDon, String NgayTao, String NgayThanhToan, String NgayHen, String NgayShip, String NgayNhan, String tenNguoiNhan, String diaChi, String sDT, int TrangThai) {
+    public HoaDon(String IdHoaDon, String IdKhachHang, String IdNhanVien, String IdPTTT, String maHoaDon, Date NgayTao, String NgayThanhToan, String NgayHen, String NgayShip, String NgayNhan, String tenNguoiNhan, String diaChi, String sDT, int TrangThai) {
         this.IdHoaDon = IdHoaDon;
         this.IdKhachHang = IdKhachHang;
         this.IdNhanVien = IdNhanVien;
@@ -64,10 +65,6 @@ public class HoaDon {
 
     public String getMaHoaDon() {
         return maHoaDon;
-    }
-
-    public String getNgayTao() {
-        return NgayTao;
     }
 
     public String getNgayThanhToan() {
@@ -122,10 +119,6 @@ public class HoaDon {
         this.maHoaDon = maHoaDon;
     }
 
-    public void setNgayTao(String NgayTao) {
-        this.NgayTao = NgayTao;
-    }
-
     public void setNgayThanhToan(String NgayThanhToan) {
         this.NgayThanhToan = NgayThanhToan;
     }
@@ -158,16 +151,17 @@ public class HoaDon {
         this.TrangThai = TrangThai;
     }
 
+    public Date getNgayTao() {
+        return NgayTao;
+    }
+
+    public void setNgayTao(Date NgayTao) {
+        this.NgayTao = NgayTao;
+    }
+
     @Override
     public String toString() {
         return "HoaDon{" + "IdHoaDon=" + IdHoaDon + ", IdKhachHang=" + IdKhachHang + ", IdNhanVien=" + IdNhanVien + ", IdPTTT=" + IdPTTT + ", maHoaDon=" + maHoaDon + ", NgayTao=" + NgayTao + ", NgayThanhToan=" + NgayThanhToan + ", NgayHen=" + NgayHen + ", NgayShip=" + NgayShip + ", NgayNhan=" + NgayNhan + ", tenNguoiNhan=" + tenNguoiNhan + ", diaChi=" + diaChi + ", sDT=" + sDT + ", TrangThai=" + TrangThai + '}';
     }
-    
-    
-    
-    
-    
-    
-    
-    
+
 }
