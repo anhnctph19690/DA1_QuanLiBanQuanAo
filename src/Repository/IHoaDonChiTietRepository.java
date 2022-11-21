@@ -4,13 +4,19 @@
  */
 package Repository;
 
+import Models.HoaDonChiTiet;
 import ViewModel.QLHoaDonCT;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author tuane_nluzcuo
  */
 public interface IHoaDonChiTietRepository {
-    public ArrayList<QLHoaDonCT> getlistHDCT(String idmaHD);
+
+    public List<QLHoaDonCT> getlistHDCT(String idmaHD);
+
+    boolean addListSanPham(List<QLHoaDonCT> list);
+
 }

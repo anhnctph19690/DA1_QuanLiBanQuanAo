@@ -5,8 +5,9 @@
 package view;
 
 import Models.HoaDon;
+import Models.HoaDonChiTiet;
 import Models.NhanVien;
-import Repository.Impl.HDCTServices;
+import Repository.IHoaDonChiTietRepository;
 import Repository.Impl.HoaDonCTRepository;
 import Repository.Impl.HoaDonRepository;
 import Repository.Impl.NhanVienRepository;
@@ -17,6 +18,7 @@ import ViewModel.QLChiTietSanPham;
 import ViewModel.QLHoaDon;
 import ViewModel.QLHoaDonCT;
 import ViewModel.QLNhanVien;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,20 +38,21 @@ public class From_BanHang extends javax.swing.JFrame {
     ChiTietSanPhamService chiTietSanPhamService = new ChiTietSanPhamService();
     HoaDonService hoaDonService = new HoaDonService();
     NhanVienServicer nhanVienServicer = new NhanVienServicer();
-    HDCTServices hDCTServices = new HDCTServices();
     HoaDonCTRepository hoaDonCTRepository = new HoaDonCTRepository();
     DefaultTableModel defaultTableModel;
+    private IHoaDonChiTietRepository hoaDonChiTietRepository = new HoaDonCTRepository();
+    private List<QLHoaDon> listHD = new ArrayList<>();
+    private List<QLHoaDonCT> listHDCT = new ArrayList<>();
 
     public From_BanHang() {
         initComponents();
         loadTableSanPham();
         loadTableHoaDon();
-        
-        
+
     }
 
     public void loadTableSanPham() {
-        defaultTableModel = (DefaultTableModel) tblSanPham.getModel();
+        defaultTableModel = (DefaultTableModel) tableSanPham.getModel();
         defaultTableModel.setRowCount(0);
         List<QLChiTietSanPham> cTSPList = this.chiTietSanPhamService.getAll();
         int count = 1;
@@ -101,7 +104,7 @@ public class From_BanHang extends javax.swing.JFrame {
         tblHoaDon = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblSanPham = new javax.swing.JTable();
+        tableSanPham = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -162,7 +165,7 @@ public class From_BanHang extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        tblSanPham.setModel(new javax.swing.table.DefaultTableModel(
+        tableSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -170,12 +173,12 @@ public class From_BanHang extends javax.swing.JFrame {
                 "STT", "Mã SP ", "Tên SP", "Số Lượng", "Giá Bán ", "Size", "Màu Sắc ", "Số Lượng Mua"
             }
         ));
-        tblSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+        tableSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblSanPhamMouseClicked(evt);
+                tableSanPhamMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tblSanPham);
+        jScrollPane2.setViewportView(tableSanPham);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -219,6 +222,11 @@ public class From_BanHang extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jButton2.setText("Thanh Toán ");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -387,10 +395,31 @@ public class From_BanHang extends javax.swing.JFrame {
         loadTableHoaDon();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
+    private void tableSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSanPhamMouseClicked
         // TODO add your handling code here:
+        DefaultTableModel dtm = (DefaultTableModel) tblHoaDon.getModel();
         String soLuong = (String) JOptionPane.showInputDialog(this, "Xin Mời Nhập Số Lượng", "Nhập Số Lượng", JOptionPane.PLAIN_MESSAGE);
-    }//GEN-LAST:event_tblSanPhamMouseClicked
+        int rowHoaDon = tblHoaDon.getSelectedRow();
+        String maHD = tblHoaDon.getValueAt(rowHoaDon, 1).toString();
+        String idHD = this.hoaDonCTRepository.getIDByMaHD(maHD);
+
+        DefaultTableModel dtm1 = (DefaultTableModel) tableSanPham.getModel();
+        int rowSanPham = tableSanPham.getSelectedRow();
+        List<QLChiTietSanPham> listSP = chiTietSanPhamService.getAll();
+        QLChiTietSanPham qlctsp = listSP.get(rowSanPham);
+
+        QLHoaDonCT hdct = new QLHoaDonCT();
+        hdct.setIdHoaDon(idHD);
+        hdct.setIdCTSP("41A4EFF7-7BF5-45B6-BCBB-04CEE965FA54");
+        hdct.setSoLuongMua(Integer.valueOf(soLuong));
+        hdct.setDonGia(qlctsp.getGiaBan());
+        hdct.setMaSP(dtm1.getValueAt(rowSanPham, 1).toString());
+        hdct.setTenSP(dtm1.getValueAt(rowSanPham, 2).toString());
+
+        listHDCT.add(hdct);
+        loadHDCT(listHDCT);
+
+    }//GEN-LAST:event_tableSanPhamMouseClicked
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
         // TODO add your handling code here:
@@ -398,28 +427,24 @@ public class From_BanHang extends javax.swing.JFrame {
 
         String maHD = tblHoaDon.getValueAt(rows, 1).toString();
         String idHD = this.hoaDonCTRepository.getIDByMaHD(maHD);
-        
-        loadHDCT(idHD);
-       
+
+        loadHDCT(hoaDonCTRepository.getlistHDCT(idHD));
+
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
-    
-    public void loadHDCT(String maHD) {
-        ArrayList<QLHoaDonCT> list = this.hDCTServices.getlistHDCT(maHD);
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if (hoaDonCTRepository.addListSanPham(listHDCT)) {
+            JOptionPane.showMessageDialog(this, "Thanh toán thành công");
+        } else {
+            JOptionPane.showMessageDialog(this, "Thanh toán thất bại");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    public void loadHDCT(List<QLHoaDonCT> list) {
         DefaultTableModel defaultTableModel = (DefaultTableModel) tblCTSP.getModel();
         defaultTableModel.setRowCount(0);
-        int count = 1;
-        for (QLHoaDonCT o : list) {
-            defaultTableModel.addRow(new Object[]{
-                count,
-                o.getMaSP(),
-                o.getTenSP(),
-                o.getSoLuongMua(),
-                o.getDonGia()
-            });
-
-            count ++;
-        }
+        list.forEach(s -> defaultTableModel.addRow(s.toDataRow()));
     }
 
     /**
@@ -481,8 +506,8 @@ public class From_BanHang extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JTable tableSanPham;
     private javax.swing.JTable tblCTSP;
     private javax.swing.JTable tblHoaDon;
-    private javax.swing.JTable tblSanPham;
     // End of variables declaration//GEN-END:variables
 }

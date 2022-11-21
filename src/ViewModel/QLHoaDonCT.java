@@ -4,26 +4,50 @@
  */
 package ViewModel;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author tuane_nluzcuo
  */
 public class QLHoaDonCT {
+
+    private int STT;
+    private String idHoaDon;
+    private String idCTSP;
     private String maSP;
     private String tenSP;
     private int soLuongMua;
-    private double donGia;
+    private BigDecimal donGia;
     private double thanhTien;
 
     public QLHoaDonCT() {
     }
 
-    public QLHoaDonCT(String maSP, String tenSP, int soLuongMua, double donGia, double thanhTien) {
+    public QLHoaDonCT(int STT, String idHoaDon, String idCTSP, String maSP, String tenSP, int soLuongMua, BigDecimal donGia) {
+        this.STT = STT;
+        this.idHoaDon = idHoaDon;
+        this.idCTSP = idCTSP;
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.soLuongMua = soLuongMua;
         this.donGia = donGia;
-        this.thanhTien = thanhTien;
+    }
+
+    public String getIdHoaDon() {
+        return idHoaDon;
+    }
+
+    public void setIdHoaDon(String idHoaDon) {
+        this.idHoaDon = idHoaDon;
+    }
+
+    public String getIdCTSP() {
+        return idCTSP;
+    }
+
+    public void setIdCTSP(String idCTSP) {
+        this.idCTSP = idCTSP;
     }
 
     public String getMaSP() {
@@ -34,12 +58,16 @@ public class QLHoaDonCT {
         return tenSP;
     }
 
-    public int getSoLuongMua() {
-        return soLuongMua;
+    public int getSTT() {
+        return STT;
     }
 
-    public double getDonGia() {
-        return donGia;
+    public void setSTT(int STT) {
+        this.STT = STT;
+    }
+
+    public int getSoLuongMua() {
+        return soLuongMua;
     }
 
     public double getThanhTien() {
@@ -58,7 +86,11 @@ public class QLHoaDonCT {
         this.soLuongMua = soLuongMua;
     }
 
-    public void setDonGia(double donGia) {
+    public BigDecimal getDonGia() {
+        return donGia;
+    }
+
+    public void setDonGia(BigDecimal donGia) {
         this.donGia = donGia;
     }
 
@@ -66,5 +98,17 @@ public class QLHoaDonCT {
         this.thanhTien = thanhTien;
     }
 
-    
+    public Double getTotal(int soLuongMua, BigDecimal donGia) {
+        return soLuongMua * donGia.doubleValue();
+    }
+
+    @Override
+    public String toString() {
+        return "QLHoaDonCT{" + "STT=" + STT + ", idHoaDon=" + idHoaDon + ", idCTSP=" + idCTSP + ", maSP=" + maSP + ", tenSP=" + tenSP + ", soLuongMua=" + soLuongMua + ", donGia=" + donGia + ", thanhTien=" + thanhTien + '}';
+    }
+
+    public Object[] toDataRow() {
+        return new Object[]{STT, maSP, tenSP, soLuongMua, donGia, getTotal(soLuongMua, donGia)};
+    }
+
 }

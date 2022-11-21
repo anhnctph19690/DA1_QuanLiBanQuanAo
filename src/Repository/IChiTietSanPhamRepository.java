@@ -5,6 +5,7 @@
 package Repository;
 
 import Models.ChiTietSanPham;
+import Models.HoaDonChiTiet;
 import ViewModel.QLChiTietSanPham;
 import java.util.List;
 
@@ -21,5 +22,6 @@ public interface IChiTietSanPhamRepository {
     boolean update(ChiTietSanPham chiTietSanPham, String id);
 
     boolean delete(String id);
+
 
 }
