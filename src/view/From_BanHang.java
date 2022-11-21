@@ -81,7 +81,7 @@ public class From_BanHang extends javax.swing.JFrame {
                 o.getMaHoaDon(),
                 o.getNgayTao(),
                 o.getTenNhanVien(),
-                o.getTrangThai(),});
+                o.setTrangThai(),});
             count++;
         }
     }

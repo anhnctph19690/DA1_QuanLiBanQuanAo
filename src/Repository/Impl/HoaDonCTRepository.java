@@ -21,7 +21,7 @@ public class HoaDonCTRepository implements IHoaDonChiTietRepository{
     @Override
     public ArrayList<QLHoaDonCT> getlistHDCT(String idHD) {
         ArrayList<QLHoaDonCT> HDCTList = new ArrayList<>();
-        String query = "SELECT dbo.HoaDon.MaHD, dbo.HoaDonChiTiet.IdHoaDonChiTiet, dbo.SanPham.MaSP, dbo.SanPham.Ten, dbo.ChiTietSP.SoLuong, dbo.HoaDonChiTiet.SoLuong, dbo.ChiTietSP.GiaBan FROM dbo.HoaDonChiTiet INNER JOIN dbo.ChiTietSP ON dbo.HoaDonChiTiet.IdCTSP = dbo.ChiTietSP.IdCTSP INNER JOIN dbo.SanPham ON dbo.ChiTietSP.IdSP = dbo.SanPham.IdSP INNER JOIN dbo.HoaDon ON dbo.HoaDonChiTiet.IdHoaDon = dbo.HoaDon.IdHoaDon WHERE HoaDon.IdHoaDon = ?";
+        String query = "SELECT dbo.HoaDon.MaHD, dbo.HoaDonChiTiet.IdHoaDonChiTiet, dbo.SanPham.MaSP, dbo.SanPham.Ten, dbo.HoaDonChiTiet.SoLuong, dbo.ChiTietSP.GiaBan FROM dbo.HoaDonChiTiet INNER JOIN dbo.ChiTietSP ON dbo.HoaDonChiTiet.IdCTSP = dbo.ChiTietSP.IdCTSP INNER JOIN dbo.SanPham ON dbo.ChiTietSP.IdSP = dbo.SanPham.IdSP INNER JOIN dbo.HoaDon ON dbo.HoaDonChiTiet.IdHoaDon = dbo.HoaDon.IdHoaDon WHERE HoaDon.IdHoaDon = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, idHD);

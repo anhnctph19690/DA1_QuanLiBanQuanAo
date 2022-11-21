@@ -56,9 +56,17 @@ public class QLHoaDon {
         this.trangThai = trangThai;
     }
     
-//    public Object[] toDataRow(){
+    public String setTrangThai(){
         
-//    }
+        if (this.trangThai == -1) {
+            return "Chưa Thanh Toán";
+        } else if(this.trangThai == 1){
+            return "Đã Thanh Toán";
+        }
+        else {
+            return "Chờ Thanh Toán";
+        }
+    }
     
     
 }
