@@ -7,6 +7,7 @@ package Repository.Impl;
 import Models.HoaDon;
 import Repository.IHoaDonRepository;
 import Ultilities.DBConnection;
+import ViewModel.QLHoaDon;
 import java.util.ArrayList;
 import java.sql.*;
 import java.util.logging.Level;
@@ -22,17 +23,17 @@ public class HoaDonRepository implements IHoaDonRepository {
 
     
     @Override
-    public ArrayList<HoaDon> getHoaDonAlls() {
+    public ArrayList<QLHoaDon> getHoaDonAlls() {
 
-        ArrayList<HoaDon> HDList = new ArrayList<>();
-        String query = "SELECT * FROM HoaDon";
+        ArrayList<QLHoaDon> HDList = new ArrayList<>();
+        String query = "SELECT dbo.HoaDon.*, dbo.HoaDon.MaHD AS Expr1, dbo.HoaDon.NgayTao AS Expr2, dbo.NhanVien.TenNV FROM dbo.HoaDon INNER JOIN dbo.NhanVien ON dbo.HoaDon.IdNV = dbo.NhanVien.IdNV";
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.execute();
             ResultSet rs = ps.getResultSet();
 
             while (rs.next()) {
-                HDList.add(new HoaDon(rs.getString("IdHoaDon"), rs.getString("IdKH"), rs.getString("IdNV"), rs.getString("IdPTTT"), rs.getString("MaHD"), rs.getString("NgayTao"), rs.getString("NgayThanhToan"), rs.getString("NgayHen"), rs.getString("NgayShip"), rs.getString("NgayNhan"), rs.getString("TenNguoiNhan"), rs.getString("DiaChi"), rs.getString("Sdt"), rs.getInt("TrangThai")));
+                HDList.add(new QLHoaDon(rs.getString("MaHD"), rs.getString("NgayTao"), rs.getString("TenNV"), rs.getInt("TrangThai")));
 
             }
         } catch (SQLException ex) {

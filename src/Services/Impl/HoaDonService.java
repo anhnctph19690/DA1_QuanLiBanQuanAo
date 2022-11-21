@@ -19,7 +19,7 @@ import java.util.*;
  */
 public class HoaDonService implements IHoaDonServices{
 
-    HoaDonRepository donRepository = new HoaDonRepository();
+    HoaDonRepository hoaDonRepository = new HoaDonRepository();
     NhanVienRepository nhanVienRepository = new NhanVienRepository();
     
     public String getTenNhanVien(String IdNhanVien){
@@ -35,14 +35,7 @@ public class HoaDonService implements IHoaDonServices{
     
     @Override
     public ArrayList<QLHoaDon> getHoaDonAlls() {
-        ArrayList<HoaDon> hoaDonList = this.donRepository.getHoaDonAlls();
-        
-        ArrayList<QLHoaDon> qLHoaDonList = new ArrayList<>();
-        for (HoaDon o : hoaDonList) {
-            o.toString();
-            qLHoaDonList.add(new QLHoaDon(o.getMaHoaDon(), o.getNgayTao(), getTenNhanVien(o.getIdNhanVien()), o.getTrangThai() ));
-        }
-    return qLHoaDonList;
+        return this.hoaDonRepository.getHoaDonAlls();
     }
     
     

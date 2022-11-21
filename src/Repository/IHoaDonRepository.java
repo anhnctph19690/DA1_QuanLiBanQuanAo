@@ -16,5 +16,5 @@ import java.sql.*;
 public interface IHoaDonRepository {
     Connection conn = DBConnection.getConnection();
     
-    public ArrayList<HoaDon> getHoaDonAlls();
+    public ArrayList<QLHoaDon> getHoaDonAlls();
 }
