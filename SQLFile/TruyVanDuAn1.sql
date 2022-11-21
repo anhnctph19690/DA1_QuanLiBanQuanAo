@@ -260,3 +260,53 @@ INSERT INTO dbo.ChiTietSP(IdCTSP,IdSP,IdNSX,IdMauSac,IdLoaiSP,IdChatLieu,IdThuon
 VALUES
 (DEFAULT, '318A8FCB-C228-405B-B5B5-2B2C59042345', '0D6CA241-D929-489A-A48E-0951D155F06B',    '794CF330-45E0-4FF0-B321-149EFDCFD0B7',    'FC146770-C845-4CCF-9B58-037A4A33B499',   '3A1635E1-901B-42B1-9479-004301E5120E',    'E056C589-54CA-4BA1-B05F-199B11F71A79',    'FC63351D-350E-43F0-AA8B-3C28ACD50D25',    100,    100000, 150000, N'Mô Tả 1', 1)
 
+
+---Update 1.4
+ALTER TABLE dbo.HoaDonChiTiet
+DROP CONSTRAINT PK_HoaDonCT
+ALTER TABLE dbo.HoaDonChiTiet
+ADD IdHoaDonChiTiet UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID()
+ALTER TABLE dbo.HoaDonChiTiet
+DROP CONSTRAINT DF__HoaDonChi__DonGi__6C190EBB --- xoá constraint đơn giá
+ALTER TABLE dbo.HoaDonChiTiet
+DROP COLUMN DonGia
+---thêm Hoá Đơn CT
+
+SELECT * FROM dbo.HoaDon
+SELECT * FROM dbo.ChiTietSP
+SELECT * FROM dbo.HoaDonChiTiet
+
+--- lan 1
+INSERT INTO dbo.HoaDonChiTiet (IdHoaDon,IdCTSP,SoLuong,IdHoaDonChiTiet)VALUES('5B057D3F-0D56-4F23-85D8-29F44948EC04','67E20EC6-60A3-471F-A98F-0AB7F9531A99',10, DEFAULT)
+INSERT INTO dbo.HoaDonChiTiet (IdHoaDon,IdCTSP,SoLuong,IdHoaDonChiTiet)VALUES('5B057D3F-0D56-4F23-85D8-29F44948EC04','67E20EC6-60A3-471F-A98F-0AB7F9531A99',9, DEFAULT)
+INSERT INTO dbo.HoaDonChiTiet (IdHoaDon,IdCTSP,SoLuong,IdHoaDonChiTiet)VALUES('5B057D3F-0D56-4F23-85D8-29F44948EC04','67E20EC6-60A3-471F-A98F-0AB7F9531A99',23, DEFAULT)
+---Lan 2
+INSERT INTO dbo.HoaDonChiTiet (IdHoaDon,IdCTSP,SoLuong,IdHoaDonChiTiet)VALUES('B5266C11-439A-4FFE-A700-5649E199B744','67E20EC6-60A3-471F-A98F-0AB7F9531A99',14, DEFAULT)
+INSERT INTO dbo.HoaDonChiTiet (IdHoaDon,IdCTSP,SoLuong,IdHoaDonChiTiet)VALUES('B5266C11-439A-4FFE-A700-5649E199B744','67E20EC6-60A3-471F-A98F-0AB7F9531A99',8, DEFAULT)
+
+
+create proc procThemHdTaiQuay
+		@NgayTao date,
+		@IdNV UNIQUEIDENTIFIER,
+		@IdKh UNIQUEIDENTIFIER,
+		@TrangThai int
+	as
+	begin
+		Declare @MaHD char(7)
+		if not exists (select * from HoaDon) 
+			Set @MaHD=1
+		else
+			Set @MaHD=(select RIGHT(MAX(MaHD),5) from HoaDon)+1
+		Set @MaHD='HD'+REPLICATE('0',5-LEN(@MaHD))+@MaHD
+		insert into HoaDon(MaHD, NgayTao, IdNV, IdKH, TrangThai) values(@MaHD,@NgayTao, @IdNV, @IdKh, @TrangThai)
+		
+	END
+    
+
+	SELECT * FROM dbo.HoaDonChiTiet
+	SELECT * FROM dbo.ChiTietSP
+SELECT dbo.HoaDon.MaHD, dbo.HoaDonChiTiet.IdHoaDonChiTiet, dbo.SanPham.MaSP, dbo.SanPham.Ten, dbo.ChiTietSP.SoLuong, dbo.HoaDonChiTiet.SoLuong, dbo.ChiTietSP.GiaBan FROM dbo.HoaDonChiTiet INNER JOIN dbo.ChiTietSP ON dbo.HoaDonChiTiet.IdCTSP = dbo.ChiTietSP.IdCTSP INNER JOIN dbo.SanPham ON dbo.ChiTietSP.IdSP = dbo.SanPham.IdSP INNER JOIN dbo.HoaDon ON dbo.HoaDonChiTiet.IdHoaDon = dbo.HoaDon.IdHoaDon WHERE MaHD = 'HD00001'
+
+
+SELECT IdHoaDon FROM dbo.HoaDon WHERE MaHD = ?
+SELECT dbo.SanPham.MaSP, dbo.SanPham.Ten, dbo.HoaDonChiTiet.SoLuong, dbo.ChiTietSP.GiaBan FROM dbo.HoaDonChiTiet INNER JOIN dbo.ChiTietSP ON dbo.HoaDonChiTiet.IdCTSP = dbo.ChiTietSP.IdCTSP INNER JOIN dbo.SanPham ON dbo.ChiTietSP.IdSP = dbo.SanPham.IdSP INNER JOIN dbo.HoaDon ON dbo.HoaDonChiTiet.IdHoaDon = dbo.HoaDon.IdHoaDon WHERE MaHD = 'HD00001'
