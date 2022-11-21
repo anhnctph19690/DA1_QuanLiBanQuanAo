@@ -142,6 +142,37 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
         }
         return check > 0;
     }
+    Connection conn = DBConnection.getConnection();
+    public String getIDCTSP (String IDSP){
+        String query = "SELECT IdCTSP FROM dbo.ChiTietSP WHERE IdSP = ?";
+        String IdCTSP = null;
+        try {
+            PreparedStatement ps = conn.prepareCall(query);
+            ps.setString(1, IDSP);
+            ps.execute();
+            ResultSet rs = ps.getResultSet();
+            while (rs.next()) {                
+                IdCTSP = rs.getString("IdCTSP");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return IdCTSP;
+    }
+    
+    public boolean uppdateSoLuong(String IdCTSP, int soLuong){
+        int check = 0;
+        String query = "UPDATE dbo.ChiTietSP SET SoLuong = ? WHERE IdCTSP = ?";
+        try {
+            PreparedStatement ps = conn.prepareCall(query);
+            ps.setInt(1, soLuong);
+            ps.setString(2, IdCTSP);
+            check = ps.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return check > 0;
+    }
 
     public static void main(String[] args) {
 //        new ChiTietSanPhamRepository().getAll().forEach(s -> System.out.println(s.toString()));

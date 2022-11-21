@@ -77,6 +77,22 @@ public class HoaDonRepository implements IHoaDonRepository {
         }
         return check > 0;
     }
+    
+    public boolean uppdateTrangThai(String IDHoaDon, int trangThai){
+        int check = 0;
+        String query = "UPDATE dbo.HoaDon SET TrangThai = ? WHERE IdHoaDon = ?";
+        try {
+            PreparedStatement ps = conn.prepareCall(query);
+            ps.setInt(1, trangThai);
+            ps.setString(2, IDHoaDon);
+            check = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(HoaDonRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return check > 0;
+    }
+    
+    
 
     public static void main(String[] args) {
         HoaDon hd = new HoaDon();

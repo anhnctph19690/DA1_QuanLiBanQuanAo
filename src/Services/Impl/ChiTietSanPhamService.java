@@ -49,4 +49,12 @@ public class ChiTietSanPhamService implements IChiTietSanPhamService {
         return false;
     }
 
+    public String getIDCTSP (String IDSP){
+        return this.getIDCTSP(IDSP);
+    }
+    
+    
+    public boolean uppdateSoLuong(String IdCTSP, int soLuong){
+        return this.uppdateSoLuong(IdCTSP, soLuong);
+    }
 }
