@@ -4,8 +4,15 @@
  */
 package view;
 
+import Models.NhanVien;
+import Repository.Impl.HoaDonRepository;
+import Repository.Impl.NhanVienRepository;
 import Services.Impl.ChiTietSanPhamService;
+import Services.Impl.HoaDonService;
+import Services.Impl.NhanVienServicer;
 import ViewModel.QLChiTietSanPham;
+import ViewModel.QLHoaDon;
+import ViewModel.QLNhanVien;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Icon;
@@ -22,11 +29,14 @@ public class From_BanHang extends javax.swing.JFrame {
      * Creates new form From_BanHang
      */
     ChiTietSanPhamService chiTietSanPhamService = new ChiTietSanPhamService();
+    HoaDonService hoaDonService = new HoaDonService();
+    NhanVienServicer nhanVienServicer = new NhanVienServicer();
     DefaultTableModel defaultTableModel;
 
     public From_BanHang() {
         initComponents();
         loadTableSanPham();
+        loadTableHoaDon();
     }
 
     public void loadTableSanPham() {
@@ -48,6 +58,26 @@ public class From_BanHang extends javax.swing.JFrame {
         }
     }
 
+    
+    
+    NhanVienRepository nhanVienRepository = new NhanVienRepository();
+        public void loadTableHoaDon() {
+        defaultTableModel = (DefaultTableModel) tblHoaDon.getModel();
+        defaultTableModel.setRowCount(0);
+        List<QLHoaDon> hoaDonList = this.hoaDonService.getHoaDonAlls();
+        int count = 1;
+        for (QLHoaDon o : hoaDonList) {
+            
+            defaultTableModel.addRow(new Object[]{
+                count,
+                o.getMaHoaDon(),
+                o.getNgayTao(),
+                o.getTenNhanVien(),
+                o.getTrangThai()
+            });
+            count ++;
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,7 +91,7 @@ public class From_BanHang extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblHoaDon = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSanPham = new javax.swing.JTable();
@@ -97,18 +127,15 @@ public class From_BanHang extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "STT", "Mã HD", "Ngày Tạo", "Tên NV", "Trạng Thái "
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblHoaDon);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -405,13 +432,13 @@ public class From_BanHang extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JTable tblHoaDon;
     private javax.swing.JTable tblSanPham;
     // End of variables declaration//GEN-END:variables
 }

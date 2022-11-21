@@ -1,0 +1,49 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Services.Impl;
+
+import Models.HoaDon;
+import Repository.IHoaDonRepository;
+import Repository.Impl.HoaDonRepository;
+import Repository.Impl.NhanVienRepository;
+import Services.IHoaDonServices;
+import ViewModel.QLHoaDon;
+import ViewModel.QLNhanVien;
+import java.util.*;
+
+/**
+ *
+ * @author tuane_nluzcuo
+ */
+public class HoaDonService implements IHoaDonServices{
+
+    HoaDonRepository donRepository = new HoaDonRepository();
+    NhanVienRepository nhanVienRepository = new NhanVienRepository();
+    
+    public String getTenNhanVien(String IdNhanVien){
+        List<QLNhanVien> NVList = this.nhanVienRepository.getAll();
+        String Ten = null;
+        for (QLNhanVien o : NVList) {
+            if (IdNhanVien.equals(o.getIdNhanVien())) {
+                Ten = o.getTenNV();
+            }
+        }
+        return Ten;
+    }
+    
+    @Override
+    public ArrayList<QLHoaDon> getHoaDonAlls() {
+        ArrayList<HoaDon> hoaDonList = this.donRepository.getHoaDonAlls();
+        
+        ArrayList<QLHoaDon> qLHoaDonList = new ArrayList<>();
+        for (HoaDon o : hoaDonList) {
+            o.toString();
+            qLHoaDonList.add(new QLHoaDon(o.getMaHoaDon(), o.getNgayTao(), getTenNhanVien(o.getIdNhanVien()), o.getTrangThai() ));
+        }
+    return qLHoaDonList;
+    }
+    
+    
+}
