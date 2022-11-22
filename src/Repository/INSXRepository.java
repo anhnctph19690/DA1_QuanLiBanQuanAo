@@ -19,4 +19,10 @@ public interface INSXRepository {
     public String getIDByNSX(String tenNSX);
     
     boolean addCbbNSX(NSX nsx);
+    
+    public void insert(NSX nsx);
+
+    public void update(NSX nsx);
+
+    public void delete(NSX nsx);
 }

@@ -87,4 +87,52 @@ public class NSXRepository implements INSXRepository {
         nsx.setTenNSX("N10928");
         new NSXRepository().addCbbNSX(nsx);
     }
+
+     @Override
+     public void insert(NSX nsx) {
+        try {
+            Connection conn = DBConnection.getConnection();
+            String query = "insert into NSX(ma,ten) values "
+                    + "( ?, ?)";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, nsx.getMaNSX());
+            ps.setString(2, nsx.getTenNSX());
+            ps.execute();
+            System.out.println("Insert OK");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Insert X");
+        }
+    }
+    @Override
+   public void update(NSX nsx) {
+        try {
+            Connection conn = DBConnection.getConnection();
+            String query = "UPDATE NSX SET Ten =?  WHERE Ma =? ";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, nsx.getTenNSX());
+            ps.setString(2, nsx.getMaNSX());
+            ps.execute();
+            System.out.println("Update ok");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delete(NSX nsx) {
+        try {
+            Connection conn = DBConnection.getConnection();
+            String query = "DELETE NSX WHERE Ma = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, nsx.getMaNSX());
+            ps.execute();
+            System.out.println("delete ok");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
