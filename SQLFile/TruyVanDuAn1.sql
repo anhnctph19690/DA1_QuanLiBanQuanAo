@@ -302,11 +302,47 @@ create proc procThemHdTaiQuay
 		
 	END
     
-
+	SELECT * FROM dbo.HoaDon
 	SELECT * FROM dbo.HoaDonChiTiet
 	SELECT * FROM dbo.ChiTietSP
-SELECT dbo.HoaDon.MaHD, dbo.HoaDonChiTiet.IdHoaDonChiTiet, dbo.SanPham.MaSP, dbo.SanPham.Ten, dbo.ChiTietSP.SoLuong, dbo.HoaDonChiTiet.SoLuong, dbo.ChiTietSP.GiaBan FROM dbo.HoaDonChiTiet INNER JOIN dbo.ChiTietSP ON dbo.HoaDonChiTiet.IdCTSP = dbo.ChiTietSP.IdCTSP INNER JOIN dbo.SanPham ON dbo.ChiTietSP.IdSP = dbo.SanPham.IdSP INNER JOIN dbo.HoaDon ON dbo.HoaDonChiTiet.IdHoaDon = dbo.HoaDon.IdHoaDon WHERE MaHD = 'HD00001'
+SELECT dbo.HoaDon.MaHD, dbo.HoaDonChiTiet.IdHoaDonChiTiet, dbo.SanPham.MaSP, dbo.SanPham.Ten, dbo.ChiTietSP.SoLuong, dbo.HoaDonChiTiet.SoLuong AS 'SoLuongMua', dbo.ChiTietSP.GiaBan FROM dbo.HoaDonChiTiet INNER JOIN dbo.ChiTietSP ON dbo.HoaDonChiTiet.IdCTSP = dbo.ChiTietSP.IdCTSP INNER JOIN dbo.SanPham ON dbo.ChiTietSP.IdSP = dbo.SanPham.IdSP INNER JOIN dbo.HoaDon ON dbo.HoaDonChiTiet.IdHoaDon = dbo.HoaDon.IdHoaDon WHERE HoaDon.IdHoaDon = 
 
 
-SELECT IdHoaDon FROM dbo.HoaDon WHERE MaHD = ?
 SELECT dbo.SanPham.MaSP, dbo.SanPham.Ten, dbo.HoaDonChiTiet.SoLuong, dbo.ChiTietSP.GiaBan FROM dbo.HoaDonChiTiet INNER JOIN dbo.ChiTietSP ON dbo.HoaDonChiTiet.IdCTSP = dbo.ChiTietSP.IdCTSP INNER JOIN dbo.SanPham ON dbo.ChiTietSP.IdSP = dbo.SanPham.IdSP INNER JOIN dbo.HoaDon ON dbo.HoaDonChiTiet.IdHoaDon = dbo.HoaDon.IdHoaDon WHERE MaHD = 'HD00001'
+
+
+INSERT INTO dbo.KhachHang
+(
+    IdKH,
+    MaKH,
+    Ten,
+    TenDem,
+    Ho,
+    NgaySinh,
+    Sdt,
+    DiaChi,
+    ThanhPho,
+    QuocGia,
+    TrangThai
+)
+VALUES
+(   DEFAULT, -- IdKH - uniqueidentifier
+    NULL,    -- MaKH - varchar(20)
+    NULL,    -- Ten - nvarchar(30)
+    DEFAULT, -- TenDem - nvarchar(30)
+    DEFAULT, -- Ho - nvarchar(30)
+    DEFAULT, -- NgaySinh - date
+    DEFAULT, -- Sdt - varchar(30)
+    DEFAULT, -- DiaChi - nvarchar(100)
+    DEFAULT, -- ThanhPho - nvarchar(50)
+    DEFAULT, -- QuocGia - nvarchar(50)
+    DEFAULT  -- TrangThai - int
+    )
+	SELECT * FROM dbo.HoaDon
+	UPDATE dbo.ChiTietSP SET SoLuong = ? WHERE IdCTSP = ?
+
+
+
+	SELECT * FROM dbo.NhanVien
+	SELECT * FROM dbo.KhachHang
+	SELECT * FROM dbo.HoaDon
