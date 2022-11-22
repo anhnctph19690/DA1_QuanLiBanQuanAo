@@ -110,7 +110,6 @@ public class QLNhanVien {
     public void setTrangThai(Integer trangThai) {
         this.trangThai = trangThai;
     }
-    
 
 
 

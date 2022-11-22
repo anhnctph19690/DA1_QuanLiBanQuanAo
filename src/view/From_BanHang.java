@@ -229,6 +229,11 @@ public class From_BanHang extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jButton2.setText("Thanh Toán ");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -305,6 +310,11 @@ public class From_BanHang extends javax.swing.JFrame {
                 "Mã SP", "Tên SP", "Số Lượng Mua", "Đơn Giá ", "Thành Tiền"
             }
         ));
+        tblCTSP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCTSPMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblCTSP);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -394,8 +404,8 @@ public class From_BanHang extends javax.swing.JFrame {
         // TODO add your handling code here:
         HoaDon hd = new HoaDon();
         hd.setNgayTao(new Date());
-        hd.setIdNhanVien("2F94B972-79D2-4581-BD54-A1C4E72292A7");
-        hd.setIdKhachHang("E0BFE464-AC4A-40AD-A4A3-899879FB9566");
+        hd.setIdNhanVien("A639815B-170A-41F6-B7C3-EE2ECB8C79B6");
+        hd.setIdKhachHang("E765EEC2-BFA6-4D62-8831-45C02B0E0222");
         hd.setTrangThai(0);
 
         JOptionPane.showMessageDialog(this, hoaDonService.add(hd));
@@ -460,15 +470,24 @@ public class From_BanHang extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         if (hoaDonCTRepository.addListSanPham(listHDCT)) {
-//            chiTietSanPhamService.uppdateSoLuong(getIdCTSP, soLuongUpdate);
+           chiTietSanPhamService.uppdateSoLuong(getIdCTSP, soLuongUpdate);
             hoaDonService.uppdateTrangThai(getIdHD, 1);
             loadTableHoaDon();
-//            loadTableSanPham();
+            loadTableSanPham();
             JOptionPane.showMessageDialog(this, "Thanh toán thành công");
         } else {
             JOptionPane.showMessageDialog(this, "Thanh toán thất bại");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tblCTSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCTSPMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblCTSPMouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton2MouseClicked
 
     public void loadHDCT(List<QLHoaDonCT> list) {
         DefaultTableModel defaultTableModel = (DefaultTableModel) tblCTSP.getModel();
