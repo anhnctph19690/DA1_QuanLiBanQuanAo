@@ -12,7 +12,6 @@ import java.math.BigDecimal;
  */
 public class QLHoaDonCT {
 
-    private int STT;
     private String idHoaDon;
     private String idCTSP;
     private String maSP;
@@ -24,8 +23,7 @@ public class QLHoaDonCT {
     public QLHoaDonCT() {
     }
 
-    public QLHoaDonCT(int STT, String idHoaDon, String idCTSP, String maSP, String tenSP, int soLuongMua, BigDecimal donGia) {
-        this.STT = STT;
+    public QLHoaDonCT(String idHoaDon, String idCTSP, String maSP, String tenSP, int soLuongMua, BigDecimal donGia) {
         this.idHoaDon = idHoaDon;
         this.idCTSP = idCTSP;
         this.maSP = maSP;
@@ -56,14 +54,6 @@ public class QLHoaDonCT {
 
     public String getTenSP() {
         return tenSP;
-    }
-
-    public int getSTT() {
-        return STT;
-    }
-
-    public void setSTT(int STT) {
-        this.STT = STT;
     }
 
     public int getSoLuongMua() {
@@ -102,13 +92,9 @@ public class QLHoaDonCT {
         return soLuongMua * donGia.doubleValue();
     }
 
-    @Override
-    public String toString() {
-        return "QLHoaDonCT{" + "STT=" + STT + ", idHoaDon=" + idHoaDon + ", idCTSP=" + idCTSP + ", maSP=" + maSP + ", tenSP=" + tenSP + ", soLuongMua=" + soLuongMua + ", donGia=" + donGia + ", thanhTien=" + thanhTien + '}';
-    }
 
     public Object[] toDataRow() {
-        return new Object[]{STT, maSP, tenSP, soLuongMua, donGia, getTotal(soLuongMua, donGia)};
+        return new Object[]{maSP, tenSP, soLuongMua, donGia, getTotal(soLuongMua, donGia)};
     }
 
 }

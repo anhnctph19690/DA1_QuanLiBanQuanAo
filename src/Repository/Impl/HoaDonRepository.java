@@ -82,7 +82,7 @@ public class HoaDonRepository implements IHoaDonRepository {
         int check = 0;
         String query = "UPDATE dbo.HoaDon SET TrangThai = ? WHERE IdHoaDon = ?";
         try {
-            PreparedStatement ps = conn.prepareCall(query);
+            PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1, trangThai);
             ps.setString(2, IDHoaDon);
             check = ps.executeUpdate();

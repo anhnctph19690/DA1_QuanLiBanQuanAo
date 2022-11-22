@@ -27,13 +27,13 @@ public class HoaDonCTRepository implements IHoaDonChiTietRepository {
     @Override
     public List<QLHoaDonCT> getlistHDCT(String idHD) {
         ArrayList<QLHoaDonCT> HDCTList = new ArrayList<>();
-        String query = "	SELECT ROW_NUMBER() OVER (ORDER BY HoaDon.MaHD), HoaDonChiTiet.IdHoaDon, HoaDonChiTiet.IdCTSP, dbo.SanPham.MaSP, dbo.SanPham.Ten, dbo.HoaDonChiTiet.SoLuong, dbo.ChiTietSP.GiaBan FROM dbo.HoaDonChiTiet INNER JOIN dbo.ChiTietSP ON dbo.HoaDonChiTiet.IdCTSP = dbo.ChiTietSP.IdCTSP INNER JOIN dbo.SanPham ON dbo.ChiTietSP.IdSP = dbo.SanPham.IdSP INNER JOIN dbo.HoaDon ON dbo.HoaDonChiTiet.IdHoaDon = dbo.HoaDon.IdHoaDon where HoaDonChiTiet.IdHoaDon = ?";
+        String query = "	SELECT HoaDonChiTiet.IdHoaDon, HoaDonChiTiet.IdCTSP, dbo.SanPham.MaSP, dbo.SanPham.Ten, dbo.HoaDonChiTiet.SoLuong, dbo.ChiTietSP.GiaBan FROM dbo.HoaDonChiTiet INNER JOIN dbo.ChiTietSP ON dbo.HoaDonChiTiet.IdCTSP = dbo.ChiTietSP.IdCTSP INNER JOIN dbo.SanPham ON dbo.ChiTietSP.IdSP = dbo.SanPham.IdSP INNER JOIN dbo.HoaDon ON dbo.HoaDonChiTiet.IdHoaDon = dbo.HoaDon.IdHoaDon where HoaDonChiTiet.IdHoaDon = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setObject(1, idHD);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                HDCTList.add(new QLHoaDonCT(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getBigDecimal(7)));
+                HDCTList.add(new QLHoaDonCT(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getBigDecimal(6)));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

@@ -143,28 +143,30 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
         return check > 0;
     }
     Connection conn = DBConnection.getConnection();
-    public String getIDCTSP (String IDSP){
+
+    @Override
+    public String getIDCTSP(String IDSP) {
         String query = "SELECT IdCTSP FROM dbo.ChiTietSP WHERE IdSP = ?";
         String IdCTSP = null;
         try {
-            PreparedStatement ps = conn.prepareCall(query);
+            PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, IDSP);
-            ps.execute();
-            ResultSet rs = ps.getResultSet();
-            while (rs.next()) {                
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
                 IdCTSP = rs.getString("IdCTSP");
+                return IdCTSP;
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return IdCTSP;
+        return null;
     }
-    
-    public boolean uppdateSoLuong(String IdCTSP, int soLuong){
+
+    public boolean uppdateSoLuong(String IdCTSP, int soLuong) {
         int check = 0;
         String query = "UPDATE dbo.ChiTietSP SET SoLuong = ? WHERE IdCTSP = ?";
         try {
-            PreparedStatement ps = conn.prepareCall(query);
+            PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1, soLuong);
             ps.setString(2, IdCTSP);
             check = ps.executeUpdate();
@@ -176,8 +178,8 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
 
     public static void main(String[] args) {
 //        new ChiTietSanPhamRepository().getAll().forEach(s -> System.out.println(s.toString()));
-          ChiTietSanPham ctsp = new ChiTietSanPham();
-          ctsp.setTrangThai(999);
-          new ChiTietSanPhamRepository().update(ctsp, "7BBBA41E-C3BD-45FC-B192-086D9F37C516");
+        ChiTietSanPham ctsp = new ChiTietSanPham();
+        ctsp.setTrangThai(999);
+        new ChiTietSanPhamRepository().update(ctsp, "7BBBA41E-C3BD-45FC-B192-086D9F37C516");
     }
 }

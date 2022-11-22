@@ -9,6 +9,7 @@ package ViewModel;
  * @author tuane_nluzcuo
  */
 public class QLHoaDon {
+
     private String maHoaDon;
     private String ngayTao;
     private String tenNhanVien;
@@ -55,18 +56,13 @@ public class QLHoaDon {
     public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
     }
-    
-    public String setTrangThai(){
-        
-        if (this.trangThai == -1) {
-            return "Chưa Thanh Toán";
-        } else if(this.trangThai == 1){
-            return "Đã Thanh Toán";
+
+    public String trangThaiHoaDon() {
+        if (this.trangThai == 0) {
+            return "Chờ thanh toán";
         }
-        else {
-            return "Chờ Thanh Toán";
-        }
+        return "Đã thanh toán";
+
     }
-    
-    
+
 }

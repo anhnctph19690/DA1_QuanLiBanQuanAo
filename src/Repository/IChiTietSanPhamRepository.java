@@ -23,5 +23,8 @@ public interface IChiTietSanPhamRepository {
 
     boolean delete(String id);
 
+    String getIDCTSP(String IdSP);
+
+    boolean uppdateSoLuong(String IdCTSP, int soLuong);
 
 }

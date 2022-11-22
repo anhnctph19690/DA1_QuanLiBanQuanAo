@@ -7,10 +7,12 @@ package view;
 import Models.HoaDon;
 import Models.HoaDonChiTiet;
 import Models.NhanVien;
+import Models.SanPham;
 import Repository.IHoaDonChiTietRepository;
 import Repository.Impl.HoaDonCTRepository;
 import Repository.Impl.HoaDonRepository;
 import Repository.Impl.NhanVienRepository;
+import Repository.Impl.SanPhamRepository;
 import Services.Impl.ChiTietSanPhamService;
 import Services.Impl.HoaDonService;
 import Services.Impl.NhanVienServicer;
@@ -43,6 +45,11 @@ public class From_BanHang extends javax.swing.JFrame {
     private IHoaDonChiTietRepository hoaDonChiTietRepository = new HoaDonCTRepository();
     private List<QLHoaDon> listHD = new ArrayList<>();
     private List<QLHoaDonCT> listHDCT = new ArrayList<>();
+    private SanPhamRepository sanPhamRepository = new SanPhamRepository();
+    private String soLuong;
+    private int soLuongUpdate;
+    private String getIdCTSP;
+    private String getIdHD;
 
     public From_BanHang() {
         initComponents();
@@ -84,7 +91,7 @@ public class From_BanHang extends javax.swing.JFrame {
                 o.getMaHoaDon(),
                 o.getNgayTao(),
                 o.getTenNhanVien(),
-                o.setTrangThai(),});
+                o.trangThaiHoaDon(),});
             count++;
         }
     }
@@ -295,7 +302,7 @@ public class From_BanHang extends javax.swing.JFrame {
 
             },
             new String [] {
-                "STT", "Mã SP", "Tên SP", "Số Lượng Mua", "Đơn Giá ", "Thành Tiền"
+                "Mã SP", "Tên SP", "Số Lượng Mua", "Đơn Giá ", "Thành Tiền"
             }
         ));
         jScrollPane3.setViewportView(tblCTSP);
@@ -387,8 +394,8 @@ public class From_BanHang extends javax.swing.JFrame {
         // TODO add your handling code here:
         HoaDon hd = new HoaDon();
         hd.setNgayTao(new Date());
-        hd.setIdNhanVien("321890C9-D632-4FFB-BDD5-21EAE7F03B34");
-        hd.setIdKhachHang("828DD629-8D7A-4939-B672-728285CFE1C8");
+        hd.setIdNhanVien("2F94B972-79D2-4581-BD54-A1C4E72292A7");
+        hd.setIdKhachHang("E0BFE464-AC4A-40AD-A4A3-899879FB9566");
         hd.setTrangThai(0);
 
         JOptionPane.showMessageDialog(this, hoaDonService.add(hd));
@@ -397,27 +404,45 @@ public class From_BanHang extends javax.swing.JFrame {
 
     private void tableSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSanPhamMouseClicked
         // TODO add your handling code here:
+        soLuong = (String) JOptionPane.showInputDialog(this, "Xin Mời Nhập Số Lượng", "Nhập Số Lượng", JOptionPane.PLAIN_MESSAGE);
         DefaultTableModel dtm = (DefaultTableModel) tblHoaDon.getModel();
-        String soLuong = (String) JOptionPane.showInputDialog(this, "Xin Mời Nhập Số Lượng", "Nhập Số Lượng", JOptionPane.PLAIN_MESSAGE);
         int rowHoaDon = tblHoaDon.getSelectedRow();
-        String maHD = tblHoaDon.getValueAt(rowHoaDon, 1).toString();
-        String idHD = this.hoaDonCTRepository.getIDByMaHD(maHD);
-
         DefaultTableModel dtm1 = (DefaultTableModel) tableSanPham.getModel();
         int rowSanPham = tableSanPham.getSelectedRow();
-        List<QLChiTietSanPham> listSP = chiTietSanPhamService.getAll();
-        QLChiTietSanPham qlctsp = listSP.get(rowSanPham);
 
-        QLHoaDonCT hdct = new QLHoaDonCT();
-        hdct.setIdHoaDon(idHD);
-        hdct.setIdCTSP("41A4EFF7-7BF5-45B6-BCBB-04CEE965FA54");
-        hdct.setSoLuongMua(Integer.valueOf(soLuong));
-        hdct.setDonGia(qlctsp.getGiaBan());
-        hdct.setMaSP(dtm1.getValueAt(rowSanPham, 1).toString());
-        hdct.setTenSP(dtm1.getValueAt(rowSanPham, 2).toString());
+        if (rowHoaDon == -1) {
+            JOptionPane.showMessageDialog(this, "Chưa chọn hóa đơn");
+        } else {
+            String maHD = tblHoaDon.getValueAt(rowHoaDon, 1).toString();
+            String idHD = this.hoaDonCTRepository.getIDByMaHD(maHD);
+            getIdHD = idHD;
 
-        listHDCT.add(hdct);
-        loadHDCT(listHDCT);
+            SanPham sp = new SanPham();
+            sp.setMaSP(dtm1.getValueAt(rowSanPham, 1).toString());
+            SanPham getSP = sanPhamRepository.getOne(sp.getMaSP());
+            String IdCTSP = chiTietSanPhamService.getIDCTSP(getSP.getIdSanPham());
+            getIdCTSP = IdCTSP;
+
+            List<QLChiTietSanPham> listSP = chiTietSanPhamService.getAll();
+            QLChiTietSanPham qlctsp = listSP.get(rowSanPham);
+
+            QLHoaDonCT hdct = new QLHoaDonCT();
+            hdct.setIdHoaDon(idHD);
+            hdct.setIdCTSP(IdCTSP);
+            hdct.setSoLuongMua(Integer.valueOf(soLuong));
+            hdct.setDonGia(qlctsp.getGiaBan());
+            hdct.setMaSP(dtm1.getValueAt(rowSanPham, 1).toString());
+            hdct.setTenSP(dtm1.getValueAt(rowSanPham, 2).toString());
+
+            qlctsp.setSoLuongTonKho(qlctsp.getSoLuongTonKho() - Integer.valueOf(soLuong));
+//            soLuongUpdate = qlctsp.getSoLuongTonKho() - Integer.valueOf(soLuong);
+
+            listHDCT.add(hdct);
+            loadHDCT(listHDCT);
+            loadTableSanPham();
+
+        }
+
 
     }//GEN-LAST:event_tableSanPhamMouseClicked
 
@@ -435,6 +460,10 @@ public class From_BanHang extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         if (hoaDonCTRepository.addListSanPham(listHDCT)) {
+//            chiTietSanPhamService.uppdateSoLuong(getIdCTSP, soLuongUpdate);
+            hoaDonService.uppdateTrangThai(getIdHD, 1);
+            loadTableHoaDon();
+//            loadTableSanPham();
             JOptionPane.showMessageDialog(this, "Thanh toán thành công");
         } else {
             JOptionPane.showMessageDialog(this, "Thanh toán thất bại");

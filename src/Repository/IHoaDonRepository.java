@@ -9,14 +9,18 @@ import Ultilities.DBConnection;
 import ViewModel.QLHoaDon;
 import java.util.ArrayList;
 import java.sql.*;
+
 /**
  *
  * @author tuane_nluzcuo
  */
 public interface IHoaDonRepository {
+
     Connection conn = DBConnection.getConnection();
-    
+
     public ArrayList<QLHoaDon> getHoaDonAlls();
 
     boolean add(HoaDon hoaDon);
+
+    boolean uppdateTrangThai(String IDHoaDon, int trangThai);
 }

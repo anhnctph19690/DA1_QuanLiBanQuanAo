@@ -46,8 +46,9 @@ public class HoaDonService implements IHoaDonServices {
         return "Tạo thất bại";
     }
     
-    public boolean uppdateTrangThai(String IDHoaDon, int trangThai){
-        return this.uppdateTrangThai(IDHoaDon, trangThai);
+    @Override
+    public void uppdateTrangThai(String IDHoaDon, int trangThai){
+        hoaDonRepository.uppdateTrangThai(IDHoaDon, trangThai);
     }
 
 }

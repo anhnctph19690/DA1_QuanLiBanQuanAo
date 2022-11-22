@@ -18,4 +18,6 @@ public interface IHoaDonServices {
 
     String add(HoaDon hd);
 
+    void uppdateTrangThai(String IDHoaDon, int trangThai);
+
 }
