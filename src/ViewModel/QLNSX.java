@@ -9,6 +9,10 @@ package ViewModel;
  * @author PC- ASUS
  */
 public class QLNSX {
+
+    
+    private String id;
+    private String ma;
     private String ten;
 
     public QLNSX() {
@@ -25,8 +29,27 @@ public class QLNSX {
     public void setTen(String ten) {
         this.ten = ten;
     }
-    
-   
-    
-    
+
+    public QLNSX(String id, String ma, String ten) {
+        this.id = id;
+        this.ma = ma;
+        this.ten = ten;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getMa() {
+        return ma;
+    }
+
+    public void setMa(String ma) {
+        this.ma = ma;
+    }
+
 }
