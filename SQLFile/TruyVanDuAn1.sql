@@ -285,6 +285,12 @@ INSERT INTO dbo.HoaDonChiTiet (IdHoaDon,IdCTSP,SoLuong,IdHoaDonChiTiet)VALUES('B
 INSERT INTO dbo.HoaDonChiTiet (IdHoaDon,IdCTSP,SoLuong,IdHoaDonChiTiet)VALUES('B5266C11-439A-4FFE-A700-5649E199B744','67E20EC6-60A3-471F-A98F-0AB7F9531A99',8, DEFAULT)
 
 
+SELECT * FROM dbo.HoaDon
+select RIGHT(MAX(MaHD),5) from HoaDon
+
+
+----UPDATE 1.5
+---Insert Hoa Don
 create proc procThemHdTaiQuay
 		@NgayTao date,
 		@IdNV UNIQUEIDENTIFIER,
@@ -302,47 +308,91 @@ create proc procThemHdTaiQuay
 		
 	END
     
-	SELECT * FROM dbo.HoaDon
-	SELECT * FROM dbo.HoaDonChiTiet
-	SELECT * FROM dbo.ChiTietSP
-SELECT dbo.HoaDon.MaHD, dbo.HoaDonChiTiet.IdHoaDonChiTiet, dbo.SanPham.MaSP, dbo.SanPham.Ten, dbo.ChiTietSP.SoLuong, dbo.HoaDonChiTiet.SoLuong AS 'SoLuongMua', dbo.ChiTietSP.GiaBan FROM dbo.HoaDonChiTiet INNER JOIN dbo.ChiTietSP ON dbo.HoaDonChiTiet.IdCTSP = dbo.ChiTietSP.IdCTSP INNER JOIN dbo.SanPham ON dbo.ChiTietSP.IdSP = dbo.SanPham.IdSP INNER JOIN dbo.HoaDon ON dbo.HoaDonChiTiet.IdHoaDon = dbo.HoaDon.IdHoaDon WHERE HoaDon.IdHoaDon = 
+----- Insert Chat Lieu
+create proc procThemChatLieu
+		@TenCL nvarchar(50)
+	as
+	begin
+		Declare @MaCL char(7)
+		if not exists (select * from ChatLieu) 
+			Set @MaCL=1
+		else
+			Set @MaCL=(select RIGHT(MAX(MA),5) from ChatLieu)+1
+		Set @MaCL='CL'+REPLICATE('0',5-LEN(@MaCL))+@MaCL
+		insert into ChatLieu(Ma, TenChatLieu) values(@MaCL,@TenCL)
+		select ma 
+		from ChatLieu
+		where ma = @MaCL
+		return
+	END
+    ----Insert Thuong Hieu
+	create proc procThemThuongHieu
+		@Tenth nvarchar(50)
+	as
+	begin
+		Declare @MaTH char(7)
+		if not exists (select * from ThuongHieu) 
+			Set @MaTH=1
+		else
+			Set @MaTH=(select RIGHT(MAX(MA),5) from ThuongHieu)+1
+		Set @MaTH='TH'+REPLICATE('0',5-LEN(@MaTH))+@MaTH
+		insert into ThuongHieu(Ma, TenThuongHieu) values(@MaTH,@Tenth)
+		select ma 
+		from ThuongHieu
+		where ma = @MaTH
+		return
+	end
+	-----Insert MauSac
+	create proc procThemMauSac
+		@TenMauSac nvarchar(50)
+	as
+	begin
+		Declare @MaMauSac char(7)
+		if not exists (select * from MauSac) 
+			Set @MaMauSac=1
+		else
+			Set @MaMauSac=(select RIGHT(MAX(MA),5) from MauSac)+1
+		Set @MaMauSac='MS'+REPLICATE('0',5-LEN(@MaMauSac))+@MaMauSac
+		insert into MauSac(Ma, TenMauSac) values(@MaMauSac,@TenMauSac)
+		select ma 
+		from MauSac
+		where ma = @MaMauSac
+		return
+	END
+    
 
-
-SELECT dbo.SanPham.MaSP, dbo.SanPham.Ten, dbo.HoaDonChiTiet.SoLuong, dbo.ChiTietSP.GiaBan FROM dbo.HoaDonChiTiet INNER JOIN dbo.ChiTietSP ON dbo.HoaDonChiTiet.IdCTSP = dbo.ChiTietSP.IdCTSP INNER JOIN dbo.SanPham ON dbo.ChiTietSP.IdSP = dbo.SanPham.IdSP INNER JOIN dbo.HoaDon ON dbo.HoaDonChiTiet.IdHoaDon = dbo.HoaDon.IdHoaDon WHERE MaHD = 'HD00001'
-
-
-INSERT INTO dbo.KhachHang
-(
-    IdKH,
-    MaKH,
-    Ten,
-    TenDem,
-    Ho,
-    NgaySinh,
-    Sdt,
-    DiaChi,
-    ThanhPho,
-    QuocGia,
-    TrangThai
-)
-VALUES
-(   DEFAULT, -- IdKH - uniqueidentifier
-    NULL,    -- MaKH - varchar(20)
-    NULL,    -- Ten - nvarchar(30)
-    DEFAULT, -- TenDem - nvarchar(30)
-    DEFAULT, -- Ho - nvarchar(30)
-    DEFAULT, -- NgaySinh - date
-    DEFAULT, -- Sdt - varchar(30)
-    DEFAULT, -- DiaChi - nvarchar(100)
-    DEFAULT, -- ThanhPho - nvarchar(50)
-    DEFAULT, -- QuocGia - nvarchar(50)
-    DEFAULT  -- TrangThai - int
-    )
-	SELECT * FROM dbo.HoaDon
-	UPDATE dbo.ChiTietSP SET SoLuong = ? WHERE IdCTSP = ?
-
-
-
-	SELECT * FROM dbo.NhanVien
-	SELECT * FROM dbo.KhachHang
-	SELECT * FROM dbo.HoaDon
+	-----Insert NSX
+	create proc procThemNSX
+		@TenNSX nvarchar(50)
+	as
+	begin
+		Declare @MaNSX char(7)
+		if not exists (select * from NSX) 
+			Set @MaNSX=1
+		else
+			Set @MaNSX=(select RIGHT(MAX(MA),5) from NSX)+1
+		Set @MaNSX='NSX'+REPLICATE('0',5-LEN(@MaNSX))+@MaNSX
+		insert into NSX(Ma, Ten) values(@MaNSX,@TenNSX)
+		select ma 
+		from NSX
+		where ma = @MaNSX
+		return
+	END
+    
+	----Insert Loai SP
+	create proc procThemLoaiSanPham
+		@TenLSP nvarchar(50)
+	as
+	begin
+		Declare @MaLSP char(7)
+		if not exists (select * from LoaiSanPham) 
+			Set @MaLSP=1
+		else
+			Set @MaLSP=(select RIGHT(MAX(MA),5) from LoaiSanPham)+1
+		Set @MaLSP='LSP'+REPLICATE('0',5-LEN(@MaLSP))+@MaLSP
+		insert into LoaiSanPham(Ma, TenLoaiSP) values(@MaLSP,@TenLSP)
+		select ma 
+		from LoaiSanPham
+		where ma = @MaLSP
+		return
+	end
