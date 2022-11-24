@@ -379,6 +379,10 @@ create proc procThemChatLieu
 		return
 	END
     
+    --- Add MaLoaiSP
+	ALTER TABLE dbo.LoaiSanPham
+	ADD Ma NVARCHAR(10)
+    
 	----Insert Loai SP
 	create proc procThemLoaiSanPham
 		@TenLSP nvarchar(50)
