@@ -16,5 +16,5 @@ import java.util.List;
 public interface INSXService {
      public List<QLNSX> getAll();
      
-     String addCbbNSX(NSX nsx);
+
 }

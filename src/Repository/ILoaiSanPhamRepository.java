@@ -12,7 +12,10 @@ import java.util.List;
  * @author PC- ASUS
  */
 public interface ILoaiSanPhamRepository {
-      public List<LoaiSanPham> getAll();
-      public String getIDByLoaiSP (String tenLoaiSP);
-      boolean addCbbLoaiSanPham(LoaiSanPham lsp);
+
+    public List<LoaiSanPham> getAll();
+
+    public String getIDByLoaiSP(String tenLoaiSP);
+
+    LoaiSanPham addCbb(String name);
 }

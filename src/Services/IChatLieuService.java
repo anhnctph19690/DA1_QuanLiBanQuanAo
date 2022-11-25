@@ -15,5 +15,5 @@ import java.util.List;
 public interface IChatLieuService {
     List<QLChatLieu> getAll();
     
-    String addCbbChatLieu(ChatLieu cl);
+
 }

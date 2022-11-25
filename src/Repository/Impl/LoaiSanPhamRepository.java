@@ -4,6 +4,7 @@
  */
 package Repository.Impl;
 
+import Models.KichThuoc;
 import Models.LoaiSanPham;
 import Repository.ILoaiSanPhamRepository;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.sql.*;
 public class LoaiSanPhamRepository implements ILoaiSanPhamRepository{
 
     Connection conn = DBConnection.getConnection();
+    final String InsertLoaiSP= "{call procLSP(?)}";
     @Override
     public List<LoaiSanPham> getAll() {
          List<LoaiSanPham> ListLSP = new ArrayList<>();
@@ -66,17 +68,24 @@ public class LoaiSanPhamRepository implements ILoaiSanPhamRepository{
         return idLoaiSP;
     }
 
+ 
     @Override
-    public boolean addCbbLoaiSanPham(LoaiSanPham lsp) {
-        int check = 0;
-        String query = "insert into LoaiSanPham(TenLoaiSP) values (?)";
-        try ( PreparedStatement ps = conn.prepareStatement(query);) {
-            ps.setObject(1, lsp.getTenLSP());
-            check = ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace(System.out);
+    public LoaiSanPham addCbb(String name) {
+        try ( Connection conn = DBConnection.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(InsertLoaiSP);
+
+            ps.setString(1, name);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                LoaiSanPham lsp = new LoaiSanPham();
+                lsp.setMa(rs.getString(1));
+                return lsp;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-        return check > 0;
+        return null;
     }
     
     

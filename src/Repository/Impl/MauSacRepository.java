@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 public class MauSacRepository implements IMauSacRepository {
 
     Connection conn = DBConnection.getConnection();
+    final String InsertMauSac= "{call procThemMauSac(?)}";
 
     @Override
     public String getIdMauSac(String tenMauSac) {
@@ -60,19 +61,24 @@ public class MauSacRepository implements IMauSacRepository {
         return listMauSac;
     }
 
+   
     @Override
-    public boolean addCbbMauSac(MauSac ms) {
-        int check = 0;
-        String query = "insert into MauSac(ma,tenmausac) values (?,?)";
-        try (PreparedStatement ps = conn.prepareStatement(query);) {
-            ps.setObject(1, ms.getMaMauSac());
-            ps.setObject(2, ms.getTenMauSac());
+    public MauSac addCbb(String name) {
+         try ( Connection conn = DBConnection.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(InsertMauSac);
 
-            check = ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace(System.out);
+            ps.setString(1, name);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                MauSac ms = new MauSac();
+                ms.setMaMauSac(rs.getString(1));
+                return ms;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-        return check > 0;
+        return null;
     }
 
 }

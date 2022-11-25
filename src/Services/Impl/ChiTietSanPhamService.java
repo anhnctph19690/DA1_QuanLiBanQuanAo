@@ -56,4 +56,9 @@ public class ChiTietSanPhamService implements IChiTietSanPhamService {
     public boolean uppdateSoLuong(String IdCTSP, int soLuong) {
         return _iChiTietSanPhamRepository.uppdateSoLuong(IdCTSP, soLuong);
     }
+
+    @Override
+    public List<QLChiTietSanPham> getSPByName(String name) {
+        return _iChiTietSanPhamRepository.getSPByName(name);
+    }
 }

@@ -16,5 +16,5 @@ import java.util.List;
 public interface IThuongHieuServicer {
     public List<QLThuongHieu> getAll();
     
-    String addCbbThuongHieu(ThuongHieu th);
+   
 }

@@ -18,6 +18,7 @@ import java.util.logging.Logger;
  */
 public class ThuongHieuRepository implements IThuongHieuRepository{
     Connection conn = DBConnection.getConnection();
+     final String InsertThupngHieu= "{call procThemThuongHieu(?)}";
     
     @Override
     public ArrayList<ThuongHieu> getAll() {
@@ -56,25 +57,30 @@ public class ThuongHieuRepository implements IThuongHieuRepository{
         return IdThuongHieu;
     }
 
-    @Override
-    public boolean addCbbThuongHieu(ThuongHieu th) {
-        int check = 0;
-        String query = "insert into ThuongHieu(ma,tenthuonghieu) values (?,?)";
-        try ( PreparedStatement ps =  conn.prepareStatement(query);) {
-            ps.setObject(1, th.getMa());
-            ps.setObject(2, th.getTenThuongHieu());
-            check = ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace(System.out);
-        }
-        return check > 0;
-    }
+ 
     
     public static void main(String[] args) {
         ThuongHieu th = new ThuongHieu();
-        th.setMa("TH23yyyuasw636");
-        th.setTenThuongHieu("ABCDE");
-        new ThuongHieuRepository().addCbbThuongHieu(th);
+   
         
+    }
+
+    @Override
+    public ThuongHieu addCbb(String name) {
+          try ( Connection conn = DBConnection.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(InsertThupngHieu);
+
+            ps.setString(1, name);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ThuongHieu th = new ThuongHieu();
+                th.setMa(rs.getString(1));
+                return th;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 }

@@ -12,7 +12,10 @@ import java.util.List;
  * @author ADMIN
  */
 public interface IThuongHieuRepository {
+
     public List<ThuongHieu> getAll();
-    public String getIDByThuongHieu (String tenThuongHieu);
-    boolean addCbbThuongHieu(ThuongHieu th);
+
+    public String getIDByThuongHieu(String tenThuongHieu);
+
+    ThuongHieu addCbb(String name);
 }

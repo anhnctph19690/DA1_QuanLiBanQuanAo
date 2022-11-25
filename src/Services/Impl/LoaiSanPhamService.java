@@ -31,13 +31,7 @@ public class LoaiSanPhamService implements ILoaiSanPhamService{
         return ds;
     }
 
-    @Override
-    public String addCbbLoaiSanPham(LoaiSanPham lsp) {
-         boolean add = loaiSanPhamRepository.addCbbLoaiSanPham(lsp);
-        if (add) {
-            return "Thanh cong";
-        }return "That bai";
-    }
+  
    }
     
 

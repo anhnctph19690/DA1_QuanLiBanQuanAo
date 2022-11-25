@@ -15,12 +15,6 @@ import Services.IMauSacSerVice;
  */
 public class MauSacService implements IMauSacSerVice{
     private MauSacRepository mauSacRepo = new MauSacRepository();
-    @Override
-    public String addCbbMauSac(MauSac ms) {
-         boolean add =mauSacRepo.addCbbMauSac(ms);
-        if (add) {
-            return "Thanh cong";
-        }return "That bai";
-    }
+    
     
 }

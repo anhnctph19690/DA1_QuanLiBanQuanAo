@@ -17,5 +17,7 @@ public interface IChatLieuRepository {
 
     public String getIDByChatLieu(String tenChatLieu);
 
-    boolean addcbbChatLieu(ChatLieu cl);
+  
+    
+    ChatLieu addCbb(String name);
 }

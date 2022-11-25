@@ -18,7 +18,7 @@ import java.sql.*;
 public class ChatLieuRepository implements IChatLieuRepository {
 
     Connection conn = DBConnection.getConnection();
-
+    final String InsertChatLieu= "{call procThemChatLieu(?)}";
     @Override
     public List<ChatLieu> getAll() {
         List<ChatLieu> ListChatLieu = new ArrayList<>();
@@ -64,25 +64,30 @@ public class ChatLieuRepository implements IChatLieuRepository {
         return IdChatLieu;
     }
 
+
+
     @Override
-    public boolean addcbbChatLieu(ChatLieu cl) {
-        int check = 0;
-        String query = "insert into ChatLieu(ma,tenChatLieu) values (?,?)";
-        try (PreparedStatement ps = conn.prepareStatement(query);) {
-            ps.setObject(1, cl.getMa());
-            ps.setObject(2, cl.getTenChatLieu());
-            check = ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace(System.out);
+    public ChatLieu addCbb(String name) {
+         try ( Connection conn = DBConnection.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(InsertChatLieu);
+
+            ps.setString(1, name);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ChatLieu cl = new ChatLieu();
+                cl.setMa(rs.getString(1));
+                return cl;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-        return check > 0;
+        return null;
     }
     
     public static void main(String[] args) {
-        ChatLieu cl = new ChatLieu();
-        cl.setMa("CL123456");
-        cl.setTenChatLieu("CLCLCL012");
-        new ChatLieuRepository().addcbbChatLieu(cl);
+        String name = "U";
+        new ChatLieuRepository().addCbb(name);
     }
 
 }

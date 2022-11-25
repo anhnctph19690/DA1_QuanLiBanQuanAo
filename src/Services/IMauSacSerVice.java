@@ -11,5 +11,5 @@ import Models.MauSac;
  * @author ADMIN
  */
 public interface IMauSacSerVice {
-    String addCbbMauSac(MauSac ms);
+   
 }

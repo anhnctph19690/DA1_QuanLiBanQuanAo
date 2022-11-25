@@ -19,7 +19,7 @@ import Repository.IKichThuocRepo;
 public class KichThuocRepo implements IKichThuocRepo {
 
     Connection conn = DBConnection.getConnection();
-
+    final String InsertKichThuoc = "{call procThemSIZE(?)}";
     @Override
     public ArrayList<KichThuoc> getAllsKichThuoc() {
         String query = "SELECT * FROM dbo.Size";
@@ -57,22 +57,27 @@ public class KichThuocRepo implements IKichThuocRepo {
         return IdSize;
     }
 
-    @Override
-    public boolean addCbbKichThuoc(KichThuoc kt) {
-        int check = 0;
-        String query = "insert into Size(sosize) values (?)";
-        try (PreparedStatement ps = conn.prepareStatement(query);) {
-            ps.setObject(1, kt.getSoSize());
-            check = ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace(System.out);
-        }
-        return check > 0;
+   
+    public static void main(String[] args) {
+       
     }
 
-    public static void main(String[] args) {
-        KichThuoc kt = new KichThuoc();
-        kt.setSoSize("YGH");
-        new KichThuocRepo().addCbbKichThuoc(kt);
+    @Override
+    public KichThuoc addCbb(String name) {
+        try ( Connection conn = DBConnection.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(InsertKichThuoc);
+
+            ps.setString(1, name);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                KichThuoc kt = new KichThuoc();
+                kt.setMa(rs.getString(1));
+                return kt;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 }

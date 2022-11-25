@@ -21,4 +21,6 @@ public interface IChiTietSanPhamService {
     boolean delete(String id);
 
     boolean update(ChiTietSanPham ctsp, String id);
+
+    List<QLChiTietSanPham> getSPByName(String name);
 }

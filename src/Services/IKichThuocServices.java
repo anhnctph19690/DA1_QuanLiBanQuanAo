@@ -14,5 +14,5 @@ import java.util.ArrayList;
  */
 public interface IKichThuocServices {
     public ArrayList<QLKichThuoc> getAllsKichThuoc();
-    String addCbbKichThuoc(KichThuoc kt);
+  
 }

@@ -19,6 +19,10 @@ public class MauSac {
         this.tenMauSac = tenMauSac;
     }
 
+    public MauSac() {
+    }
+    
+
     public String getIdmauSac() {
         return IdmauSac;
     }

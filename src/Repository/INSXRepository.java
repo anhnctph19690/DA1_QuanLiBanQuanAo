@@ -18,5 +18,5 @@ public interface INSXRepository {
 
     public String getIDByNSX(String tenNSX);
     
-    boolean addCbbNSX(NSX nsx);
+    NSX addCbb(String name);
 }

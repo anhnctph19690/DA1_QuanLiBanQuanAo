@@ -27,4 +27,5 @@ public interface IChiTietSanPhamRepository {
 
     boolean uppdateSoLuong(String IdCTSP, int soLuong);
 
+    List<QLChiTietSanPham> getSPByName(String name);
 }
