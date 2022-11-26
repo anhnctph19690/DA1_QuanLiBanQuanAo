@@ -100,6 +100,11 @@ public class DashBoard extends javax.swing.JFrame {
         jButton6.setBackground(new java.awt.Color(102, 102, 255));
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jButton6.setText("Nhân Viên");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setBackground(new java.awt.Color(102, 102, 255));
         jButton7.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -248,6 +253,11 @@ public class DashBoard extends javax.swing.JFrame {
         // TODO add your handling code here:
         new ViewBanHang().setVisible(true);
     }//GEN-LAST:event_btnBanHangActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        new NhanVienVIew().setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
