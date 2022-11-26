@@ -22,5 +22,7 @@ public interface IChiTietSanPhamService {
 
     boolean update(ChiTietSanPham ctsp, String id);
 
-    List<QLChiTietSanPham> getSPByName(String name);
+    int checkSoLuong(String id);
+
+    String getIdSP(String id);
 }

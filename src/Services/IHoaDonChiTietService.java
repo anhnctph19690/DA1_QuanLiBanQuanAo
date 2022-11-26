@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package Repository;
+package Services;
 
-import Models.HoaDonChiTiet;
 import ViewModel.QLHoaDonChiTiet;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +13,10 @@ import java.util.List;
  *
  * @author tuane_nluzcuo
  */
-public interface IHoaDonChiTietRepository {
+public interface IHoaDonChiTietService {
+     List<QLHoaDonChiTiet> getListInvoices(String id);
 
-    List<QLHoaDonChiTiet> getAllInvoices(String id);
+     String addListInvoice(List<QLHoaDonChiTiet> list);
 
-    boolean addListInvoice(List<QLHoaDonChiTiet> list);
-
+     Double totalMoneyOfInvoice(List<QLHoaDonChiTiet> list);
 }

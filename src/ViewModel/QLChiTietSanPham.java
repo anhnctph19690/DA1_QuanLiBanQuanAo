@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 public class QLChiTietSanPham {
 
     private int STT;
+    private String idCTSP;
     private String maSanPham;
     private String tenSanPham;
     private String tenNhaSanXuat;
@@ -30,7 +31,9 @@ public class QLChiTietSanPham {
     public QLChiTietSanPham() {
     }
 
-    public QLChiTietSanPham(String maSanPham, String tenSanPham, String tenNhaSanXuat, String tenMauSac, String tenLoai, String tenChatLieu, String tenThuongHieu, String soSize, int soLuongTonKho, BigDecimal giaNhap, BigDecimal giaBan, String moTa, int trangThai) {
+    public QLChiTietSanPham(int STT, String idCTSP, String maSanPham, String tenSanPham, String tenNhaSanXuat, String tenMauSac, String tenLoai, String tenChatLieu, String tenThuongHieu, String soSize, int soLuongTonKho, BigDecimal giaNhap, BigDecimal giaBan, String moTa, int trangThai) {
+        this.STT = STT;
+        this.idCTSP = idCTSP;
         this.maSanPham = maSanPham;
         this.tenSanPham = tenSanPham;
         this.tenNhaSanXuat = tenNhaSanXuat;
@@ -52,6 +55,14 @@ public class QLChiTietSanPham {
 
     public void setSTT(int STT) {
         this.STT = STT;
+    }
+
+    public String getIdCTSP() {
+        return idCTSP;
+    }
+
+    public void setIdCTSP(String idCTSP) {
+        this.idCTSP = idCTSP;
     }
 
     public String getMaSanPham() {
@@ -160,12 +171,14 @@ public class QLChiTietSanPham {
 
     @Override
     public String toString() {
-        return "QLChiTietSanPham{" + "STT=" + STT + ", maSanPham=" + maSanPham + ", tenSanPham=" + tenSanPham + ", tenNhaSanXuat=" + tenNhaSanXuat + ", tenMauSac=" + tenMauSac + ", tenLoai=" + tenLoai + ", tenChatLieu=" + tenChatLieu + ", tenThuongHieu=" + tenThuongHieu + ", soSize=" + soSize + ", soLuongTonKho=" + soLuongTonKho + ", giaNhap=" + giaNhap + ", giaBan=" + giaBan + ", moTa=" + moTa + ", trangThai=" + trangThai + '}';
+        return "QLChiTietSanPham{" + "STT=" + STT + ", idCTSP=" + idCTSP + ", maSanPham=" + maSanPham + ", tenSanPham=" + tenSanPham + ", tenNhaSanXuat=" + tenNhaSanXuat + ", tenMauSac=" + tenMauSac + ", tenLoai=" + tenLoai + ", tenChatLieu=" + tenChatLieu + ", tenThuongHieu=" + tenThuongHieu + ", soSize=" + soSize + ", soLuongTonKho=" + soLuongTonKho + ", giaNhap=" + giaNhap + ", giaBan=" + giaBan + ", moTa=" + moTa + ", trangThai=" + trangThai + '}';
     }
 
-    public Object[] toDataRow(){
+    public Object[] toDataRow() {
         return new Object[]{STT, maSanPham, tenSanPham, tenNhaSanXuat, tenMauSac, tenLoai, tenChatLieu, tenThuongHieu, soSize, soLuongTonKho, giaNhap, giaBan, moTa, trangThai == 1 ? "Còn hàng" : "Hết hàng"};
     }
 
-
+    public Object[] toDataRowBanHang() {
+        return new Object[]{STT, maSanPham, tenSanPham, soLuongTonKho, giaBan, soSize, tenMauSac};
+    }
 }

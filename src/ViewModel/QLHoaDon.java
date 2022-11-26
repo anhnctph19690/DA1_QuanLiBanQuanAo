@@ -4,65 +4,97 @@
  */
 package ViewModel;
 
+import java.util.Date;
+
 /**
  *
  * @author tuane_nluzcuo
  */
 public class QLHoaDon {
 
+    private int soThuTu;
+    private String idHoaDon;
     private String maHoaDon;
-    private String ngayTao;
+    private Date ngayTao;
     private String tenNhanVien;
     private int trangThai;
+    private String tenKhachHang;
+    private String sdt;
 
     public QLHoaDon() {
     }
 
-    public QLHoaDon(String maHoaDon, String ngayTao, String tenNhanVien, int trangThai) {
-        this.maHoaDon = maHoaDon;
-        this.ngayTao = ngayTao;
-        this.tenNhanVien = tenNhanVien;
-        this.trangThai = trangThai;
+    public int getSoThuTu() {
+        return soThuTu;
+    }
+
+    public void setSoThuTu(int soThuTu) {
+        this.soThuTu = soThuTu;
+    }
+
+    public String getIdHoaDon() {
+        return idHoaDon;
+    }
+
+    public void setIdHoaDon(String idHoaDon) {
+        this.idHoaDon = idHoaDon;
     }
 
     public String getMaHoaDon() {
         return maHoaDon;
     }
 
-    public String getNgayTao() {
+    public void setMaHoaDon(String maHoaDon) {
+        this.maHoaDon = maHoaDon;
+    }
+
+    public Date getNgayTao() {
         return ngayTao;
+    }
+
+    public void setNgayTao(Date ngayTao) {
+        this.ngayTao = ngayTao;
     }
 
     public String getTenNhanVien() {
         return tenNhanVien;
     }
 
-    public int getTrangThai() {
-        return trangThai;
-    }
-
-    public void setMaHoaDon(String maHoaDon) {
-        this.maHoaDon = maHoaDon;
-    }
-
-    public void setNgayTao(String ngayTao) {
-        this.ngayTao = ngayTao;
-    }
-
     public void setTenNhanVien(String tenNhanVien) {
         this.tenNhanVien = tenNhanVien;
+    }
+
+    public int getTrangThai() {
+        return trangThai;
     }
 
     public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
     }
 
-    public String trangThaiHoaDon() {
-        if (this.trangThai == 0) {
-            return "Chờ thanh toán";
-        }
-        return "Đã thanh toán";
+    public String getTenKhachHang() {
+        return tenKhachHang;
+    }
 
+    public void setTenKhachHang(String tenKhachHang) {
+        this.tenKhachHang = tenKhachHang;
+    }
+
+    public String getSdt() {
+        return sdt;
+    }
+
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
+    }
+
+    public Object[] toDataRow() {
+        return new Object[]{soThuTu, maHoaDon, ngayTao, tenNhanVien, tenKhachHang, trangThai == 1 ? "Đã thanh toán" : "Chờ thanh toán"};
+    }
+
+    @Override
+    public String toString() {
+        return "QLHoaDon{" + "soThuTu=" + soThuTu + ", idHoaDon=" + idHoaDon + ", maHoaDon=" + maHoaDon + ", ngayTao=" + ngayTao + ", tenNhanVien=" + tenNhanVien + ", trangThai=" + trangThai + ", tenKhachHang=" + tenKhachHang + ", sdt=" + sdt + '}';
     }
 
 }

@@ -18,7 +18,6 @@ import java.util.List;
 public class ChiTietSanPhamService implements IChiTietSanPhamService {
 
     private IChiTietSanPhamRepository _iChiTietSanPhamRepository = new ChiTietSanPhamRepository();
-    private int index = 0;
 
     @Override
     public List<QLChiTietSanPham> getAll() {
@@ -49,16 +48,17 @@ public class ChiTietSanPhamService implements IChiTietSanPhamService {
         return false;
     }
 
-    public String getIDCTSP(String IDSP) {
-        return _iChiTietSanPhamRepository.getIDCTSP(IDSP);
-    }
-
     public boolean uppdateSoLuong(String IdCTSP, int soLuong) {
         return _iChiTietSanPhamRepository.uppdateSoLuong(IdCTSP, soLuong);
     }
 
     @Override
-    public List<QLChiTietSanPham> getSPByName(String name) {
-        return _iChiTietSanPhamRepository.getSPByName(name);
+    public int checkSoLuong(String id) {
+        return _iChiTietSanPhamRepository.checkSoLuong(id);
+    }
+
+    @Override
+    public String getIdSP(String id) {
+        return _iChiTietSanPhamRepository.getIdSP(id);
     }
 }

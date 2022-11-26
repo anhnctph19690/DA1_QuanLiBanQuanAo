@@ -7,8 +7,8 @@ package Repository;
 import Models.HoaDon;
 import Ultilities.DBConnection;
 import ViewModel.QLHoaDon;
-import java.util.ArrayList;
 import java.sql.*;
+import java.util.List;
 
 /**
  *
@@ -16,11 +16,9 @@ import java.sql.*;
  */
 public interface IHoaDonRepository {
 
-    Connection conn = DBConnection.getConnection();
-
-    public ArrayList<QLHoaDon> getHoaDonAlls();
+    List<QLHoaDon> getAll();
 
     boolean add(HoaDon hoaDon);
 
-    boolean uppdateTrangThai(String IDHoaDon, int trangThai);
+    boolean updateTrangThai(String id, int trangThai);
 }

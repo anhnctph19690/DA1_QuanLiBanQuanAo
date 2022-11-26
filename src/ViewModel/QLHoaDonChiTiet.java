@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  *
  * @author tuane_nluzcuo
  */
-public class QLHoaDonCT {
+public class QLHoaDonChiTiet {
 
     private String idHoaDon;
     private String idCTSP;
@@ -20,10 +20,10 @@ public class QLHoaDonCT {
     private BigDecimal donGia;
     private double thanhTien;
 
-    public QLHoaDonCT() {
+    public QLHoaDonChiTiet() {
     }
 
-    public QLHoaDonCT(String idHoaDon, String idCTSP, String maSP, String tenSP, int soLuongMua, BigDecimal donGia) {
+    public QLHoaDonChiTiet(String idHoaDon, String idCTSP, String maSP, String tenSP, int soLuongMua, BigDecimal donGia) {
         this.idHoaDon = idHoaDon;
         this.idCTSP = idCTSP;
         this.maSP = maSP;
@@ -88,13 +88,12 @@ public class QLHoaDonCT {
         this.thanhTien = thanhTien;
     }
 
-    public Double getTotal(int soLuongMua, BigDecimal donGia) {
-        return soLuongMua * donGia.doubleValue();
+    public Double getTotal() {
+        return this.soLuongMua * this.donGia.doubleValue();
     }
 
-
     public Object[] toDataRow() {
-        return new Object[]{maSP, tenSP, soLuongMua, donGia, getTotal(soLuongMua, donGia)};
+        return new Object[]{maSP, tenSP, soLuongMua, donGia, getTotal()};
     }
 
 }

@@ -8,7 +8,7 @@ import Models.HoaDon;
 import Repository.IHoaDonRepository;
 import Repository.Impl.HoaDonRepository;
 import Repository.Impl.NhanVienRepository;
-import Services.IHoaDonServices;
+import Services.IHoaDonService;
 import ViewModel.QLHoaDon;
 import ViewModel.QLNhanVien;
 import java.util.*;
@@ -17,26 +17,9 @@ import java.util.*;
  *
  * @author tuane_nluzcuo
  */
-public class HoaDonService implements IHoaDonServices {
+public class HoaDonService implements IHoaDonService {
 
-    HoaDonRepository hoaDonRepository = new HoaDonRepository();
-    NhanVienRepository nhanVienRepository = new NhanVienRepository();
-
-    public String getTenNhanVien(String IdNhanVien) {
-        List<QLNhanVien> NVList = this.nhanVienRepository.getAll();
-        String Ten = null;
-        for (QLNhanVien o : NVList) {
-            if (IdNhanVien.equals(o.getIdNhanVien())) {
-                Ten = o.getTenNV();
-            }
-        }
-        return Ten;
-    }
-
-    @Override
-    public ArrayList<QLHoaDon> getHoaDonAlls() {
-        return this.hoaDonRepository.getHoaDonAlls();
-    }
+    private HoaDonRepository hoaDonRepository = new HoaDonRepository();
 
     @Override
     public String add(HoaDon hd) {
@@ -45,10 +28,15 @@ public class HoaDonService implements IHoaDonServices {
         }
         return "Tạo thất bại";
     }
-    
+
     @Override
-    public void uppdateTrangThai(String IDHoaDon, int trangThai){
-        hoaDonRepository.uppdateTrangThai(IDHoaDon, trangThai);
+    public List<QLHoaDon> getAll() {
+        return hoaDonRepository.getAll();
+    }
+
+    @Override
+    public void uppdateTrangThai(String id, int trangThai) {
+        hoaDonRepository.updateTrangThai(id, trangThai);
     }
 
 }

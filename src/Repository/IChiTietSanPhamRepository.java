@@ -23,9 +23,10 @@ public interface IChiTietSanPhamRepository {
 
     boolean delete(String id);
 
-    String getIDCTSP(String IdSP);
+    String getIdSP(String id);
 
     boolean uppdateSoLuong(String IdCTSP, int soLuong);
 
-    List<QLChiTietSanPham> getSPByName(String name);
+    int checkSoLuong(String id);
+
 }

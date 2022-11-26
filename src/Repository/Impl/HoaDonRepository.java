@@ -13,6 +13,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -20,33 +21,41 @@ import java.util.Date;
  */
 public class HoaDonRepository implements IHoaDonRepository {
 
-    Connection conn = DBConnection.getConnection();
-
     @Override
-    public ArrayList<QLHoaDon> getHoaDonAlls() {
+    public List<QLHoaDon> getAll() {
 
-        ArrayList<QLHoaDon> HDList = new ArrayList<>();
-        String query = "SELECT dbo.HoaDon.*, dbo.HoaDon.MaHD AS Expr1, dbo.HoaDon.NgayTao AS Expr2, dbo.NhanVien.TenNV FROM dbo.HoaDon INNER JOIN dbo.NhanVien ON dbo.HoaDon.IdNV = dbo.NhanVien.IdNV";
-        try {
+        String query = "select ROW_NUMBER() OVER (ORDER BY hd.Mahd DESC) , hd.IdHoaDon, hd.MaHD, hd.NgayTao, nv.TenNV, hd.TrangThai, kh.Ten, kh.Sdt\n"
+                + "from NhanVien nv\n"
+                + "join HoaDon hd on hd.IdNV = nv.IdNV\n"
+                + "left join KhachHang kh on hd.IdKH = kh.IdKH";
+        try ( Connection conn = DBConnection.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.execute();
-            ResultSet rs = ps.getResultSet();
-
+            ResultSet rs = ps.executeQuery();
+            List<QLHoaDon> list = new ArrayList<>();
             while (rs.next()) {
-                HDList.add(new QLHoaDon(rs.getString("MaHD"), rs.getString("NgayTao"), rs.getString("TenNV"), rs.getInt("TrangThai")));
-
+                QLHoaDon hoaDon = new QLHoaDon();
+                hoaDon.setSoThuTu(rs.getInt(1));
+                hoaDon.setIdHoaDon(rs.getString(2));
+                hoaDon.setMaHoaDon(rs.getString(3));
+                hoaDon.setNgayTao(rs.getDate(4));
+                hoaDon.setTenNhanVien(rs.getString(5));
+                hoaDon.setTrangThai(rs.getInt(6));
+                hoaDon.setTenKhachHang(rs.getString(7));
+                hoaDon.setSdt(rs.getString(8));
+                list.add(hoaDon);
             }
+            return list;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
-        return HDList;
+        return null;
     }
 
     public String getIDKHBMaKH(String MaKH) {
         String query = "SELECT IdKH FROM dbo.KhachHang WHERE MaKH = ?";
         String IDKH = null;
-        try {
+        try ( Connection conn = DBConnection.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, MaKH);
             ps.execute();
@@ -77,30 +86,23 @@ public class HoaDonRepository implements IHoaDonRepository {
         }
         return check > 0;
     }
-    
-    public boolean uppdateTrangThai(String IDHoaDon, int trangThai){
-        int check = 0;
-        String query = "UPDATE dbo.HoaDon SET TrangThai = ? WHERE IdHoaDon = ?";
-        try {
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, trangThai);
-            ps.setString(2, IDHoaDon);
-            check = ps.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(HoaDonRepository.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return check > 0;
-    }
-    
-    
 
     public static void main(String[] args) {
-        HoaDon hd = new HoaDon();
-        hd.setNgayTao(new Date());
-        hd.setIdNhanVien("2F94B972-79D2-4581-BD54-A1C4E72292A7");
-        hd.setIdKhachHang("E0BFE464-AC4A-40AD-A4A3-899879FB9566");
-        hd.setTrangThai(0);
+        new HoaDonRepository().getAll().forEach(s -> System.out.println(s.getIdHoaDon()));
+    }
 
-        new HoaDonRepository().add(hd);
+    @Override
+    public boolean updateTrangThai(String id, int trangThai) {
+        int check = 0;
+        String query = "UPDATE dbo.HoaDon SET TrangThai = ? WHERE IdHoaDon = ?";
+        try ( Connection conn = DBConnection.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, trangThai);
+            ps.setString(2, id);
+            check = ps.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return check > 0;
     }
 }
