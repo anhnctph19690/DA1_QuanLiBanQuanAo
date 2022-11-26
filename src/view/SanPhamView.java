@@ -828,7 +828,7 @@ public class SanPhamView extends javax.swing.JFrame {
         // TODO add your handling code here:     
         _listChiTietSP = new ArrayList<>();
         String name = txtTenSP.getText();
-            _listChiTietSP = _iChiTietSanPhamService.getSPByName(name);
+//            _listChiTietSP = _iChiTietSanPhamService.getSPByName(name);
         
         showDataTableChiTietSanPham(_listChiTietSP);
     }//GEN-LAST:event_jButton10ActionPerformed
