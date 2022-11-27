@@ -21,4 +21,7 @@ public interface IHoaDonRepository {
     boolean add(HoaDon hoaDon);
 
     boolean updateTrangThai(String id, int trangThai);
+
+    boolean updateHoaDonGiaoHang(HoaDon hd, String id);
+
 }

@@ -105,4 +105,21 @@ public class HoaDonRepository implements IHoaDonRepository {
         }
         return check > 0;
     }
+
+    @Override
+    public boolean updateHoaDonGiaoHang(HoaDon hd, String id) {
+        int check = 0;
+        String query = "UPDATE dbo.HoaDon SET TenNguoiNhan = ?, DiaChi = ?, SDT = ? WHERE IdHoaDon = ?";
+        try ( Connection conn = DBConnection.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setObject(1, hd.getTenNguoiNhan());
+            ps.setObject(2, hd.getDiaChi());
+            ps.setObject(3, hd.getsDT());
+            ps.setObject(4, id);
+            check = ps.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return check > 0;
+    }
 }

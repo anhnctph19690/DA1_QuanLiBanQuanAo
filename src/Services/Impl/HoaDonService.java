@@ -39,4 +39,9 @@ public class HoaDonService implements IHoaDonService {
         hoaDonRepository.updateTrangThai(id, trangThai);
     }
 
+    @Override
+    public void updateHoaDonGiaoHang(HoaDon hd, String id) {
+        hoaDonRepository.updateHoaDonGiaoHang(hd, id);
+    }
+
 }
