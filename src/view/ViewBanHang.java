@@ -156,7 +156,7 @@ public class ViewBanHang extends javax.swing.JFrame {
     }
 
     public void showDataTableHoaDon(List<QLHoaDon> list) {
-        tableHoaDon.getTableHeader().setDefaultRenderer(new HeaderColor());
+//        tableHoaDon.getTableHeader().setDefaultRenderer(new HeaderColor());
         dtmHoaDon = (DefaultTableModel) tableHoaDon.getModel();
         dtmHoaDon.setRowCount(0);
         list.forEach(s -> dtmHoaDon.addRow(s.toDataRow()));
@@ -205,6 +205,7 @@ public class ViewBanHang extends javax.swing.JFrame {
         btnTaoHoaDon1 = new javax.swing.JButton();
         btnThanhToan1 = new javax.swing.JButton();
         btnDaGiao = new javax.swing.JButton();
+        btnexit = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -223,6 +224,7 @@ public class ViewBanHang extends javax.swing.JFrame {
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Hóa đơn"));
 
@@ -463,6 +465,13 @@ public class ViewBanHang extends javax.swing.JFrame {
             }
         });
 
+        btnexit.setText("Exit");
+        btnexit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnexitActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -470,11 +479,15 @@ public class ViewBanHang extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(btnTaoHoaDon1)
-                .addGap(61, 61, 61)
-                .addComponent(btnThanhToan1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(btnThanhToan1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(btnDaGiao, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnexit)
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -484,7 +497,9 @@ public class ViewBanHang extends javax.swing.JFrame {
                     .addComponent(btnTaoHoaDon1)
                     .addComponent(btnThanhToan1)
                     .addComponent(btnDaGiao))
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                .addComponent(btnexit)
+                .addContainerGap())
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -670,6 +685,7 @@ public class ViewBanHang extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tableSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSanPhamMouseClicked
@@ -758,7 +774,7 @@ public class ViewBanHang extends javax.swing.JFrame {
         // TODO add your handling code here:
         HoaDon hd = new HoaDon();
         hd.setNgayTao(new Date());
-        hd.setIdNhanVien("2F94B972-79D2-4581-BD54-A1C4E72292A7");
+        hd.setIdNhanVien("6434928A-874A-4C8B-84C2-ACC343E91400");
         hd.setTrangThai(0);
 
         JOptionPane.showMessageDialog(this, _iHoaDonService.add(hd));
@@ -783,7 +799,7 @@ public class ViewBanHang extends javax.swing.JFrame {
         // TODO add your handling code here:
         HoaDon hd = new HoaDon();
         hd.setNgayTao(new Date());
-        hd.setIdNhanVien("2F94B972-79D2-4581-BD54-A1C4E72292A7");
+        hd.setIdNhanVien("6434928A-874A-4C8B-84C2-ACC343E91400");
         hd.setTrangThai(2);
 
         JOptionPane.showMessageDialog(this, _iHoaDonService.add(hd));
@@ -820,6 +836,11 @@ public class ViewBanHang extends javax.swing.JFrame {
         showDataTableGioHang(_listHoaDonChiTiet);
         JOptionPane.showMessageDialog(this, "Đã giao thành công");
     }//GEN-LAST:event_btnDaGiaoActionPerformed
+
+    private void btnexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexitActionPerformed
+        // TODO add your handling code here:\
+       this.dispose();
+    }//GEN-LAST:event_btnexitActionPerformed
 
     public void showDataTableGioHang(List<QLHoaDonChiTiet> list) {
         dtmGioHang = (DefaultTableModel) tableGioHang.getModel();
@@ -895,6 +916,7 @@ public class ViewBanHang extends javax.swing.JFrame {
     private javax.swing.JButton btnTaoHoaDon1;
     private javax.swing.JButton btnThanhToan;
     private javax.swing.JButton btnThanhToan1;
+    private javax.swing.JButton btnexit;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
