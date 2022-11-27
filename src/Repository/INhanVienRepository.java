@@ -11,7 +11,7 @@ public interface INhanVienRepository {
 
     public void insert(NhanVien nv);
 
-    public void update(NhanVien nv , String IdNV);
+    public void update(NhanVien nv , String maNV);
 
     public void delete(String maNv);
 }

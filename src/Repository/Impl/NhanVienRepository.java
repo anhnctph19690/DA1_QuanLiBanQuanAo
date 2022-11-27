@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class NhanVienRepository implements INhanVienRepository {
+public class NhanVienRepository implements INhanVienRepository{
 
     Connection conn = DBConnection.getConnection();
 
@@ -59,48 +59,46 @@ public class NhanVienRepository implements INhanVienRepository {
     public void insert(NhanVien nv) {
         try {
 
-            String query = "insert into NhanVien"
-                    + "(MaNV,tenNV,DiaChi,Sdt,gioitinh,NgaySinh,MatKhau,trangThai,idCV) values "
-                    + "(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "{call procThemNV(?, ?, ?, ?, ?, ?, ?, ?)}";
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, nv.getMaNV());
-            ps.setString(2, nv.getTenNV());
-            ps.setString(3, nv.getDiaChi());
-            ps.setString(4, nv.getsDT());
-            ps.setString(5, nv.getGioiTinh());
-            ps.setString(6, nv.getNgaySinh());
-            ps.setString(7, nv.getMatKhau());
-            ps.setInt(8, nv.getTrangThai());
-            ps.setString(9, nv.getIdCV());
+            
+            ps.setString(1, nv.getTenNV());
+            ps.setString(2, nv.getDiaChi());
+            ps.setString(3, nv.getsDT());
+            ps.setString(4, nv.getGioiTinh());
+            ps.setString(5, nv.getNgaySinh());
+            ps.setString(6, nv.getMatKhau());
+            ps.setInt(7, nv.getTrangThai());
+            ps.setString(8, nv.getIdCV());
 
             ps.execute();
-            System.out.println("Insert OK");
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Insert X");
         }
 
     }
-
+//    public static void main(String[] args) {
+//        NhanVienRepository nhanVienRepository = new NhanVienRepository();
+//        nhanVienRepository.insert(new NhanVien("", "", "Tuan Anh", "uhdsfuds", "gfsdgs", "Nam", "2022-12-12", "frsgfs", 1, "D1C3E9A0-A6A8-4AA7-A6EA-D5A08874AE75"));
+//    }
     @Override
-    public void update(NhanVien nv, String IdNV) {
+    public void update(NhanVien nv, String maNV) {
         try {
 
-            String query = "UPDATE NhanVien SET TenNV =?, MaNV = ?, DiaChi =?, Sdt =?, Gioitinh =?, NgaySinh =?, MatKhau =?,TrangThai = ?,idCV = ? "
-                    + " Where IdNV = ? ";
+            String query = "UPDATE NhanVien SET TenNV =?, DiaChi =?, Sdt =?, Gioitinh =?, NgaySinh =?, MatKhau =?,TrangThai = ?, IdCV = ? "
+                    + " Where MaNV = ? ";
 
             PreparedStatement ps = conn.prepareStatement(query);
 
             ps.setString(1, nv.getTenNV());
-            ps.setString(2, nv.getMaNV());
-            ps.setString(3, nv.getDiaChi());
-            ps.setString(4, nv.getsDT());
-            ps.setString(5, nv.getGioiTinh());
-            ps.setString(6, nv.getNgaySinh());
-            ps.setString(7, nv.getMatKhau());
-            ps.setInt(8, nv.getTrangThai());
-            ps.setString(9, nv.getIdCV());
-            ps.setString(10, IdNV);
+            ps.setString(2, nv.getDiaChi());
+            ps.setString(3, nv.getsDT());
+            ps.setString(4, nv.getGioiTinh());
+            ps.setString(5, nv.getNgaySinh());
+            ps.setString(6, nv.getMatKhau());
+            ps.setInt(7, nv.getTrangThai());
+            ps.setString(8, nv.getIdCV());
+            ps.setString(9, maNV);
 
             ps.execute();
 
@@ -110,11 +108,11 @@ public class NhanVienRepository implements INhanVienRepository {
 
     }
 
-    @Override
+   @Override
     public void delete(String maNv) {
         try {
 
-            String query = "DELETE NhanVien Where IdNV = ?";
+            String query = "DELETE NhanVien Where maNV = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, maNv);
             ps.execute();
@@ -125,7 +123,7 @@ public class NhanVienRepository implements INhanVienRepository {
         }
     }
 
-    @Override
+  @Override
     public String getIDChucVu(String tenCV) {
 String query = "SELECT * FROM dbo.ChucVu WHERE ChucVu = ?";
 String idCV = null;
