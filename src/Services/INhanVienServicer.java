@@ -10,7 +10,7 @@ public interface INhanVienServicer {
 
     public void insert(NhanVien NV);
 
-    public void update(NhanVien nv, String IdNV);
+    public void update(NhanVien nv, String maNV);
 
     public void delete(String IdNV);
 

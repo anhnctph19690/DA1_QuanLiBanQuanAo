@@ -285,7 +285,7 @@ INSERT INTO dbo.HoaDonChiTiet (IdHoaDon,IdCTSP,SoLuong,IdHoaDonChiTiet)VALUES('B
 INSERT INTO dbo.HoaDonChiTiet (IdHoaDon,IdCTSP,SoLuong,IdHoaDonChiTiet)VALUES('B5266C11-439A-4FFE-A700-5649E199B744','67E20EC6-60A3-471F-A98F-0AB7F9531A99',8, DEFAULT)
 
 
-SELECT * FROM dbo.HoaDon
+SELECT * FROM dbo.NhanVien
 select RIGHT(MAX(MaHD),5) from HoaDon
 
 
@@ -294,7 +294,7 @@ select RIGHT(MAX(MaHD),5) from HoaDon
 create proc procThemHdTaiQuay
 		@NgayTao date,
 		@IdNV UNIQUEIDENTIFIER,
-		@IdKh UNIQUEIDENTIFIER,
+		
 		@TrangThai int
 	as
 	begin
@@ -304,7 +304,7 @@ create proc procThemHdTaiQuay
 		else
 			Set @MaHD=(select RIGHT(MAX(MaHD),5) from HoaDon)+1
 		Set @MaHD='HD'+REPLICATE('0',5-LEN(@MaHD))+@MaHD
-		insert into HoaDon(MaHD, NgayTao, IdNV, IdKH, TrangThai) values(@MaHD,@NgayTao, @IdNV, @IdKh, @TrangThai)
+		insert into HoaDon(MaHD, NgayTao, IdNV, TrangThai) values(@MaHD,@NgayTao, @IdNV, @TrangThai)
 		
 	END
     
@@ -400,3 +400,17 @@ create proc procThemChatLieu
 		where ma = @MaLSP
 		return
 	end
+
+
+	SELECT * FROM dbo.NhanVien
+	DELETE FROM dbo.HoaDon
+	DELETE FROM dbo.HoaDonChiTiet
+	EXEC dbo.procThemNV @TenNV = N'fbvdf',             -- nvarchar(50)
+	                    @DiaChi = N'bdfbdf',            -- nvarchar(50)
+	                    @SDT = '56786474',                -- varchar(20)
+	                    @GioiTinh = N'Nam',          -- nvarchar(50)
+	                    @NgaySinh = '2022-11-27', -- date
+	                    @MatKhau = N'vjrv',           -- nvarchar(30)
+	                    @TrangThai = 1,           -- int
+	                    @IdCV = 'D1C3E9A0-A6A8-4AA7-A6EA-D5A08874AE75'              -- uniqueidentifier
+	SELECT * FROM dbo.ChucVu
