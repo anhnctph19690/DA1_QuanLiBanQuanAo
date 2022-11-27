@@ -9,6 +9,7 @@ import Repository.IChiTietSanPhamRepository;
 import Repository.Impl.ChiTietSanPhamRepository;
 import Services.IChiTietSanPhamService;
 import ViewModel.QLChiTietSanPham;
+import Ultilities.DBConnection;
 import java.util.List;
 
 /**
@@ -61,4 +62,28 @@ public class ChiTietSanPhamService implements IChiTietSanPhamService {
     public String getIdSP(String id) {
         return _iChiTietSanPhamRepository.getIdSP(id);
     }
+
+    @Override
+    public int demSoLuongSPCH() {
+        return _iChiTietSanPhamRepository.demSoLuongSPCH();
+    }
+
+    @Override
+    public int demSoLuongSPHH() {
+         return _iChiTietSanPhamRepository.demSoLuongSPHH();
+    }
+
+    @Override
+    public int TongSP() {
+         return _iChiTietSanPhamRepository.TongSP();
+    }
+
+    
+
+    
+   
+    
+    
+
+    
 }

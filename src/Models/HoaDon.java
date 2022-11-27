@@ -47,6 +47,12 @@ public class HoaDon {
         this.TrangThai = TrangThai;
     }
 
+    public HoaDon(int TrangThai) {
+        this.TrangThai = TrangThai;
+    }
+    
+    
+
     public String getIdHoaDon() {
         return IdHoaDon;
     }

@@ -25,4 +25,10 @@ public interface IChiTietSanPhamService {
     int checkSoLuong(String id);
 
     String getIdSP(String id);
+    
+    public int demSoLuongSPCH();
+    
+    public int demSoLuongSPHH();
+    
+     public int TongSP();
 }

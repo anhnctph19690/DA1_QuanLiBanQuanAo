@@ -28,5 +28,11 @@ public interface IChiTietSanPhamRepository {
     boolean uppdateSoLuong(String IdCTSP, int soLuong);
 
     int checkSoLuong(String id);
+    
+    public int demSoLuongSPCH();
+    
+    public int demSoLuongSPHH();
+    
+    public int TongSP();
 
 }

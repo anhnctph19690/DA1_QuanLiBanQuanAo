@@ -44,4 +44,20 @@ public class HoaDonService implements IHoaDonService {
         hoaDonRepository.updateHoaDonGiaoHang(hd, id);
     }
 
+    @Override
+    public int demSoLuongHoaDonCTT() {
+        return hoaDonRepository.demSoLuongHoaDonCTT();
+    }
+
+    @Override
+    public int demSoLuongHoaDonDTT() {
+          return hoaDonRepository.demSoLuongHoaDonDTT();
+    }
+
+    @Override
+    public int Tonghoadon() {
+        return hoaDonRepository.TongHD();
+    }
+
+    
 }

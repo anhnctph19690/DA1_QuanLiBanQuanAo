@@ -44,7 +44,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     public List<QLChiTietSanPham> getAll() {
 
         List<QLChiTietSanPham> list = new ArrayList<>();
-        try ( Connection conn = DBConnection.getConnection();) {
+        try (Connection conn = DBConnection.getConnection();) {
             PreparedStatement ps = conn.prepareStatement(SELECT_ALL);
             ResultSet rs = ps.executeQuery();
 
@@ -74,11 +74,13 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
         return list;
 
     }
+    
+    
 
     @Override
     public boolean add(ChiTietSanPham chiTietSanPham) {
         int check = 0;
-        try ( Connection conn = DBConnection.getConnection();) {
+        try (Connection conn = DBConnection.getConnection();) {
             PreparedStatement ps = conn.prepareStatement(INSERT_SQL);
             ps.setObject(1, chiTietSanPham.getIdSanPham());
             ps.setObject(2, chiTietSanPham.getIdNhaSanXuat());
@@ -105,7 +107,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     @Override
     public boolean update(ChiTietSanPham chiTietSanPham, String id) {
         int check = 0;
-        try ( Connection conn = DBConnection.getConnection();) {
+        try (Connection conn = DBConnection.getConnection();) {
             PreparedStatement ps = conn.prepareStatement(UPDATE_SQL);
             ps.setObject(1, chiTietSanPham.getIdNhaSanXuat());
             ps.setObject(2, chiTietSanPham.getIdMauSac());
@@ -132,7 +134,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     @Override
     public boolean delete(String id) {
         int check = 0;
-        try ( Connection conn = DBConnection.getConnection()) {
+        try (Connection conn = DBConnection.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(DELETE_BY_ID);
             ps.setObject(1, id);
 
@@ -148,7 +150,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     public String getIdSP(String id) {
         String query = "SELECT IdSP FROM dbo.SanPham WHERE MaSP = ?";
         String IdSP = null;
-        try ( Connection conn = DBConnection.getConnection()) {
+        try (Connection conn = DBConnection.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
@@ -165,7 +167,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     public boolean uppdateSoLuong(String IdCTSP, int soLuong) {
         int check = 0;
         String query = "UPDATE dbo.ChiTietSP SET SoLuong = ? WHERE IdCTSP = ?";
-        try ( Connection conn = DBConnection.getConnection()) {
+        try (Connection conn = DBConnection.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1, soLuong);
             ps.setString(2, IdCTSP);
@@ -180,7 +182,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     public int checkSoLuong(String id) {
         String query = "SELECT SoLuong FROM dbo.ChiTietSP WHERE IdSP = ?";
         int soLuong = 0;
-        try ( Connection conn = DBConnection.getConnection()) {
+        try (Connection conn = DBConnection.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setObject(1, id);
             ResultSet rs = ps.executeQuery();
@@ -194,6 +196,99 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
         return 0;
     }
 
+    public int demSoLuongSanPham() {
+        int soluonghoadon = 0;
+        Connection conn = DBConnection.getConnection();
+        String sql = "SELECT COUNT(MaHD) AS N'Hóa đơn chưa thanh toán' FROM HoaDon WHERE TrangThai = ?  ";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, soluonghoadon);
+            ps.execute();
+
+            ResultSet rs = ps.getResultSet();
+            while (rs.next() == true) {
+                soluonghoadon = rs.getInt(1);
+            }
+
+        } catch (Exception e) {
+        }
+        return soluonghoadon;
+
+    }
+
+    @Override
+    public int TongSP() {
+        int soluongcon = 0;
+        Connection conn = DBConnection.getConnection();
+        String sql = "select count(IdCTSP) from ChiTietSP ";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+           
+            ps.execute();
+
+            ResultSet rs = ps.getResultSet();
+            while (rs.next() == true) {
+                soluongcon = rs.getInt(1);
+            }
+
+        } catch (Exception e) {
+        }
+        return soluongcon;
+
+    }
+
+    @Override
+    public int demSoLuongSPCH() {
+        int soluongcon = 0;
+        Connection conn = DBConnection.getConnection();
+        String sql = "select count(IdCTSP) from ChiTietSP where TrangThai = 1";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+           
+            ps.execute();
+
+            ResultSet rs = ps.getResultSet();
+            while (rs.next() == true) {
+                soluongcon = rs.getInt(1);
+            }
+
+        } catch (Exception e) {
+        }
+        return soluongcon;
+    }
+
+    @Override
+    public int demSoLuongSPHH() {
+        int soluonghet = 0;
+        Connection conn = DBConnection.getConnection();
+        String sql = "select count(IdCTSP) from ChiTietSP where TrangThai = 0";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+           
+            ps.execute();
+
+            ResultSet rs = ps.getResultSet();
+            while (rs.next() == true) {
+                soluonghet = rs.getInt(1);
+            }
+
+        } catch (Exception e) {
+        }
+        return soluonghet;
+    }
+    
     public static void main(String[] args) {
+        ChiTietSanPhamRepository ctsp = new ChiTietSanPhamRepository();
+        System.out.println(ctsp.demSoLuongSPCH());
+        System.out.println(ctsp.demSoLuongSPHH());
+        System.out.println(ctsp.TongSP());
     }
 }

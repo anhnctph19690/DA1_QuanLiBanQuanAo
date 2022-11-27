@@ -22,5 +22,11 @@ public interface IHoaDonService {
     void uppdateTrangThai(String id, int trangThai);
 
     void updateHoaDonGiaoHang(HoaDon hd, String id);
+    
+    public int demSoLuongHoaDonDTT();
+    
+    public int demSoLuongHoaDonCTT();
+    
+     public int Tonghoadon();
 
 }

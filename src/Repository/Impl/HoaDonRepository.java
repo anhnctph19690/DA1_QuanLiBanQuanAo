@@ -88,6 +88,7 @@ public class HoaDonRepository implements IHoaDonRepository {
 
     public static void main(String[] args) {
         new HoaDonRepository().getAll().forEach(s -> System.out.println(s.getIdHoaDon()));
+       
     }
 
     @Override
@@ -121,4 +122,72 @@ public class HoaDonRepository implements IHoaDonRepository {
         }
         return check > 0;
     }
+    
+    public int demSoLuongHoaDonDTT(){
+        int soluonghoadon = 0;
+        Connection conn = DBConnection.getConnection();
+        String sql = "SELECT COUNT(MaHD) FROM HoaDon WHERE TrangThai = 1 ";
+       
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+           
+            ps.execute();
+            
+            ResultSet rs = ps.getResultSet();
+           while(rs.next() == true){ 
+               soluonghoadon = rs.getInt(1);
+           }
+            
+        } catch (Exception e) {
+        }
+        return soluonghoadon;
+        
+    } 
+    
+    public int demSoLuongHoaDonCTT(){
+        int soluonghoadon = 0;
+        Connection conn = DBConnection.getConnection();
+        String sql = "SELECT COUNT(MaHD) AS N'Hóa đơn chưa thanh toán' FROM HoaDon WHERE TrangThai = 0 ";
+       
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.execute();
+            
+            ResultSet rs = ps.getResultSet();
+           while(rs.next() == true){ 
+               soluonghoadon = rs.getInt(1);
+           }
+            
+        } catch (Exception e) {
+        }
+        return soluonghoadon;
+        
+    } 
+    
+    
+     public int TongHD(){
+        int Tonghoadon = 0;
+        Connection conn = DBConnection.getConnection();
+        String sql = "SELECT COUNT(MaHD) FROM HoaDon  ";
+       
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.execute();
+            
+            ResultSet rs = ps.getResultSet();
+           while(rs.next() == true){ 
+               Tonghoadon = rs.getInt(1);
+           }
+            
+        } catch (Exception e) {
+        }
+        return Tonghoadon;
+        
+    } 
+    
 }
+
+
