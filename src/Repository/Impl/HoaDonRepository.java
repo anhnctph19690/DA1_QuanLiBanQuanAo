@@ -72,12 +72,11 @@ public class HoaDonRepository implements IHoaDonRepository {
     @Override
     public boolean add(HoaDon hoaDon) {
         int check = 0;
-        String query = "{call procThemHdTaiQuay(?, ?, ?, ?)}";
+        String query = "{call procThemHdTaiQuay(?, ?, ?)}";
         try ( Connection conn = DBConnection.getConnection();  PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setObject(1, hoaDon.getNgayTao());
             ps.setObject(2, hoaDon.getIdNhanVien());
-            ps.setObject(3, hoaDon.getIdKhachHang());
-            ps.setObject(4, hoaDon.getTrangThai());
+            ps.setObject(3, hoaDon.getTrangThai());
 
             check = ps.executeUpdate();
 

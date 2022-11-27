@@ -89,7 +89,7 @@ public class QLHoaDon {
     }
 
     public Object[] toDataRow() {
-        return new Object[]{soThuTu, maHoaDon, ngayTao, tenNhanVien, tenKhachHang, trangThai == 1 ? "Đã thanh toán" : "Chờ thanh toán"};
+        return new Object[]{soThuTu, maHoaDon, ngayTao, tenNhanVien, tenKhachHang == null ? "Khách lẻ" : tenKhachHang, trangThai == 0 ? "Chờ thanh toán" : trangThai == 1 ? "Đã thanh toán" : trangThai == 2 ? "Đang tạo" : trangThai == 3 ? "Đang giao" : "Đã giao"};
     }
 
     @Override
