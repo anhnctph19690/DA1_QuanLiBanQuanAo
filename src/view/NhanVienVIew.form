@@ -109,7 +109,7 @@
                               <Component id="txtMK" alignment="0" max="32767" attributes="0"/>
                               <Component id="cboChucVu" alignment="0" pref="232" max="32767" attributes="0"/>
                               <Component id="chkTrangThai" alignment="0" min="-2" pref="161" max="-2" attributes="0"/>
-                              <Component id="jDateChooser1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jDateChooser" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -152,8 +152,7 @@
                                   <Component id="txtTen" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                  <Component id="jDateChooser1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jDateChooser" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="txtdiaChi" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -351,7 +350,7 @@
             <Property name="text" type="java.lang.String" value=" Ho&#x1ea1;t &#x110;&#x1ed9;ng"/>
           </Properties>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser">
         </Component>
       </SubComponents>
     </Container>
