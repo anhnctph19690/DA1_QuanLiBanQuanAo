@@ -41,4 +41,9 @@ public class HoaDonChiTietService implements IHoaDonChiTietService {
         return total;
     }
 
+    @Override
+    public int doanhthu() {
+        return hoaDonChiTietRepository.doanhthu();
+    }
+
 }

@@ -19,4 +19,6 @@ public interface IHoaDonChiTietService {
      String addListInvoice(List<QLHoaDonChiTiet> list);
 
      Double totalMoneyOfInvoice(List<QLHoaDonChiTiet> list);
+     
+     public int doanhthu();
 }

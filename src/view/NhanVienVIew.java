@@ -241,10 +241,6 @@ public class NhanVienVIew extends javax.swing.JFrame {
         chkTrangThai.setSelected(true);
         chkTrangThai.setText(" Hoạt Động");
 
-        jDateChooser1.setDate(new java.util.Date(253370743315000L));
-        jDateChooser1.setDateFormatString("yyyy-MM-dd");
-        jDateChooser1.setMaxSelectableDate(new java.util.Date(253370743315000L));
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -275,7 +271,7 @@ public class NhanVienVIew extends javax.swing.JFrame {
                             .addComponent(txtMK, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cboChucVu, javax.swing.GroupLayout.Alignment.LEADING, 0, 232, Short.MAX_VALUE)
                             .addComponent(chkTrangThai, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel6)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(162, 162, 162)
@@ -307,9 +303,9 @@ public class NhanVienVIew extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
+                                .addGap(4, 4, 4)
                                 .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
+                                .addGap(35, 35, 35)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtdiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel4)

@@ -18,5 +18,7 @@ public interface IHoaDonChiTietRepository {
     List<QLHoaDonChiTiet> getAllInvoices(String id);
 
     boolean addListInvoice(List<QLHoaDonChiTiet> list);
+    
+    public int doanhthu();
 
 }

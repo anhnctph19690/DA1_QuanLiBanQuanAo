@@ -80,9 +80,36 @@ public class HoaDonChiTietRepository implements IHoaDonChiTietRepository {
         }
         return arr.length > 0;
     }
+    
+    
 
     public static void main(String[] args) {
         new HoaDonChiTietRepository().getAllInvoices("7096376D-C3F7-48F6-86DD-9EBB2A70DFA6").forEach(s -> System.out.println(s.toString()));
 
     }
+
+    @Override
+    public int doanhthu() {
+   
+        int tongDoanhThu = 0;
+        Connection conn = DBConnection.getConnection();
+        String sql = "select  sum(SoLuong * donGia) as DoanhThu from HoaDonChiTiet  ";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.execute();
+
+            ResultSet rs = ps.getResultSet();
+            while (rs.next() == true) {
+                tongDoanhThu = rs.getInt(1);
+            }
+
+        } catch (Exception e) {
+        }
+        return tongDoanhThu;
+
+    }
+
+    
 }
