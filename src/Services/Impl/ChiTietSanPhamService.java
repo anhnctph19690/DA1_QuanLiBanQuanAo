@@ -10,6 +10,7 @@ import Repository.Impl.ChiTietSanPhamRepository;
 import Services.IChiTietSanPhamService;
 import ViewModel.QLChiTietSanPham;
 import Ultilities.DBConnection;
+import ViewModel.QLThongKe;
 import java.util.List;
 
 /**
@@ -19,7 +20,8 @@ import java.util.List;
 public class ChiTietSanPhamService implements IChiTietSanPhamService {
 
     private IChiTietSanPhamRepository _iChiTietSanPhamRepository = new ChiTietSanPhamRepository();
-
+    
+    private ChiTietSanPhamRepository ChiTietSanPhamRepository = new ChiTietSanPhamRepository();
     @Override
     public List<QLChiTietSanPham> getAll() {
         return _iChiTietSanPhamRepository.getAll();
@@ -77,7 +79,18 @@ public class ChiTietSanPhamService implements IChiTietSanPhamService {
     public int TongSP() {
          return _iChiTietSanPhamRepository.TongSP();
     }
-
+    
+    
+    public List<QLThongKe> thongKeALL(String thongKeTheo,String SapXepTheo){
+      return ChiTietSanPhamRepository.thongKeAll( thongKeTheo, SapXepTheo);
+        
+    }
+    public static void main(String[] args) {
+        ChiTietSanPhamService ctsp = new ChiTietSanPhamService();
+        
+      
+       
+    }
     
 
     

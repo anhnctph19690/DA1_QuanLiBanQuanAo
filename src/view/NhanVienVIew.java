@@ -146,7 +146,6 @@ public class NhanVienVIew extends javax.swing.JFrame {
         txtMK = new javax.swing.JTextField();
         cboChucVu = new javax.swing.JComboBox<>();
         chkTrangThai = new javax.swing.JCheckBox();
-        jdcNgaySInh = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
         btnXoa = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
@@ -241,11 +240,6 @@ public class NhanVienVIew extends javax.swing.JFrame {
         chkTrangThai.setSelected(true);
         chkTrangThai.setText(" Hoạt Động");
 
-        jdcNgaySInh.setDate(new java.util.Date(915123600000L));
-        jdcNgaySInh.setDateFormatString("yyyy-MM-dd");
-        jdcNgaySInh.setMaxSelectableDate(new java.util.Date(253370743294000L));
-        jdcNgaySInh.setMinSelectableDate(new java.util.Date(-62135791106000L));
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -273,7 +267,6 @@ public class NhanVienVIew extends javax.swing.JFrame {
                             .addComponent(jLabel9))
                         .addGap(42, 42, 42)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jdcNgaySInh, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtMK, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cboChucVu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(chkTrangThai, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -297,10 +290,7 @@ public class NhanVienVIew extends javax.swing.JFrame {
                                 .addComponent(rdoNu))
                             .addComponent(jLabel6))
                         .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jdcNgaySInh, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel7))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbMaNhanVien)
@@ -322,8 +312,8 @@ public class NhanVienVIew extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(txtSdt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10)
-                            .addComponent(cboChucVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)))
+                            .addComponent(cboChucVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(chkTrangThai))
@@ -654,7 +644,6 @@ public class NhanVienVIew extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private com.toedter.calendar.JDateChooser jdcNgaySInh;
     private javax.swing.JLabel lbMaNhanVien;
     private javax.swing.JRadioButton rdoNam;
     private javax.swing.JRadioButton rdoNu;

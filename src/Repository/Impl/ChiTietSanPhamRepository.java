@@ -8,6 +8,7 @@ import Models.ChiTietSanPham;
 import Repository.IChiTietSanPhamRepository;
 import Ultilities.DBConnection;
 import ViewModel.QLChiTietSanPham;
+import ViewModel.QLThongKe;
 import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -44,7 +45,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     public List<QLChiTietSanPham> getAll() {
 
         List<QLChiTietSanPham> list = new ArrayList<>();
-        try (Connection conn = DBConnection.getConnection();) {
+        try ( Connection conn = DBConnection.getConnection();) {
             PreparedStatement ps = conn.prepareStatement(SELECT_ALL);
             ResultSet rs = ps.executeQuery();
 
@@ -74,13 +75,11 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
         return list;
 
     }
-    
-    
 
     @Override
     public boolean add(ChiTietSanPham chiTietSanPham) {
         int check = 0;
-        try (Connection conn = DBConnection.getConnection();) {
+        try ( Connection conn = DBConnection.getConnection();) {
             PreparedStatement ps = conn.prepareStatement(INSERT_SQL);
             ps.setObject(1, chiTietSanPham.getIdSanPham());
             ps.setObject(2, chiTietSanPham.getIdNhaSanXuat());
@@ -107,7 +106,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     @Override
     public boolean update(ChiTietSanPham chiTietSanPham, String id) {
         int check = 0;
-        try (Connection conn = DBConnection.getConnection();) {
+        try ( Connection conn = DBConnection.getConnection();) {
             PreparedStatement ps = conn.prepareStatement(UPDATE_SQL);
             ps.setObject(1, chiTietSanPham.getIdNhaSanXuat());
             ps.setObject(2, chiTietSanPham.getIdMauSac());
@@ -134,7 +133,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     @Override
     public boolean delete(String id) {
         int check = 0;
-        try (Connection conn = DBConnection.getConnection()) {
+        try ( Connection conn = DBConnection.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(DELETE_BY_ID);
             ps.setObject(1, id);
 
@@ -150,7 +149,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     public String getIdSP(String id) {
         String query = "SELECT IdSP FROM dbo.SanPham WHERE MaSP = ?";
         String IdSP = null;
-        try (Connection conn = DBConnection.getConnection()) {
+        try ( Connection conn = DBConnection.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
@@ -167,7 +166,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     public boolean uppdateSoLuong(String IdCTSP, int soLuong) {
         int check = 0;
         String query = "UPDATE dbo.ChiTietSP SET SoLuong = ? WHERE IdCTSP = ?";
-        try (Connection conn = DBConnection.getConnection()) {
+        try ( Connection conn = DBConnection.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1, soLuong);
             ps.setString(2, IdCTSP);
@@ -182,7 +181,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     public int checkSoLuong(String id) {
         String query = "SELECT SoLuong FROM dbo.ChiTietSP WHERE IdSP = ?";
         int soLuong = 0;
-        try (Connection conn = DBConnection.getConnection()) {
+        try ( Connection conn = DBConnection.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setObject(1, id);
             ResultSet rs = ps.executeQuery();
@@ -227,7 +226,6 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
 
-           
             ps.execute();
 
             ResultSet rs = ps.getResultSet();
@@ -250,7 +248,6 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
 
-           
             ps.execute();
 
             ResultSet rs = ps.getResultSet();
@@ -272,7 +269,6 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
 
-           
             ps.execute();
 
             ResultSet rs = ps.getResultSet();
@@ -284,9 +280,59 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
         }
         return soluonghet;
     }
-    
+
+    public List<QLThongKe> thongKeAll(String thongKeTheo, String SapXepTheo) {
+
+        List<QLThongKe> listQLThongKe = new ArrayList<>();
+        try ( Connection conn = DBConnection.getConnection();) {
+            String sql
+                    = "SELECT dbo.SanPham.MaSP, dbo.SanPham.Ten, dbo.ChatLieu.TenChatLieu, dbo.MauSac.TenMauSac, dbo.Size.SoSize, dbo.ThuongHieu.TenThuongHieu, dbo.NSX.Ten as TenNSX, dbo.ChiTietSP.SoLuong, dbo.ChiTietSP.GiaNhap, "
+                    + " dbo.ChiTietSP.GiaBan "
+                    + "FROM dbo.ChiTietSP INNER JOIN "
+                    + " dbo.ChatLieu ON dbo.ChiTietSP.IdChatLieu = dbo.ChatLieu.IdChatLieu INNER JOIN "
+                    + " dbo.MauSac ON dbo.ChiTietSP.IdMauSac = dbo.MauSac.IdMauSac INNER JOIN "
+                    + " dbo.ThuongHieu ON dbo.ChiTietSP.IdThuongHieu = dbo.ThuongHieu.IdThuongHieu INNER JOIN "
+                    + " dbo.NSX ON dbo.ChiTietSP.IdNSX = dbo.NSX.IdNSX INNER JOIN "
+                    + " dbo.SanPham ON dbo.ChiTietSP.IdSP = dbo.SanPham.IdSP INNER JOIN "
+                    + " dbo.Size ON dbo.ChiTietSP.IdSize = dbo.Size.IdSize "
+                    + " GROUP BY dbo.SanPham.MaSP, dbo.SanPham.Ten, dbo.ChatLieu.TenChatLieu, dbo.MauSac.TenMauSac, dbo.Size.SoSize, dbo.ThuongHieu.TenThuongHieu, dbo.NSX.Ten, dbo.ChiTietSP.SoLuong, dbo.ChiTietSP.GiaNhap, "
+                    + " dbo.ChiTietSP.GiaBan "
+                    + "ORDER BY " + thongKeTheo + "  " + SapXepTheo;
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            //ps.setString(1, thongKeTheo);
+            ps.execute();
+
+            ResultSet rs = ps.getResultSet();
+
+            while (rs.next()) {
+                QLThongKe qlTK = new QLThongKe();
+
+                qlTK.setStt(0);
+                qlTK.setMaSP(rs.getString("MaSP"));
+                qlTK.setTenSP(rs.getString("Ten"));
+                qlTK.setChatLieu(rs.getString("TenChatLieu"));
+                qlTK.setMauSac(rs.getString("TenMauSac"));
+                qlTK.setKichThuoc(rs.getString("SoSize"));
+                qlTK.setThuongHieu(rs.getString("TenThuongHieu"));
+                qlTK.setNsx(rs.getString("TenNSX"));
+                qlTK.setSoLuong(rs.getInt("giaNhap"));
+                qlTK.setGiaNhap(rs.getDouble("GiaNhap"));
+                qlTK.setGiaBan(rs.getDouble("GiaBan"));
+
+                listQLThongKe.add(qlTK);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return listQLThongKe;
+
+    }
+
     public static void main(String[] args) {
         ChiTietSanPhamRepository ctsp = new ChiTietSanPhamRepository();
+        System.out.println(ctsp.thongKeAll("SoLuong", "DESC"));
+
         System.out.println(ctsp.demSoLuongSPCH());
         System.out.println(ctsp.demSoLuongSPHH());
         System.out.println(ctsp.TongSP());

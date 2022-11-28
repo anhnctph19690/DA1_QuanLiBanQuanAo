@@ -7,6 +7,7 @@ package Repository;
 import Models.ChiTietSanPham;
 import Models.HoaDonChiTiet;
 import ViewModel.QLChiTietSanPham;
+import ViewModel.QLThongKe;
 import java.util.List;
 
 /**
@@ -28,11 +29,13 @@ public interface IChiTietSanPhamRepository {
     boolean uppdateSoLuong(String IdCTSP, int soLuong);
 
     int checkSoLuong(String id);
-    
+
     public int demSoLuongSPCH();
-    
+
     public int demSoLuongSPHH();
-    
+
     public int TongSP();
+
+   // public List<QLThongKe> thongKeAll(String thongKeTheo,String SapXepTheo);
 
 }

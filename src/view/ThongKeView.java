@@ -6,60 +6,83 @@ package view;
 
 import Services.Impl.ChiTietSanPhamService;
 import Services.Impl.HoaDonService;
+import ViewModel.QLThongKe;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author PC- ASUS
  */
 public class ThongKeView extends javax.swing.JFrame {
+
     private HoaDonService hoaDonService;
     private ChiTietSanPhamService chiTietSanPhamService;
-      
-    /** 
+
+    /**
      * Creates new form ThongKeView
      */
     public ThongKeView() {
         initComponents();
         setLocationRelativeTo(null);
+
         this.hoaDonService = new HoaDonService();
         this.chiTietSanPhamService = new ChiTietSanPhamService();
+        this.loadTable("SoLuong", "ASC");
         hienthithongkehoadon();
         hienthithongkeSP();
     }
-    
-  
-    public void hienthithongkehoadon(){
+
+    public void hienthithongkehoadon() {
         int soluonghoadonCTT = hoaDonService.demSoLuongHoaDonCTT();
         int soluonghoadonDTT = hoaDonService.demSoLuongHoaDonDTT();
         int tonghoadon = hoaDonService.Tonghoadon();
-        
+
         String HDCTT = String.valueOf(soluonghoadonCTT);
         String HDDTT = String.valueOf(soluonghoadonDTT);
         String tonghd = String.valueOf(tonghoadon);
-        
+
         lbHoaDonCTT.setText(HDCTT);
         lbHoadonDaTT.setText(HDDTT);
         lbTongHD.setText(tonghd);
-        
-        
-        
-     }
-    
-      public void hienthithongkeSP(){
+
+    }
+
+    public void hienthithongkeSP() {
         int soLSPCH = chiTietSanPhamService.demSoLuongSPCH();
         int soLSPHH = chiTietSanPhamService.demSoLuongSPHH();
         int tongSP = chiTietSanPhamService.TongSP();
-        
+
         String SPCH = String.valueOf(soLSPCH);
         String SPHH = String.valueOf(soLSPHH);
         String tongsp = String.valueOf(tongSP);
-        
+
         lbSPCH.setText(SPCH);
         lbSPHH.setText(SPHH);
         lbTongSP.setText(tongsp);
-     }
-    
-   
+    }
+
+    public void loadTable(String thongKeTheo, String sapXepTheo) {
+
+        DefaultTableModel dtm = (DefaultTableModel) tbCTSP.getModel();
+        dtm.setRowCount(0);
+        int stt = 1;
+        for (QLThongKe QLtk : this.chiTietSanPhamService.thongKeALL(thongKeTheo, sapXepTheo)) {
+            Object rowData[] = {
+                stt++,
+                QLtk.getMaSP(),
+                QLtk.getTenSP(),
+                QLtk.getChatLieu(),
+                QLtk.getMauSac(),
+                QLtk.getKichThuoc(),
+                QLtk.getThuongHieu(),
+                QLtk.getNsx(),
+                QLtk.getSoLuong(),
+                QLtk.getGiaNhap(),
+                QLtk.getGiaBan(),};
+            dtm.addRow(rowData);
+        }
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -91,11 +114,10 @@ public class ThongKeView extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbCTSP = new javax.swing.JTable();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        btnLoc = new javax.swing.JButton();
+        radioSoLuong = new javax.swing.JRadioButton();
+        radioGiaBan = new javax.swing.JRadioButton();
+        radioGiaNhap = new javax.swing.JRadioButton();
+        cbbSapXep = new javax.swing.JComboBox<>();
         btnThoat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -151,7 +173,7 @@ public class ThongKeView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbTongHD)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,7 +262,7 @@ public class ThongKeView extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbTongSP)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -264,24 +286,56 @@ public class ThongKeView extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tbCTSP);
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Số Lượng");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(radioSoLuong);
+        radioSoLuong.setSelected(true);
+        radioSoLuong.setText("Số Lượng");
+        radioSoLuong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioSoLuongMouseClicked(evt);
+            }
+        });
+        radioSoLuong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                radioSoLuongActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Giá Bán ");
+        buttonGroup1.add(radioGiaBan);
+        radioGiaBan.setText("Giá Bán ");
+        radioGiaBan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioGiaBanMouseClicked(evt);
+            }
+        });
+        radioGiaBan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioGiaBanActionPerformed(evt);
+            }
+        });
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setText("Giá Nhập");
+        buttonGroup1.add(radioGiaNhap);
+        radioGiaNhap.setText("Giá Nhập");
+        radioGiaNhap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioGiaNhapMouseClicked(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tăng Dần", "Giảm Dần" }));
-
-        btnLoc.setText("Lọc SP");
+        cbbSapXep.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tăng Dần", "Giảm Dần" }));
+        cbbSapXep.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                cbbSapXepAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        cbbSapXep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbSapXepActionPerformed(evt);
+            }
+        });
 
         btnThoat.setText("EXIT");
         btnThoat.addActionListener(new java.awt.event.ActionListener() {
@@ -295,75 +349,127 @@ public class ThongKeView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
-                        .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(179, 179, 179)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(btnLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(14, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27))))
+                        .addGap(0, 8, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(radioSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(radioGiaNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(radioGiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(188, 188, 188)
+                        .addComponent(cbbSapXep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnLoc))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jRadioButton2)
-                                .addComponent(jRadioButton1))))
+                        .addGap(86, 86, 86)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(radioGiaBan)
+                            .addComponent(radioSoLuong)
+                            .addComponent(radioGiaNhap)
+                            .addComponent(cbbSapXep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jRadioButton3)))
-                .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
-                .addComponent(btnThoat))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    private void radioSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioSoLuongActionPerformed
+        String sapXep = "";
+        if (cbbSapXep.getSelectedItem().equals("Giảm Dần")) {
+            sapXep = "DESC";
+        } else {
+            sapXep = "ASC";
+        }
+        loadTable("GiaBan", sapXep);
+
+    }//GEN-LAST:event_radioSoLuongActionPerformed
 
     private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnThoatActionPerformed
+
+    private void radioSoLuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioSoLuongMouseClicked
+
+    }//GEN-LAST:event_radioSoLuongMouseClicked
+
+    private void cbbSapXepAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbbSapXepAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbSapXepAncestorAdded
+
+    private void radioGiaBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioGiaBanMouseClicked
+
+    }//GEN-LAST:event_radioGiaBanMouseClicked
+
+    private void radioGiaNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioGiaNhapMouseClicked
+        String sapXep = "";
+
+        if (cbbSapXep.getSelectedItem().equals("Giảm Dần")) {
+            sapXep = "DESC";
+        } else {
+            sapXep = "ASC";
+        }
+        loadTable("GiaNhap", sapXep);
+    }//GEN-LAST:event_radioGiaNhapMouseClicked
+
+    private void radioGiaBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioGiaBanActionPerformed
+        String sapXep = "";
+        if (cbbSapXep.getSelectedItem().equals("Giảm Dần")) {
+            sapXep = "DESC";
+        } else {
+            sapXep = "ASC";
+        }
+        loadTable("GiaBan", sapXep);
+    }//GEN-LAST:event_radioGiaBanActionPerformed
+
+    private void cbbSapXepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSapXepActionPerformed
+
+        if (radioSoLuong.isSelected() && cbbSapXep.getSelectedItem().equals("Giảm Dần")) {
+            loadTable("SoLuong", "DESC");
+        } else if (radioGiaNhap.isSelected() && cbbSapXep.getSelectedItem().equals("Giảm Dần")) {
+            loadTable("GiaNhap", "DESC");
+        } else if (radioGiaBan.isSelected() && cbbSapXep.getSelectedItem().equals("Giảm Dần")) {
+            loadTable("GiaBan", "DESC");
+        }
+        if (radioSoLuong.isSelected() && cbbSapXep.getSelectedItem().equals("Tăng Dần")) {
+            loadTable("SoLuong", "ASC");
+        } else if (radioGiaNhap.isSelected() && cbbSapXep.getSelectedItem().equals("Tăng Dần")) {
+            loadTable("GiaNhap", "ASC");
+        } else if (radioGiaBan.isSelected() && cbbSapXep.getSelectedItem().equals("Tăng Dần")) {
+            loadTable("GiaBan", "ASC");
+        }
+
+
+    }//GEN-LAST:event_cbbSapXepActionPerformed
 
     /**
      * @param args the command line arguments
@@ -401,11 +507,10 @@ public class ThongKeView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLoc;
     private javax.swing.JButton btnThoat;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbbSapXep;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -416,9 +521,6 @@ public class ThongKeView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbDoanhThu;
     private javax.swing.JLabel lbHoaDonCTT;
@@ -427,6 +529,9 @@ public class ThongKeView extends javax.swing.JFrame {
     private javax.swing.JLabel lbSPHH;
     private javax.swing.JLabel lbTongHD;
     private javax.swing.JLabel lbTongSP;
+    private javax.swing.JRadioButton radioGiaBan;
+    private javax.swing.JRadioButton radioGiaNhap;
+    private javax.swing.JRadioButton radioSoLuong;
     private javax.swing.JTable tbCTSP;
     // End of variables declaration//GEN-END:variables
 }

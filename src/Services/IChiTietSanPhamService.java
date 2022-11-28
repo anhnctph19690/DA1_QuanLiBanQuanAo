@@ -6,6 +6,7 @@ package Services;
 
 import Models.ChiTietSanPham;
 import ViewModel.QLChiTietSanPham;
+import ViewModel.QLThongKe;
 import java.util.List;
 
 /**
@@ -31,4 +32,8 @@ public interface IChiTietSanPhamService {
     public int demSoLuongSPHH();
     
      public int TongSP();
+     
+    //public List<QLThongKe> thongKeALL(String thongKeTheo,String SapXepTheo);
+     
+     
 }
