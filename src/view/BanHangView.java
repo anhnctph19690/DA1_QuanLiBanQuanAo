@@ -160,30 +160,73 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
             } catch (NotFoundException e) {
                 //No result...
             }
-
-            
             
             if (result != null) {
+                String soLuong = JOptionPane.showInputDialog("Nhập số lượng: ", "0");
                 lblQRMaSV.setText(result.getText());
                 String maSP = lblQRMaSV.getText();
-                String soLuong = JOptionPane.showInputDialog("Nhập số lượng: ", "0");
-                QLChiTietSanPham ctsp = getSanPhamByMaQr(maSP);
-                if (soLuong == null) {
+                QLChiTietSanPham sp = getSanPhamByMaQr(maSP);
+                int rowHoaDon = tableHoaDon.getSelectedRow();
+                if (rowHoaDon == -1) {
+                    JOptionPane.showMessageDialog(this, "Chưa chọn hóa đơm");
+                } else if (soLuong == null) {
                     JOptionPane.showMessageDialog(this, "Đã hủy");
                 } else {
-                    QLHoaDonChiTiet hdct = new QLHoaDonChiTiet();
-                    hdct.setIdCTSP(ctsp.getIdCTSP());
-                    hdct.setMaSP(ctsp.getMaSanPham());
-                    hdct.setTenSP(ctsp.getTenSanPham());
-                    hdct.setSoLuongMua(Integer.valueOf(soLuong));
-                    hdct.setDonGia(ctsp.getGiaBan());
-                    _listHoaDonChiTiet.add(hdct);
-                    showDataTableGioHang(_listHoaDonChiTiet);
+                    if (sp.getSoLuongTonKho() <= 0) {
+                        JOptionPane.showMessageDialog(this, "Sản phẩm đã hết hàng");
+                    } else if (Integer.valueOf(soLuong) <= 0) {
+                        JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0");
+                    } else if (Integer.valueOf(soLuong) > sp.getSoLuongTonKho()) {
+                        JOptionPane.showMessageDialog(this, "Số lượng sản phẩm chỉ còn: " + sp.getSoLuongTonKho());
+                    } else {
+                        QLHoaDon hd = _listHoaDon.get(rowHoaDon);
+                        QLHoaDonChiTiet hdct = new QLHoaDonChiTiet();
+                        hdct.setIdHoaDon(hd.getIdHoaDon());
+                        hdct.setIdCTSP(sp.getIdCTSP());
+                        hdct.setMaSP(sp.getMaSanPham());
+                        hdct.setTenSP(sp.getTenSanPham());
+                        hdct.setSoLuongMua(Integer.valueOf(soLuong));
+                        hdct.setDonGia(sp.getGiaBan());
+                        _listHoaDonChiTiet.add(hdct);
+
+                        sp.setSoLuongTonKho(sp.getSoLuongTonKho() - Integer.valueOf(soLuong));
+                        maps.put(sp, sp.getSoLuongTonKho());
+                        if (!txtSearchSP.getText().isEmpty()) {
+                            List<QLChiTietSanPham> listFound = searchByName(txtSearchSP.getText());
+                            List<QLChiTietSanPham> listFound1 = searchByMa(txtSearchSP.getText());
+                            if (!listFound.isEmpty()) {
+                                showDataTableSanPham(listFound);
+                            } else {
+                                showDataTableSanPham(listFound1);
+                            }
+                        } else {
+                            showDataTableSanPham(_listChiTietSanPham);
+                        }
+
+                        showDataTableGioHang(_listHoaDonChiTiet);
+                        labelKhachCanTra.setText(String.valueOf(_iHoaDonChiTietService.totalMoneyOfInvoice(_listHoaDonChiTiet)));
+                        labelTongTienHang.setText(String.valueOf(_iHoaDonChiTietService.totalMoneyOfInvoice(_listHoaDonChiTiet)));
+                        labelTongTienHang1.setText(String.valueOf(_iHoaDonChiTietService.totalMoneyOfInvoice(_listHoaDonChiTiet)));
+                        labelKhachCanTra1.setText(String.valueOf(_iHoaDonChiTietService.totalMoneyOfInvoice(_listHoaDonChiTiet)));
+                    }
                 }
+//
+//                if (soLuong == null) {
+//                    JOptionPane.showMessageDialog(this, "Đã hủy");
+//                } else {
+//                    QLHoaDonChiTiet hdct = new QLHoaDonChiTiet();
+//                    hdct.setIdCTSP(ctsp.getIdCTSP());
+//                    hdct.setMaSP(ctsp.getMaSanPham());
+//                    hdct.setTenSP(ctsp.getTenSanPham());
+//                    hdct.setSoLuongMua(Integer.valueOf(soLuong));
+//                    hdct.setDonGia(ctsp.getGiaBan());
+//                    _listHoaDonChiTiet.add(hdct);
+//                    showDataTableGioHang(_listHoaDonChiTiet);
+//                }
             }
         } while (true);
     }
-    
+
     private QLChiTietSanPham getSPByQRCode(String ma) {
         for (QLChiTietSanPham x : _listChiTietSanPham) {
             if (x.getMaSanPham().equals(ma)) {
