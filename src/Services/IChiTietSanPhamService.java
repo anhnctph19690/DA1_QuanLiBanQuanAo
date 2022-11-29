@@ -6,8 +6,8 @@ package Services;
 
 import Models.ChiTietSanPham;
 import ViewModel.QLChiTietSanPham;
-import ViewModel.QLThongKe;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -26,14 +26,12 @@ public interface IChiTietSanPhamService {
     int checkSoLuong(String id);
 
     String getIdSP(String id);
-    
+
+    void uppdateSoLuong(Map<QLChiTietSanPham, Integer> ctsp);
+
     public int demSoLuongSPCH();
-    
+
     public int demSoLuongSPHH();
-    
-     public int TongSP();
-     
-    //public List<QLThongKe> thongKeALL(String thongKeTheo,String SapXepTheo);
-     
-     
+
+    public int TongSP();
 }

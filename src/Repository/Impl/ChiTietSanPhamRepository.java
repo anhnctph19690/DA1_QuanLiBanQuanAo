@@ -41,6 +41,25 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
 
     final String UPDATE_SQL = "	update ChiTietSP set IdNSX = ?, IdMauSac = ?, IdLoaiSP = ?, IdChatLieu = ?, IdThuongHieu = ?, IdSize = ?, SoLuong = ?, GiaNhap = ?, GiaBan = ?, MoTa = ?, TrangThai = ? where IdSP = ?";
 
+    final String SEARCH_SQL_BY_NAME = "select ROW_NUMBER() OVER (ORDER BY sp.MaSP), ctsp.IdCTSP, sp.MaSP, sp.Ten, nsx.Ten, ms.TenMauSac, lsp.TenLoaiSP, cl.TenChatLieu, th.TenThuongHieu, s.SoSize, ctsp.SoLuong, ctsp.GiaNhap, ctsp.GiaBan, ctsp.MoTa, ctsp.TrangThai\n"
+            + "from SanPham sp, ChiTietSP ctsp, NSX nsx, MauSac ms, LoaiSanPham lsp, ChatLieu cl, ThuongHieu th, Size s \n"
+            + "where sp.IdSP = ctsp.IdSP\n"
+            + "and ctsp.IdNSX = nsx.IdNSX\n"
+            + "and ctsp.IdMauSac = ms.IdMauSac\n"
+            + "and ctsp.IdLoaiSP = lsp.IdLoaiSP\n"
+            + "and ctsp.IdChatLieu = cl.IdChatLieu\n"
+            + "and ctsp.IdThuongHieu = th.IdThuongHieu\n"
+            + "and ctsp.IdSize = s.IdSize and sp.Ten like ?";
+    final String SEARCH_SQL_BY_MA = "select ROW_NUMBER() OVER (ORDER BY sp.MaSP), ctsp.IdCTSP, sp.MaSP, sp.Ten, nsx.Ten, ms.TenMauSac, lsp.TenLoaiSP, cl.TenChatLieu, th.TenThuongHieu, s.SoSize, ctsp.SoLuong, ctsp.GiaNhap, ctsp.GiaBan, ctsp.MoTa, ctsp.TrangThai\n"
+            + "from SanPham sp, ChiTietSP ctsp, NSX nsx, MauSac ms, LoaiSanPham lsp, ChatLieu cl, ThuongHieu th, Size s \n"
+            + "where sp.IdSP = ctsp.IdSP\n"
+            + "and ctsp.IdNSX = nsx.IdNSX\n"
+            + "and ctsp.IdMauSac = ms.IdMauSac\n"
+            + "and ctsp.IdLoaiSP = lsp.IdLoaiSP\n"
+            + "and ctsp.IdChatLieu = cl.IdChatLieu\n"
+            + "and ctsp.IdThuongHieu = th.IdThuongHieu\n"
+            + "and ctsp.IdSize = s.IdSize and sp.MaSP like ?";
+
     @Override
     public List<QLChiTietSanPham> getAll() {
 
@@ -163,6 +182,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
         return null;
     }
 
+    @Override
     public boolean uppdateSoLuong(String IdCTSP, int soLuong) {
         int check = 0;
         String query = "UPDATE dbo.ChiTietSP SET SoLuong = ? WHERE IdCTSP = ?";
@@ -193,6 +213,75 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
             ex.printStackTrace();
         }
         return 0;
+    }
+
+    @Override
+    public List<QLChiTietSanPham> searchByName(String name) {
+        List<QLChiTietSanPham> list = new ArrayList<>();
+        try ( Connection conn = DBConnection.getConnection();) {
+            PreparedStatement ps = conn.prepareStatement(SEARCH_SQL_BY_NAME);
+            ps.setObject(1, "%" + name + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                QLChiTietSanPham qlctsp = new QLChiTietSanPham();
+                qlctsp.setSTT(rs.getInt(1));
+                qlctsp.setIdCTSP(rs.getString(2));
+                qlctsp.setMaSanPham(rs.getString(3));
+                qlctsp.setTenSanPham(rs.getString(4));
+                qlctsp.setTenNhaSanXuat(rs.getString(5));
+                qlctsp.setTenMauSac(rs.getString(6));
+                qlctsp.setTenLoai(rs.getString(7));
+                qlctsp.setTenChatLieu(rs.getString(8));
+                qlctsp.setTenThuongHieu(rs.getString(9));
+                qlctsp.setSoSize(rs.getString(10));
+                qlctsp.setSoLuongTonKho(rs.getInt(11));
+                qlctsp.setGiaNhap(rs.getBigDecimal(12));
+                qlctsp.setGiaBan(rs.getBigDecimal(13));
+                qlctsp.setMoTa(rs.getString(14));
+                qlctsp.setTrangThai(rs.getInt(15));
+                list.add(qlctsp);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public static void main(String[] args) {
+    }
+
+    @Override
+    public List<QLChiTietSanPham> searchByMa(String ma) {
+        List<QLChiTietSanPham> list = new ArrayList<>();
+        try ( Connection conn = DBConnection.getConnection();) {
+            PreparedStatement ps = conn.prepareStatement(SEARCH_SQL_BY_MA);
+            ps.setObject(1, "%" + ma + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                QLChiTietSanPham qlctsp = new QLChiTietSanPham();
+                qlctsp.setSTT(rs.getInt(1));
+                qlctsp.setIdCTSP(rs.getString(2));
+                qlctsp.setMaSanPham(rs.getString(3));
+                qlctsp.setTenSanPham(rs.getString(4));
+                qlctsp.setTenNhaSanXuat(rs.getString(5));
+                qlctsp.setTenMauSac(rs.getString(6));
+                qlctsp.setTenLoai(rs.getString(7));
+                qlctsp.setTenChatLieu(rs.getString(8));
+                qlctsp.setTenThuongHieu(rs.getString(9));
+                qlctsp.setSoSize(rs.getString(10));
+                qlctsp.setSoLuongTonKho(rs.getInt(11));
+                qlctsp.setGiaNhap(rs.getBigDecimal(12));
+                qlctsp.setGiaBan(rs.getBigDecimal(13));
+                qlctsp.setMoTa(rs.getString(14));
+                qlctsp.setTrangThai(rs.getInt(15));
+                list.add(qlctsp);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return list;
     }
 
     public int demSoLuongSanPham() {
@@ -281,7 +370,8 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
         return soluonghet;
     }
 
-    public List<QLThongKe> thongKeAll(String thongKeTheo, String SapXepTheo) {
+    @Override
+    public List<QLThongKe> thongKeALL(String thongKeTheo, String SapXepTheo) {
 
         List<QLThongKe> listQLThongKe = new ArrayList<>();
         try ( Connection conn = DBConnection.getConnection();) {
@@ -326,15 +416,6 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
             ex.printStackTrace();
         }
         return listQLThongKe;
-
     }
 
-    public static void main(String[] args) {
-        ChiTietSanPhamRepository ctsp = new ChiTietSanPhamRepository();
-        System.out.println(ctsp.thongKeAll("SoLuong", "DESC"));
-
-        System.out.println(ctsp.demSoLuongSPCH());
-        System.out.println(ctsp.demSoLuongSPHH());
-        System.out.println(ctsp.TongSP());
-    }
 }

@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 public class ThongKeView extends javax.swing.JFrame {
 
     private HoaDonService hoaDonService;
-      private HoaDonChiTietService hoaDonChiTietService;
+    private HoaDonChiTietService hoaDonChiTietService;
     private ChiTietSanPhamService chiTietSanPhamService;
 
     /**
@@ -64,15 +64,13 @@ public class ThongKeView extends javax.swing.JFrame {
         lbSPHH1.setText(SPHH);
         lbTongSP1.setText(tongsp);
     }
-    
-    public void doanhthu(){
-        
+
+    public void doanhthu() {
+
         int tongDoanhThu = hoaDonChiTietService.doanhthu();
 
-       
         String doanhthu = String.valueOf(tongDoanhThu);
 
-       
         lbdoanhthu.setText(doanhthu + " VND");
     }
 

@@ -30,8 +30,8 @@ public class HoaDonService implements IHoaDonService {
     }
 
     @Override
-    public List<QLHoaDon> getAll() {
-        return hoaDonRepository.getAll();
+    public List<QLHoaDon> getAllHoaDonCho(int trangThai) {
+        return hoaDonRepository.getAllHoaDonCho(trangThai);
     }
 
     @Override
@@ -45,13 +45,28 @@ public class HoaDonService implements IHoaDonService {
     }
 
     @Override
+    public List<QLHoaDon> getAllHoaDonDatHang() {
+        return hoaDonRepository.getAllHoaDonDatHang();
+    }
+
+    @Override
+    public void updateHoaDon(HoaDon hd, String id) {
+        hoaDonRepository.updateHoaDon(hd, id);
+    }
+
+    @Override
+    public void updateNgayNhan(HoaDon hd, String id) {
+        hoaDonRepository.updateNgayNhan(hd, id);
+    }
+
+    @Override
     public int demSoLuongHoaDonCTT() {
         return hoaDonRepository.demSoLuongHoaDonCTT();
     }
 
     @Override
     public int demSoLuongHoaDonDTT() {
-          return hoaDonRepository.demSoLuongHoaDonDTT();
+        return hoaDonRepository.demSoLuongHoaDonDTT();
     }
 
     @Override
@@ -59,5 +74,4 @@ public class HoaDonService implements IHoaDonService {
         return hoaDonRepository.TongHD();
     }
 
-    
 }

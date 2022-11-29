@@ -30,12 +30,16 @@ public interface IChiTietSanPhamRepository {
 
     int checkSoLuong(String id);
 
+    List<QLChiTietSanPham> searchByName(String name);
+
+    List<QLChiTietSanPham> searchByMa(String ma);
+
     public int demSoLuongSPCH();
 
     public int demSoLuongSPHH();
 
     public int TongSP();
 
-   // public List<QLThongKe> thongKeAll(String thongKeTheo,String SapXepTheo);
+    public List<QLThongKe> thongKeALL(String thongKeTheo, String SapXepTheo);
 
 }

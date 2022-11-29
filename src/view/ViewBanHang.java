@@ -71,7 +71,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author PC- ASUS
  */
-public class ViewBanHang extends javax.swing.JFrame implements Runnable, ThreadFactory{
+public class ViewBanHang extends javax.swing.JFrame implements Runnable, ThreadFactory {
 
     private WebcamPanel panel = null;
     private Webcam webcam = null;
@@ -94,7 +94,7 @@ public class ViewBanHang extends javax.swing.JFrame implements Runnable, ThreadF
     private int indexSanPham = -1;
     static ViewBanHang viewBanHang;
 
-     private void initWebcam() {
+    private void initWebcam() {
         Dimension size = WebcamResolution.QVGA.getSize();
         webcam = Webcam.getWebcams().get(0); //0 is default webcam
         webcam.setViewSize(size);
@@ -107,7 +107,7 @@ public class ViewBanHang extends javax.swing.JFrame implements Runnable, ThreadF
 
         executor.execute(this);
     }
-    
+
     @Override
     public void run() {
         do {
@@ -124,8 +124,8 @@ public class ViewBanHang extends javax.swing.JFrame implements Runnable, ThreadF
                 if ((image = webcam.getImage()) == null) {
                     continue;
                 }
-            }else{
-                webcam.close();
+            } else {
+//                webcam.close();
             }
 
             LuminanceSource source = new BufferedImageLuminanceSource(image);
@@ -138,9 +138,31 @@ public class ViewBanHang extends javax.swing.JFrame implements Runnable, ThreadF
             }
 
             if (result != null) {
-                lblQRMaSV.setText(result.getText());
+                String maSP = (result.getText());
+                String soLuong = JOptionPane.showInputDialog("Nhập số lượng: ", "0");
+                if (soLuong == null) {
+                    JOptionPane.showMessageDialog(this, "Đã hủy");
+                } else {
+                    QLChiTietSanPham ctsp = getSanPhamByMaQr(maSP);
+                    QLHoaDonChiTiet hdct = new QLHoaDonChiTiet();
+                    hdct.setMaSP(ctsp.getMaSanPham());
+                    hdct.setSoLuongMua(Integer.valueOf(soLuong));
+                    hdct.setDonGia(ctsp.getGiaBan());
+                    _listHoaDonChiTiet.add(hdct);
+                    showDataTableGioHang(_listHoaDonChiTiet);
+                }
             }
         } while (true);
+    }
+
+    private QLChiTietSanPham getSanPhamByMaQr(String ma) {
+        _listChiTietSanPham = _iChiTietSanPhamService.getAll();
+        for (QLChiTietSanPham ctsp : _listChiTietSanPham) {
+            if (ctsp.getMaSanPham().equals(ma)) {
+                return ctsp;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -149,7 +171,7 @@ public class ViewBanHang extends javax.swing.JFrame implements Runnable, ThreadF
         t.setDaemon(true);
         return t;
     }
-    
+
     public ViewBanHang() {
         viewBanHang = this;
         initComponents();
@@ -161,7 +183,7 @@ public class ViewBanHang extends javax.swing.JFrame implements Runnable, ThreadF
         _listHoaDon = new ArrayList<>();
         _listHoaDonChiTiet = new ArrayList<>();
 
-        _listHoaDon = _iHoaDonService.getAll();
+//        _listHoaDon = _iHoaDonService.getAll();
         showDataTableHoaDon(_listHoaDon);
 
         _listChiTietSanPham = _iChiTietSanPhamService.getAll();
@@ -691,7 +713,7 @@ public class ViewBanHang extends javax.swing.JFrame implements Runnable, ThreadF
             panelDonHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDonHangLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 770, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -895,7 +917,7 @@ public class ViewBanHang extends javax.swing.JFrame implements Runnable, ThreadF
         hd.setTrangThai(0);
 
         JOptionPane.showMessageDialog(this, _iHoaDonService.add(hd));
-        _listHoaDon = _iHoaDonService.getAll();
+//        _listHoaDon = _iHoaDonService.getAll();
         showDataTableHoaDon(_listHoaDon);
         tableHoaDon.setRowSelectionInterval(0, 0);
     }//GEN-LAST:event_btnTaoHoaDonActionPerformed
@@ -905,7 +927,7 @@ public class ViewBanHang extends javax.swing.JFrame implements Runnable, ThreadF
         int row = tableHoaDon.getSelectedRow();
         QLHoaDon hd = _listHoaDon.get(row);
         _iHoaDonService.uppdateTrangThai(hd.getIdHoaDon(), 1);
-        _listHoaDon = _iHoaDonService.getAll();
+//        _listHoaDon = _iHoaDonService.getAll();
         showDataTableHoaDon(_listHoaDon);
         _listHoaDonChiTiet.removeAll(_listHoaDonChiTiet);
         showDataTableGioHang(_listHoaDonChiTiet);
@@ -920,7 +942,7 @@ public class ViewBanHang extends javax.swing.JFrame implements Runnable, ThreadF
         hd.setTrangThai(2);
 
         JOptionPane.showMessageDialog(this, _iHoaDonService.add(hd));
-        _listHoaDon = _iHoaDonService.getAll();
+//        _listHoaDon = _iHoaDonService.getAll();
         showDataTableHoaDon(_listHoaDon);
         tableHoaDon.setRowSelectionInterval(0, 0);
     }//GEN-LAST:event_btnTaoHoaDon1ActionPerformed
@@ -936,7 +958,7 @@ public class ViewBanHang extends javax.swing.JFrame implements Runnable, ThreadF
         hoaDon.setDiaChi(txtDiaChi.getText());
         hoaDon.setsDT(txtSDT.getText());
         _iHoaDonService.updateHoaDonGiaoHang(hoaDon, hd.getIdHoaDon());
-        _listHoaDon = _iHoaDonService.getAll();
+//        _listHoaDon = _iHoaDonService.getAll();
         showDataTableHoaDon(_listHoaDon);
         _listHoaDonChiTiet.removeAll(_listHoaDonChiTiet);
         showDataTableGioHang(_listHoaDonChiTiet);
@@ -947,7 +969,7 @@ public class ViewBanHang extends javax.swing.JFrame implements Runnable, ThreadF
         int row = tableHoaDon.getSelectedRow();
         QLHoaDon hd = _listHoaDon.get(row);
         _iHoaDonService.uppdateTrangThai(hd.getIdHoaDon(), 4);
-        _listHoaDon = _iHoaDonService.getAll();
+//        _listHoaDon = _iHoaDonService.getAll();
         showDataTableHoaDon(_listHoaDon);
         _listHoaDonChiTiet.removeAll(_listHoaDonChiTiet);
         showDataTableGioHang(_listHoaDonChiTiet);
@@ -956,7 +978,7 @@ public class ViewBanHang extends javax.swing.JFrame implements Runnable, ThreadF
 
     private void btnexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexitActionPerformed
         // TODO add your handling code here:\
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btnexitActionPerformed
 
     private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
@@ -966,7 +988,7 @@ public class ViewBanHang extends javax.swing.JFrame implements Runnable, ThreadF
             this.dispose();
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             webcam.close();
-        } 
+        }
     }//GEN-LAST:event_btnThoatActionPerformed
 
     public void showDataTableGioHang(List<QLHoaDonChiTiet> list) {

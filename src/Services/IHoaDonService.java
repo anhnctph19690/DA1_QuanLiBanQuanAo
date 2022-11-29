@@ -15,18 +15,24 @@ import java.util.List;
  */
 public interface IHoaDonService {
 
-    List<QLHoaDon> getAll();
+    List<QLHoaDon> getAllHoaDonCho(int trangThai);
+
+    List<QLHoaDon> getAllHoaDonDatHang();
 
     String add(HoaDon hd);
 
     void uppdateTrangThai(String id, int trangThai);
 
     void updateHoaDonGiaoHang(HoaDon hd, String id);
-    
+
+    void updateNgayNhan(HoaDon hd, String id);
+
+    void updateHoaDon(HoaDon hd, String id);
+
     public int demSoLuongHoaDonDTT();
-    
+
     public int demSoLuongHoaDonCTT();
-    
-     public int Tonghoadon();
+
+    public int Tonghoadon();
 
 }

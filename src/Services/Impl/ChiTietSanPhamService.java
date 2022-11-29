@@ -9,9 +9,9 @@ import Repository.IChiTietSanPhamRepository;
 import Repository.Impl.ChiTietSanPhamRepository;
 import Services.IChiTietSanPhamService;
 import ViewModel.QLChiTietSanPham;
-import Ultilities.DBConnection;
 import ViewModel.QLThongKe;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -20,8 +20,7 @@ import java.util.List;
 public class ChiTietSanPhamService implements IChiTietSanPhamService {
 
     private IChiTietSanPhamRepository _iChiTietSanPhamRepository = new ChiTietSanPhamRepository();
-    
-    private ChiTietSanPhamRepository ChiTietSanPhamRepository = new ChiTietSanPhamRepository();
+
     @Override
     public List<QLChiTietSanPham> getAll() {
         return _iChiTietSanPhamRepository.getAll();
@@ -51,8 +50,13 @@ public class ChiTietSanPhamService implements IChiTietSanPhamService {
         return false;
     }
 
-    public boolean uppdateSoLuong(String IdCTSP, int soLuong) {
-        return _iChiTietSanPhamRepository.uppdateSoLuong(IdCTSP, soLuong);
+    @Override
+    public void uppdateSoLuong(Map<QLChiTietSanPham, Integer> ctsp) {
+        ctsp.forEach(
+                (k, v) -> {
+                    _iChiTietSanPhamRepository.uppdateSoLuong(k.getIdCTSP(), v);
+                }
+        );
     }
 
     @Override
@@ -72,31 +76,15 @@ public class ChiTietSanPhamService implements IChiTietSanPhamService {
 
     @Override
     public int demSoLuongSPHH() {
-         return _iChiTietSanPhamRepository.demSoLuongSPHH();
+        return _iChiTietSanPhamRepository.demSoLuongSPHH();
     }
 
     @Override
     public int TongSP() {
-         return _iChiTietSanPhamRepository.TongSP();
+        return _iChiTietSanPhamRepository.TongSP();
     }
-    
-    
-    public List<QLThongKe> thongKeALL(String thongKeTheo,String SapXepTheo){
-      return ChiTietSanPhamRepository.thongKeAll( thongKeTheo, SapXepTheo);
-        
-    }
-    public static void main(String[] args) {
-        ChiTietSanPhamService ctsp = new ChiTietSanPhamService();
-        
-      
-       
-    }
-    
 
-    
-   
-    
-    
-
-    
+    public List<QLThongKe> thongKeALL(String thongKeTheo, String SapXepTheo) {
+        return _iChiTietSanPhamRepository.thongKeALL(thongKeTheo, SapXepTheo);
+    }
 }

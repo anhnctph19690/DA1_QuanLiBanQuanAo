@@ -18,10 +18,10 @@ public class HoaDon {
     private String IdPTTT;
     private String maHoaDon;
     private Date NgayTao;
-    private String NgayThanhToan;
-    private String NgayHen;
-    private String NgayShip;
-    private String NgayNhan;
+    private Date NgayThanhToan;
+    private Date NgayHen;
+    private Date NgayShip;
+    private Date NgayNhan;
     private String tenNguoiNhan;
     private String diaChi;
     private String sDT;
@@ -30,7 +30,7 @@ public class HoaDon {
     public HoaDon() {
     }
 
-    public HoaDon(String IdHoaDon, String IdKhachHang, String IdNhanVien, String IdPTTT, String maHoaDon, Date NgayTao, String NgayThanhToan, String NgayHen, String NgayShip, String NgayNhan, String tenNguoiNhan, String diaChi, String sDT, int TrangThai) {
+    public HoaDon(String IdHoaDon, String IdKhachHang, String IdNhanVien, String IdPTTT, String maHoaDon, Date NgayTao, Date NgayThanhToan, Date NgayHen, Date NgayShip, Date NgayNhan, String tenNguoiNhan, String diaChi, String sDT, int TrangThai) {
         this.IdHoaDon = IdHoaDon;
         this.IdKhachHang = IdKhachHang;
         this.IdNhanVien = IdNhanVien;
@@ -47,114 +47,44 @@ public class HoaDon {
         this.TrangThai = TrangThai;
     }
 
-    public HoaDon(int TrangThai) {
-        this.TrangThai = TrangThai;
-    }
-    
-    
-
     public String getIdHoaDon() {
         return IdHoaDon;
-    }
-
-    public String getIdKhachHang() {
-        return IdKhachHang;
-    }
-
-    public String getIdNhanVien() {
-        return IdNhanVien;
-    }
-
-    public String getIdPTTT() {
-        return IdPTTT;
-    }
-
-    public String getMaHoaDon() {
-        return maHoaDon;
-    }
-
-    public String getNgayThanhToan() {
-        return NgayThanhToan;
-    }
-
-    public String getNgayHen() {
-        return NgayHen;
-    }
-
-    public String getNgayShip() {
-        return NgayShip;
-    }
-
-    public String getNgayNhan() {
-        return NgayNhan;
-    }
-
-    public String getTenNguoiNhan() {
-        return tenNguoiNhan;
-    }
-
-    public String getDiaChi() {
-        return diaChi;
-    }
-
-    public String getsDT() {
-        return sDT;
-    }
-
-    public int getTrangThai() {
-        return TrangThai;
     }
 
     public void setIdHoaDon(String IdHoaDon) {
         this.IdHoaDon = IdHoaDon;
     }
 
+    public String getIdKhachHang() {
+        return IdKhachHang;
+    }
+
     public void setIdKhachHang(String IdKhachHang) {
         this.IdKhachHang = IdKhachHang;
+    }
+
+    public String getIdNhanVien() {
+        return IdNhanVien;
     }
 
     public void setIdNhanVien(String IdNhanVien) {
         this.IdNhanVien = IdNhanVien;
     }
 
+    public String getIdPTTT() {
+        return IdPTTT;
+    }
+
     public void setIdPTTT(String IdPTTT) {
         this.IdPTTT = IdPTTT;
     }
 
+    public String getMaHoaDon() {
+        return maHoaDon;
+    }
+
     public void setMaHoaDon(String maHoaDon) {
         this.maHoaDon = maHoaDon;
-    }
-
-    public void setNgayThanhToan(String NgayThanhToan) {
-        this.NgayThanhToan = NgayThanhToan;
-    }
-
-    public void setNgayHen(String NgayHen) {
-        this.NgayHen = NgayHen;
-    }
-
-    public void setNgayShip(String NgayShip) {
-        this.NgayShip = NgayShip;
-    }
-
-    public void setNgayNhan(String NgayNhan) {
-        this.NgayNhan = NgayNhan;
-    }
-
-    public void setTenNguoiNhan(String tenNguoiNhan) {
-        this.tenNguoiNhan = tenNguoiNhan;
-    }
-
-    public void setDiaChi(String diaChi) {
-        this.diaChi = diaChi;
-    }
-
-    public void setsDT(String sDT) {
-        this.sDT = sDT;
-    }
-
-    public void setTrangThai(int TrangThai) {
-        this.TrangThai = TrangThai;
     }
 
     public Date getNgayTao() {
@@ -163,6 +93,70 @@ public class HoaDon {
 
     public void setNgayTao(Date NgayTao) {
         this.NgayTao = NgayTao;
+    }
+
+    public Date getNgayThanhToan() {
+        return NgayThanhToan;
+    }
+
+    public void setNgayThanhToan(Date NgayThanhToan) {
+        this.NgayThanhToan = NgayThanhToan;
+    }
+
+    public Date getNgayHen() {
+        return NgayHen;
+    }
+
+    public void setNgayHen(Date NgayHen) {
+        this.NgayHen = NgayHen;
+    }
+
+    public Date getNgayShip() {
+        return NgayShip;
+    }
+
+    public void setNgayShip(Date NgayShip) {
+        this.NgayShip = NgayShip;
+    }
+
+    public Date getNgayNhan() {
+        return NgayNhan;
+    }
+
+    public void setNgayNhan(Date NgayNhan) {
+        this.NgayNhan = NgayNhan;
+    }
+
+    public String getTenNguoiNhan() {
+        return tenNguoiNhan;
+    }
+
+    public void setTenNguoiNhan(String tenNguoiNhan) {
+        this.tenNguoiNhan = tenNguoiNhan;
+    }
+
+    public String getDiaChi() {
+        return diaChi;
+    }
+
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
+    }
+
+    public String getsDT() {
+        return sDT;
+    }
+
+    public void setsDT(String sDT) {
+        this.sDT = sDT;
+    }
+
+    public int getTrangThai() {
+        return TrangThai;
+    }
+
+    public void setTrangThai(int TrangThai) {
+        this.TrangThai = TrangThai;
     }
 
     @Override

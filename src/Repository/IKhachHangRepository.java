@@ -5,8 +5,10 @@
 package Repository;
 
 import Models.HoaDon;
+import Models.KhachHang;
 import Ultilities.DBConnection;
 import ViewModel.QLHoaDon;
+import ViewModel.QLKhachHang;
 import java.sql.*;
 import java.util.List;
 
@@ -14,20 +16,12 @@ import java.util.List;
  *
  * @author tuane_nluzcuo
  */
-public interface IHoaDonRepository {
+public interface IKhachHangRepository {
 
-    List<QLHoaDon> getAllHoaDonCho(int trangThai);
+    List<QLKhachHang> getAll();
 
-    List<QLHoaDon> getAllHoaDonDatHang();
+    KhachHang add(KhachHang kh);
 
-    boolean add(HoaDon hoaDon);
-
-    boolean updateTrangThai(String id, int trangThai);
-
-    boolean updateHoaDonGiaoHang(HoaDon hd, String id);
-
-    boolean updateNgayNhan(HoaDon hd, String id);
-
-    boolean updateHoaDon(HoaDon hd, String id);
+    boolean update(String id, int trangThai);
 
 }
