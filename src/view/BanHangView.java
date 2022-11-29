@@ -132,6 +132,13 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         executor.execute(this);
     }
 
+    private void selectedTableHoaDon() {
+        _listHoaDon = _iHoaDonService.getAllHoaDonCho(0);
+        if (!_listHoaDon.isEmpty()) {
+            tableHoaDon.setRowSelectionInterval(0, 0);
+        }
+    }
+
     @Override
     public void run() {
         do {
@@ -160,11 +167,10 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
             } catch (NotFoundException e) {
                 //No result...
             }
-            
+
             if (result != null) {
                 String soLuong = JOptionPane.showInputDialog("Nhập số lượng: ", "0");
-                lblQRMaSV.setText(result.getText());
-                String maSP = lblQRMaSV.getText();
+                String maSP = result.getText();
                 QLChiTietSanPham sp = getSanPhamByMaQr(maSP);
                 int rowHoaDon = tableHoaDon.getSelectedRow();
                 if (rowHoaDon == -1) {
@@ -282,6 +288,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         getHoaDonByTabbedPane();
         loadDateTime();
         setDateDefault();
+        selectedTableHoaDon();
 //        onlyNumberTotal();
     }
 
@@ -1242,7 +1249,46 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         if (soLuong == null) {
             JOptionPane.showMessageDialog(this, "Đã hủy");
         } else if (rowHoaDon == -1) {
-            JOptionPane.showMessageDialog(this, "Chưa chọn hóa đơn");
+            HoaDon insert = new HoaDon();
+            insert.setNgayTao(new Date(labelNgayTao.getText()));
+            insert.setIdNhanVien("99DDEF77-227A-4937-8D2D-9BEFEF840158");
+            insert.setTrangThai(0);
+
+            JOptionPane.showMessageDialog(this, _iHoaDonService.add(insert));
+            _listHoaDon = _iHoaDonService.getAllHoaDonCho(0);
+            showDataTableHoaDon(_listHoaDon);
+            tableHoaDon.setRowSelectionInterval(0, 0);
+
+            QLHoaDonChiTiet hdct = new QLHoaDonChiTiet();
+            QLChiTietSanPham sp = getProductByIndex(dtmSanPham.getValueAt(rowSanPham, 1).toString());
+            hdct.setIdHoaDon(insert.getIdHoaDon());
+            hdct.setIdCTSP(sp.getIdCTSP()); 
+            hdct.setMaSP(sp.getMaSanPham());
+            hdct.setTenSP(sp.getTenSanPham());
+            hdct.setSoLuongMua(Integer.valueOf(soLuong));
+            hdct.setDonGia(sp.getGiaBan());
+            _listHoaDonChiTiet.add(hdct);
+
+            sp.setSoLuongTonKho(sp.getSoLuongTonKho() - Integer.valueOf(soLuong));
+            maps.put(sp, sp.getSoLuongTonKho());
+            if (!txtSearchSP.getText().isEmpty()) {
+                List<QLChiTietSanPham> listFound = searchByName(txtSearchSP.getText());
+                List<QLChiTietSanPham> listFound1 = searchByMa(txtSearchSP.getText());
+                if (!listFound.isEmpty()) {
+                    showDataTableSanPham(listFound);
+                } else {
+                    showDataTableSanPham(listFound1);
+                }
+            } else {
+                showDataTableSanPham(_listChiTietSanPham);
+            }
+
+            showDataTableGioHang(_listHoaDonChiTiet);
+            labelKhachCanTra.setText(String.valueOf(_iHoaDonChiTietService.totalMoneyOfInvoice(_listHoaDonChiTiet)));
+            labelTongTienHang.setText(String.valueOf(_iHoaDonChiTietService.totalMoneyOfInvoice(_listHoaDonChiTiet)));
+            labelTongTienHang1.setText(String.valueOf(_iHoaDonChiTietService.totalMoneyOfInvoice(_listHoaDonChiTiet)));
+            labelKhachCanTra1.setText(String.valueOf(_iHoaDonChiTietService.totalMoneyOfInvoice(_listHoaDonChiTiet)));
+
         } else {
             QLHoaDon hd = _listHoaDon.get(rowHoaDon);
             QLChiTietSanPham sp = getProductByIndex(dtmSanPham.getValueAt(rowSanPham, 1).toString());
