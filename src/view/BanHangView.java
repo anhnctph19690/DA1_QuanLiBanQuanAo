@@ -161,16 +161,20 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
                 //No result...
             }
 
+            
+            
             if (result != null) {
-                String maSP = (result.getText());
+                lblQRMaSV.setText(result.getText());
+                String maSP = lblQRMaSV.getText();
                 String soLuong = JOptionPane.showInputDialog("Nhập số lượng: ", "0");
+                QLChiTietSanPham ctsp = getSanPhamByMaQr(maSP);
                 if (soLuong == null) {
                     JOptionPane.showMessageDialog(this, "Đã hủy");
                 } else {
-                    QLChiTietSanPham ctsp = getSanPhamByMaQr(maSP);
                     QLHoaDonChiTiet hdct = new QLHoaDonChiTiet();
                     hdct.setIdCTSP(ctsp.getIdCTSP());
                     hdct.setMaSP(ctsp.getMaSanPham());
+                    hdct.setTenSP(ctsp.getTenSanPham());
                     hdct.setSoLuongMua(Integer.valueOf(soLuong));
                     hdct.setDonGia(ctsp.getGiaBan());
                     _listHoaDonChiTiet.add(hdct);
@@ -178,6 +182,15 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
                 }
             }
         } while (true);
+    }
+    
+    private QLChiTietSanPham getSPByQRCode(String ma) {
+        for (QLChiTietSanPham x : _listChiTietSanPham) {
+            if (x.getMaSanPham().equals(ma)) {
+                return x;
+            }
+        }
+        return null;
     }
 
     private QLChiTietSanPham getSanPhamByMaQr(String ma) {
@@ -212,8 +225,8 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         _listHoaDon = new ArrayList<>();
         _listHoaDonChiTiet = new ArrayList<>();
         _listKhachHang = new ArrayList<>();
-        labelTenNguoiBan.setText(getNhanVien("2F94B972-79D2-4581-BD54-A1C4E72292A7"));
-        labelTenNguoiBan1.setText(getNhanVien("2F94B972-79D2-4581-BD54-A1C4E72292A7"));
+        labelTenNguoiBan.setText(getNhanVien("410DDF58-4BDC-4C6A-BB33-21BBDDF3CC72"));
+        labelTenNguoiBan1.setText(getNhanVien("410DDF58-4BDC-4C6A-BB33-21BBDDF3CC72"));
 
         _listHoaDon = _iHoaDonService.getAllHoaDonCho(0);
         showDataTableHoaDon(_listHoaDon);
@@ -469,10 +482,13 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         tableGioHang = new javax.swing.JTable();
         btnClear = new javax.swing.JButton();
         panelWebCam = new javax.swing.JPanel();
+        lblQRMaSV = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Hóa đơn"));
 
@@ -647,7 +663,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox2, 0, 198, Short.MAX_VALUE))
+                                .addComponent(jComboBox2, 0, 201, Short.MAX_VALUE))
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel42)
@@ -785,7 +801,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         tabbedPane.addTab("Hóa đơn", jPanel3);
@@ -1049,7 +1065,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
             panelDonHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDonHangLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addComponent(tabbedPane))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Giỏ hàng"));
@@ -1100,62 +1116,74 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         );
 
         panelWebCam.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        panelWebCam.setLayout(new javax.swing.BoxLayout(panelWebCam, javax.swing.BoxLayout.LINE_AXIS));
 
-        javax.swing.GroupLayout panelWebCamLayout = new javax.swing.GroupLayout(panelWebCam);
-        panelWebCam.setLayout(panelWebCamLayout);
-        panelWebCamLayout.setHorizontalGroup(
-            panelWebCamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 192, Short.MAX_VALUE)
-        );
-        panelWebCamLayout.setVerticalGroup(
-            panelWebCamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        lblQRMaSV.setText("-----");
+
+        jButton1.setText("EXit");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelWebCam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelDonHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(70, 70, 70)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblQRMaSV, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(panelWebCam, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(panelDonHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(744, 744, 744))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(panelDonHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(panelWebCam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(panelWebCam, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblQRMaSV)
+                                .addGap(12, 12, 12))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(90, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(panelDonHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tableSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSanPhamMouseClicked
@@ -1304,7 +1332,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         // TODO add your handling code here:
         HoaDon hd = new HoaDon();
         hd.setNgayTao(new Date(labelNgayTao.getText()));
-        hd.setIdNhanVien("2F94B972-79D2-4581-BD54-A1C4E72292A7");
+        hd.setIdNhanVien("410DDF58-4BDC-4C6A-BB33-21BBDDF3CC72");
         hd.setTrangThai(0);
 
         JOptionPane.showMessageDialog(this, _iHoaDonService.add(hd));
@@ -1374,7 +1402,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         // TODO add your handling code here:
         HoaDon hd = new HoaDon();
         hd.setNgayTao(new Date());
-        hd.setIdNhanVien("2F94B972-79D2-4581-BD54-A1C4E72292A7");
+        hd.setIdNhanVien("410DDF58-4BDC-4C6A-BB33-21BBDDF3CC72");
         hd.setTrangThai(2);
 
         JOptionPane.showMessageDialog(this, _iHoaDonService.add(hd));
@@ -1522,6 +1550,12 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         // TODO add your handling code here:
         tinhTienCanTraKhiGiamGiaVaPhiShip();
     }//GEN-LAST:event_txtTienShipKeyReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        webcam.close();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private List<QLChiTietSanPham> searchByName(String name) {
         List<QLChiTietSanPham> listFound = new ArrayList<>();
@@ -1675,6 +1709,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
     private javax.swing.JButton btnThanhToan1;
     private javax.swing.JComboBox<String> cbbHTTT1;
     private javax.swing.JComboBox<String> cbbTrangThaiHoaDon;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
@@ -1726,6 +1761,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
     private javax.swing.JLabel labelTienThua1;
     private javax.swing.JLabel labelTongTienHang;
     private javax.swing.JLabel labelTongTienHang1;
+    private javax.swing.JLabel lblQRMaSV;
     private javax.swing.JPanel panelDonHang;
     private javax.swing.JPanel panelWebCam;
     private javax.swing.JTabbedPane tabbedPane;

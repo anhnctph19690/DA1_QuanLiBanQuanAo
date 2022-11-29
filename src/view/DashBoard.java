@@ -269,7 +269,7 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void btnBanHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanHangActionPerformed
         // TODO add your handling code here:
-        new ViewBanHang().setVisible(true);
+        new BanHangView().setVisible(true);
     }//GEN-LAST:event_btnBanHangActionPerformed
 
     private void btnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanVienActionPerformed
