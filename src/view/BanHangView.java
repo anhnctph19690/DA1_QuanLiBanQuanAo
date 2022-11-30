@@ -921,8 +921,10 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
             }
         });
 
+        btnThanhToan1.setBackground(javax.swing.UIManager.getDefaults().getColor("CheckBox.icon.hoverBackground"));
         btnThanhToan1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnThanhToan1.setText("Giao hàng");
+        btnThanhToan1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnThanhToan1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThanhToan1ActionPerformed(evt);
@@ -1342,6 +1344,9 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
 
         _listHoaDonChiTiet.removeAll(_listHoaDonChiTiet);
         showDataTableGioHang(_listHoaDonChiTiet);
+        
+        _listChiTietSanPham = _iChiTietSanPhamService.getAll();
+        showDataTableSanPham(_listChiTietSanPham);
     }//GEN-LAST:event_btnTaoHoaDonActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
@@ -1412,6 +1417,9 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
 
         _listHoaDonChiTiet.removeAll(_listHoaDonChiTiet);
         showDataTableGioHang(_listHoaDonChiTiet);
+        
+        _listChiTietSanPham = _iChiTietSanPhamService.getAll();
+        showDataTableSanPham(_listChiTietSanPham);
     }//GEN-LAST:event_btnTaoHoaDon1ActionPerformed
 
     private void btnThanhToan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToan1ActionPerformed

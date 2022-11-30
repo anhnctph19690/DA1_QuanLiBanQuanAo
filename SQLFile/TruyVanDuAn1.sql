@@ -403,7 +403,8 @@ create proc procThemChatLieu
 
 
 	SELECT * FROM dbo.NhanVien
-	DELETE FROM dbo.HoaDon
+
+	DELETE FROM dbo.KhachHang
 	DELETE FROM dbo.HoaDonChiTiet
 	EXEC dbo.procThemNV @TenNV = N'fbvdf',             -- nvarchar(50)
 	                    @DiaChi = N'bdfbdf',            -- nvarchar(50)
@@ -414,3 +415,24 @@ create proc procThemChatLieu
 	                    @TrangThai = 1,           -- int
 	                    @IdCV = 'D1C3E9A0-A6A8-4AA7-A6EA-D5A08874AE75'              -- uniqueidentifier
 	SELECT * FROM dbo.ChucVu
+
+	create proc procKH
+		@TenKH nvarchar(50),
+		@SDT varchar(30)
+	as
+	begin
+		Declare @MaKH char(7)
+		if not exists (select * from KhachHang) 
+			Set @MaKH=1
+		else
+			Set @MaKH=(select RIGHT(MAX(MAKH),5) from KhachHang)+1
+		Set @MaKH='KH'+REPLICATE('0',5-LEN(@MaKH))+@MaKH
+		insert into KhachHang(MaKH, Ten, Sdt, TrangThai) values(@MaKH,@TenKH, @SDT, 1)
+		select MAKH
+		from KhachHang
+		where MaKH = @MaKH
+		return
+	end
+
+
+	
