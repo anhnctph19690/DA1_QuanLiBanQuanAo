@@ -435,4 +435,50 @@ create proc procThemChatLieu
 	end
 
 
-	
+	----- Thêm thuộc tính bảng Hóa Đơn
+	ALTER TABLE dbo.HoaDonChiTiet
+	ADD TienThua DECIMAL(20,0) DEFAULT 0
+	ALTER TABLE dbo.HoaDonChiTiet
+	ADD TienGiamGia DECIMAL(20,0) DEFAULT 0
+	ALTER TABLE dbo.HoaDonChiTiet
+	ADD TrangThai INT DEFAULT 1
+	------Thêm Tiền Cọc
+	ALTER TABLE dbo.HoaDon
+	ADD TienCoc DECIMAL(20,0) DEFAULT 0
+	ALTER TABLE dbo.HoaDon
+	ADD TienShip DECIMAL(20,0) DEFAULT 0
+	ALTER TABLE dbo.HoaDon
+	ADD TenNguoiShip NVARCHAR(50)
+	ALTER TABLE dbo.HoaDon
+	ADD SDTNguoiShip DECIMAL(20,0) DEFAULT 0
+	ALTER TABLE dbo.HoaDon
+	ADD SDTNguoiNhan DECIMAL(20,0) DEFAULT 0
+	ALTER TABLE dbo.HoaDon
+	ADD TongTien DECIMAL(20,0) DEFAULT 0
+	----- Chức Năng Giảm Giá
+
+
+	------ Proc themSIze
+	USE [DuAn1_QuanLiBanQuanAo]
+GO
+/****** Object:  StoredProcedure [dbo].[procThemSIZE]    Script Date: 01/12/2022 11:40:48 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER proc [dbo].[procThemSIZE]
+		@TenSoSize nvarchar(50)
+	as
+	begin
+		Declare @MaSize char(7)
+		if not exists (select * from Size) 
+			Set @MaSize=1
+		else
+			Set @MaSize=(select RIGHT(MAX(MA),5) from Size)+1
+		Set @MaSize='S'+REPLICATE('0',5-LEN(@MaSize))+@MaSize
+		insert into Size(Ma, SoSize) values(@MaSize,@TenSoSize)
+		select ma 
+		from Size
+		where ma = @MaSize
+		return
+	END
