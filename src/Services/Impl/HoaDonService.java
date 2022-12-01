@@ -74,4 +74,10 @@ public class HoaDonService implements IHoaDonService {
         return hoaDonRepository.TongHD();
     }
 
+    public int doanhThuNgay() {
+        return hoaDonRepository.doanhThuNgay();
+    }
+    public int doanhThuQuy() {
+        return hoaDonRepository.doanhThuQuy();
+    }
 }

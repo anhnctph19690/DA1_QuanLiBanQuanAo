@@ -67,11 +67,20 @@ public class ThongKeView extends javax.swing.JFrame {
 
     public void doanhthu() {
 
-        int tongDoanhThu = hoaDonChiTietService.doanhthu();
+        int tongDoanhThuNam = hoaDonChiTietService.doanhthu();
+        int tongDoanhThuNgay = hoaDonService.doanhThuNgay();
+        int tongDoanhThuQuy = hoaDonService.doanhThuQuy();
+        
+        
+        String doanhthuNam = String.valueOf(tongDoanhThuNam);
+        String doanhthuNgay = String.valueOf(tongDoanhThuNgay);
+        String doanhthuQuy = String.valueOf(tongDoanhThuQuy);
+        
 
-        String doanhthu = String.valueOf(tongDoanhThu);
-
-        lbdoanhthu.setText(doanhthu + " VND");
+        lbdoanhthuNam.setText(doanhthuNam + " VND");
+        lbdoanhthuNgay.setText(doanhthuNgay + " VND");
+        lbdoanhthuQuy.setText(doanhthuQuy + " VND");
+        
     }
 
     public void loadTable(String thongKeTheo, String sapXepTheo) {
@@ -110,15 +119,15 @@ public class ThongKeView extends javax.swing.JFrame {
         buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel8 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        lbdoanhthu = new javax.swing.JLabel();
+        lbdoanhthuNam = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lbdoanhthu1 = new javax.swing.JLabel();
         lbdoanhthu2 = new javax.swing.JLabel();
         lbdoanhthu3 = new javax.swing.JLabel();
-        lbdoanhthu4 = new javax.swing.JLabel();
+        lbdoanhthuNgay = new javax.swing.JLabel();
         lbdoanhthu5 = new javax.swing.JLabel();
         lbdoanhthu6 = new javax.swing.JLabel();
-        lbdoanhthu7 = new javax.swing.JLabel();
+        lbdoanhthuQuy = new javax.swing.JLabel();
         lbdoanhthu8 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         lbTongSP1 = new javax.swing.JLabel();
@@ -146,6 +155,15 @@ public class ThongKeView extends javax.swing.JFrame {
         radioSoLuong4 = new javax.swing.JRadioButton();
         cbbSapXep4 = new javax.swing.JComboBox<>();
         jPanel17 = new javax.swing.JPanel();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel10 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tbCTSP5 = new javax.swing.JTable();
+        jPanel11 = new javax.swing.JPanel();
+        radioGiaBan5 = new javax.swing.JRadioButton();
+        radioGiaNhap5 = new javax.swing.JRadioButton();
+        radioSoLuong5 = new javax.swing.JRadioButton();
+        cbbSapXep5 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -157,9 +175,9 @@ public class ThongKeView extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(0, 204, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        lbdoanhthu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbdoanhthu.setForeground(new java.awt.Color(255, 255, 255));
-        lbdoanhthu.setText("1.000.000.000");
+        lbdoanhthuNam.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbdoanhthuNam.setForeground(new java.awt.Color(255, 255, 255));
+        lbdoanhthuNam.setText("1.000.000.000");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -177,9 +195,9 @@ public class ThongKeView extends javax.swing.JFrame {
         lbdoanhthu3.setForeground(new java.awt.Color(255, 255, 255));
         lbdoanhthu3.setText("Theo Quý");
 
-        lbdoanhthu4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbdoanhthu4.setForeground(new java.awt.Color(255, 255, 255));
-        lbdoanhthu4.setText("2.500.000");
+        lbdoanhthuNgay.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbdoanhthuNgay.setForeground(new java.awt.Color(255, 255, 255));
+        lbdoanhthuNgay.setText("2.500.000");
 
         lbdoanhthu5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbdoanhthu5.setForeground(new java.awt.Color(255, 255, 255));
@@ -189,9 +207,9 @@ public class ThongKeView extends javax.swing.JFrame {
         lbdoanhthu6.setForeground(new java.awt.Color(255, 255, 255));
         lbdoanhthu6.setText("Theo Ngày");
 
-        lbdoanhthu7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbdoanhthu7.setForeground(new java.awt.Color(255, 255, 255));
-        lbdoanhthu7.setText("250.000.000");
+        lbdoanhthuQuy.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbdoanhthuQuy.setForeground(new java.awt.Color(255, 255, 255));
+        lbdoanhthuQuy.setText("250.000.000");
 
         lbdoanhthu8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbdoanhthu8.setForeground(new java.awt.Color(255, 255, 255));
@@ -212,7 +230,7 @@ public class ThongKeView extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addGap(131, 131, 131))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lbdoanhthu, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbdoanhthuNam, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lbdoanhthu2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())))
@@ -223,11 +241,11 @@ public class ThongKeView extends javax.swing.JFrame {
                         .addGap(121, 121, 121)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lbdoanhthu4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lbdoanhthuNgay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lbdoanhthu5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lbdoanhthu7, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                                .addComponent(lbdoanhthuQuy, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lbdoanhthu8, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
@@ -238,19 +256,20 @@ public class ThongKeView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbdoanhthu1)
-                    .addComponent(lbdoanhthu)
-                    .addComponent(lbdoanhthu2))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbdoanhthuNam, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbdoanhthu1)
+                        .addComponent(lbdoanhthu2)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbdoanhthu3)
-                    .addComponent(lbdoanhthu7)
+                    .addComponent(lbdoanhthuQuy)
                     .addComponent(lbdoanhthu8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbdoanhthu6)
-                    .addComponent(lbdoanhthu4)
+                    .addComponent(lbdoanhthuNgay)
                     .addComponent(lbdoanhthu5))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
@@ -510,10 +529,7 @@ public class ThongKeView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1318, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -551,6 +567,130 @@ public class ThongKeView extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Doanh Thu", jPanel17);
+
+        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bảng Thống Kê Sản Phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+
+        tbCTSP5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "STT", "Mã SP", "Tên SP", "Chất Liệu", "Màu sắc ", "Kích Thước", "Thương Hiệu", "NSX", "Số Lượng Mua", "Giá Nhập", "Giá Bán"
+            }
+        ));
+        jScrollPane6.setViewportView(tbCTSP5);
+
+        jPanel11.setBackground(new java.awt.Color(51, 0, 255));
+
+        buttonGroup1.add(radioGiaBan5);
+        radioGiaBan5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        radioGiaBan5.setForeground(new java.awt.Color(255, 255, 255));
+        radioGiaBan5.setText("Giá Bán ");
+        radioGiaBan5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioGiaBan5radioGiaBanMouseClicked(evt);
+            }
+        });
+        radioGiaBan5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioGiaBan5radioGiaBanActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(radioGiaNhap5);
+        radioGiaNhap5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        radioGiaNhap5.setForeground(new java.awt.Color(255, 255, 255));
+        radioGiaNhap5.setText("Giá Nhập");
+        radioGiaNhap5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioGiaNhap5radioGiaNhapMouseClicked(evt);
+            }
+        });
+
+        buttonGroup1.add(radioSoLuong5);
+        radioSoLuong5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        radioSoLuong5.setForeground(new java.awt.Color(255, 255, 255));
+        radioSoLuong5.setText("Số Lượng");
+        radioSoLuong5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioSoLuong5radioSoLuongMouseClicked(evt);
+            }
+        });
+        radioSoLuong5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioSoLuong5radioSoLuongActionPerformed(evt);
+            }
+        });
+
+        cbbSapXep5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cbbSapXep5.setForeground(new java.awt.Color(255, 255, 255));
+        cbbSapXep5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tăng Dần", "Giảm Dần" }));
+        cbbSapXep5.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                cbbSapXep5cbbSapXepAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        cbbSapXep5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbSapXep5cbbSapXepActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(radioSoLuong5, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(radioGiaNhap5, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(radioGiaBan5, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbbSapXep5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap(13, Short.MAX_VALUE)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(radioGiaNhap5)
+                    .addComponent(radioGiaBan5)
+                    .addComponent(radioSoLuong5)
+                    .addComponent(cbbSapXep5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1312, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 2, Short.MAX_VALUE))
+        );
+
+        jTabbedPane2.addTab("tab1", jPanel10);
+
+        jTabbedPane1.addTab("Hóa Đơn", jTabbedPane2);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -671,6 +811,34 @@ public class ThongKeView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_radioGiaBanMouseClicked
 
+    private void cbbSapXep5cbbSapXepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSapXep5cbbSapXepActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbSapXep5cbbSapXepActionPerformed
+
+    private void cbbSapXep5cbbSapXepAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbbSapXep5cbbSapXepAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbSapXep5cbbSapXepAncestorAdded
+
+    private void radioSoLuong5radioSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioSoLuong5radioSoLuongActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioSoLuong5radioSoLuongActionPerformed
+
+    private void radioSoLuong5radioSoLuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioSoLuong5radioSoLuongMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioSoLuong5radioSoLuongMouseClicked
+
+    private void radioGiaNhap5radioGiaNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioGiaNhap5radioGiaNhapMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioGiaNhap5radioGiaNhapMouseClicked
+
+    private void radioGiaBan5radioGiaBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioGiaBan5radioGiaBanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioGiaBan5radioGiaBanActionPerformed
+
+    private void radioGiaBan5radioGiaBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioGiaBan5radioGiaBanMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioGiaBan5radioGiaBanMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -710,11 +878,8 @@ public class ThongKeView extends javax.swing.JFrame {
     private javax.swing.JButton btnThoat;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JComboBox<String> cbbSapXep;
-    private javax.swing.JComboBox<String> cbbSapXep1;
-    private javax.swing.JComboBox<String> cbbSapXep2;
-    private javax.swing.JComboBox<String> cbbSapXep3;
     private javax.swing.JComboBox<String> cbbSapXep4;
+    private javax.swing.JComboBox<String> cbbSapXep5;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -722,69 +887,42 @@ public class ThongKeView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JLabel lbHoaDonCTT;
     private javax.swing.JLabel lbHoadonDaTT;
-    private javax.swing.JLabel lbSPCH;
     private javax.swing.JLabel lbSPCH1;
-    private javax.swing.JLabel lbSPHH;
     private javax.swing.JLabel lbSPHH1;
     private javax.swing.JLabel lbTongHD;
-    private javax.swing.JLabel lbTongSP;
     private javax.swing.JLabel lbTongSP1;
-    private javax.swing.JLabel lbdoanhthu;
     private javax.swing.JLabel lbdoanhthu1;
     private javax.swing.JLabel lbdoanhthu2;
     private javax.swing.JLabel lbdoanhthu3;
-    private javax.swing.JLabel lbdoanhthu4;
     private javax.swing.JLabel lbdoanhthu5;
     private javax.swing.JLabel lbdoanhthu6;
-    private javax.swing.JLabel lbdoanhthu7;
     private javax.swing.JLabel lbdoanhthu8;
-    private javax.swing.JRadioButton radioGiaBan;
-    private javax.swing.JRadioButton radioGiaBan1;
-    private javax.swing.JRadioButton radioGiaBan2;
-    private javax.swing.JRadioButton radioGiaBan3;
+    private javax.swing.JLabel lbdoanhthuNam;
+    private javax.swing.JLabel lbdoanhthuNgay;
+    private javax.swing.JLabel lbdoanhthuQuy;
     private javax.swing.JRadioButton radioGiaBan4;
-    private javax.swing.JRadioButton radioGiaNhap;
-    private javax.swing.JRadioButton radioGiaNhap1;
-    private javax.swing.JRadioButton radioGiaNhap2;
-    private javax.swing.JRadioButton radioGiaNhap3;
+    private javax.swing.JRadioButton radioGiaBan5;
     private javax.swing.JRadioButton radioGiaNhap4;
-    private javax.swing.JRadioButton radioSoLuong;
-    private javax.swing.JRadioButton radioSoLuong1;
-    private javax.swing.JRadioButton radioSoLuong2;
-    private javax.swing.JRadioButton radioSoLuong3;
+    private javax.swing.JRadioButton radioGiaNhap5;
     private javax.swing.JRadioButton radioSoLuong4;
-    private javax.swing.JTable tbCTSP;
-    private javax.swing.JTable tbCTSP1;
-    private javax.swing.JTable tbCTSP2;
-    private javax.swing.JTable tbCTSP3;
+    private javax.swing.JRadioButton radioSoLuong5;
     private javax.swing.JTable tbCTSP4;
+    private javax.swing.JTable tbCTSP5;
     // End of variables declaration//GEN-END:variables
 }

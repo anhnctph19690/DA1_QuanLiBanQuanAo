@@ -89,7 +89,10 @@ public class HoaDonRepository implements IHoaDonRepository {
     }
 
     public static void main(String[] args) {
-        new HoaDonRepository().getAllHoaDonCho(1).forEach(s -> System.out.println(s.toString()));
+        //new HoaDonRepository().getAllHoaDonCho(1).forEach(s -> System.out.println(s.toString()));
+        HoaDonRepository hdr = new HoaDonRepository();
+
+        System.out.println(hdr.doanhThuQuy());
     }
 
     @Override
@@ -253,4 +256,55 @@ public class HoaDonRepository implements IHoaDonRepository {
         return Tonghoadon;
 
     }
+
+    public int doanhThuNgay() {
+        int doanhThuNgay = 0;
+        Connection conn = DBConnection.getConnection();
+        String sql = "SELECT  dbo.HoaDon.NgayTao, dbo.HoaDonChiTiet.SoLuong, dbo.HoaDonChiTiet.donGia ,SUM(SoLuong * donGia) As DoanhThu "
+                + "FROM   dbo.HoaDon INNER JOIN dbo.HoaDonChiTiet ON dbo.HoaDon.IdHoaDon = dbo.HoaDonChiTiet.IdHoaDon\n"
+                + "where Day(NgayTao) = day(getDate())\n"
+                + "group by ngaytao,soLuong,DonGia ";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.execute();
+
+            ResultSet rs = ps.getResultSet();
+            while (rs.next() == true) {
+                doanhThuNgay = rs.getInt("DoanhThu");
+            }
+
+        } catch (Exception e) {
+        }
+        return doanhThuNgay;
+
+    }
+
+    public int doanhThuQuy() {
+        int doanhThuQuy = 0;
+        int quy = 0;
+        Connection conn = DBConnection.getConnection();
+        String sql = "SELECT   Sum(SoLuong * donGia) As DoanhThuQuy "
+                + "FROM   dbo.HoaDon INNER JOIN\n"
+                + "  dbo.HoaDonChiTiet ON dbo.HoaDon.IdHoaDon = dbo.HoaDonChiTiet.IdHoaDon "
+                + " where DATEPART(quarter, NgayTao) = DATEPART(quarter, getdate())";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.execute();
+
+            ResultSet rs = ps.getResultSet();
+            while (rs.next() == true) {
+                doanhThuQuy = rs.getInt("DoanhThuQuy");
+                quy = rs.getInt("Quy");
+            }
+            
+        } catch (Exception e) {
+        }
+        return doanhThuQuy;
+
+    }
+
 }
