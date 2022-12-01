@@ -155,15 +155,6 @@ public class ThongKeView extends javax.swing.JFrame {
         radioSoLuong4 = new javax.swing.JRadioButton();
         cbbSapXep4 = new javax.swing.JComboBox<>();
         jPanel17 = new javax.swing.JPanel();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
-        jPanel10 = new javax.swing.JPanel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        tbCTSP5 = new javax.swing.JTable();
-        jPanel11 = new javax.swing.JPanel();
-        radioGiaBan5 = new javax.swing.JRadioButton();
-        radioGiaNhap5 = new javax.swing.JRadioButton();
-        radioSoLuong5 = new javax.swing.JRadioButton();
-        cbbSapXep5 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -568,130 +559,6 @@ public class ThongKeView extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Doanh Thu", jPanel17);
 
-        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bảng Thống Kê Sản Phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
-
-        tbCTSP5.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "STT", "Mã SP", "Tên SP", "Chất Liệu", "Màu sắc ", "Kích Thước", "Thương Hiệu", "NSX", "Số Lượng Mua", "Giá Nhập", "Giá Bán"
-            }
-        ));
-        jScrollPane6.setViewportView(tbCTSP5);
-
-        jPanel11.setBackground(new java.awt.Color(51, 0, 255));
-
-        buttonGroup1.add(radioGiaBan5);
-        radioGiaBan5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        radioGiaBan5.setForeground(new java.awt.Color(255, 255, 255));
-        radioGiaBan5.setText("Giá Bán ");
-        radioGiaBan5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                radioGiaBan5radioGiaBanMouseClicked(evt);
-            }
-        });
-        radioGiaBan5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioGiaBan5radioGiaBanActionPerformed(evt);
-            }
-        });
-
-        buttonGroup1.add(radioGiaNhap5);
-        radioGiaNhap5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        radioGiaNhap5.setForeground(new java.awt.Color(255, 255, 255));
-        radioGiaNhap5.setText("Giá Nhập");
-        radioGiaNhap5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                radioGiaNhap5radioGiaNhapMouseClicked(evt);
-            }
-        });
-
-        buttonGroup1.add(radioSoLuong5);
-        radioSoLuong5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        radioSoLuong5.setForeground(new java.awt.Color(255, 255, 255));
-        radioSoLuong5.setText("Số Lượng");
-        radioSoLuong5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                radioSoLuong5radioSoLuongMouseClicked(evt);
-            }
-        });
-        radioSoLuong5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioSoLuong5radioSoLuongActionPerformed(evt);
-            }
-        });
-
-        cbbSapXep5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cbbSapXep5.setForeground(new java.awt.Color(255, 255, 255));
-        cbbSapXep5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tăng Dần", "Giảm Dần" }));
-        cbbSapXep5.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                cbbSapXep5cbbSapXepAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-        cbbSapXep5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbSapXep5cbbSapXepActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(radioSoLuong5, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(radioGiaNhap5, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(radioGiaBan5, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbbSapXep5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(radioGiaNhap5)
-                    .addComponent(radioGiaBan5)
-                    .addComponent(radioSoLuong5)
-                    .addComponent(cbbSapXep5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1312, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE))
-        );
-
-        jTabbedPane2.addTab("tab1", jPanel10);
-
-        jTabbedPane1.addTab("Hóa Đơn", jTabbedPane2);
-
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -811,34 +678,6 @@ public class ThongKeView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_radioGiaBanMouseClicked
 
-    private void cbbSapXep5cbbSapXepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSapXep5cbbSapXepActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbbSapXep5cbbSapXepActionPerformed
-
-    private void cbbSapXep5cbbSapXepAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbbSapXep5cbbSapXepAncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbbSapXep5cbbSapXepAncestorAdded
-
-    private void radioSoLuong5radioSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioSoLuong5radioSoLuongActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radioSoLuong5radioSoLuongActionPerformed
-
-    private void radioSoLuong5radioSoLuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioSoLuong5radioSoLuongMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radioSoLuong5radioSoLuongMouseClicked
-
-    private void radioGiaNhap5radioGiaNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioGiaNhap5radioGiaNhapMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radioGiaNhap5radioGiaNhapMouseClicked
-
-    private void radioGiaBan5radioGiaBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioGiaBan5radioGiaBanActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radioGiaBan5radioGiaBanActionPerformed
-
-    private void radioGiaBan5radioGiaBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioGiaBan5radioGiaBanMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radioGiaBan5radioGiaBanMouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -879,7 +718,6 @@ public class ThongKeView extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cbbSapXep4;
-    private javax.swing.JComboBox<String> cbbSapXep5;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -888,8 +726,6 @@ public class ThongKeView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel2;
@@ -898,9 +734,7 @@ public class ThongKeView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JLabel lbHoaDonCTT;
     private javax.swing.JLabel lbHoadonDaTT;
     private javax.swing.JLabel lbSPCH1;
@@ -917,12 +751,8 @@ public class ThongKeView extends javax.swing.JFrame {
     private javax.swing.JLabel lbdoanhthuNgay;
     private javax.swing.JLabel lbdoanhthuQuy;
     private javax.swing.JRadioButton radioGiaBan4;
-    private javax.swing.JRadioButton radioGiaBan5;
     private javax.swing.JRadioButton radioGiaNhap4;
-    private javax.swing.JRadioButton radioGiaNhap5;
     private javax.swing.JRadioButton radioSoLuong4;
-    private javax.swing.JRadioButton radioSoLuong5;
     private javax.swing.JTable tbCTSP4;
-    private javax.swing.JTable tbCTSP5;
     // End of variables declaration//GEN-END:variables
 }
