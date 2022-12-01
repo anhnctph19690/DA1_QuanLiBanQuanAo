@@ -466,7 +466,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER proc [dbo].[procThemSIZE]
+create proc procThemSIZE
 		@TenSoSize nvarchar(50)
 	as
 	begin
@@ -482,3 +482,42 @@ ALTER proc [dbo].[procThemSIZE]
 		where ma = @MaSize
 		return
 	END
+    
+	---- Proc newProduct
+	CREATE PROC [dbo].[InsertNewProduct] (
+@Ten NVARCHAR(MAX)
+)
+AS
+BEGIN
+	DECLARE @getIndexProduct int;
+	DECLARE @defaultCode NVARCHAR(10) = 'SP';
+	DECLARE @newProductCode NVARCHAR(25);
+	
+	SELECT @getIndexProduct = ISNULL(Count(IdSP), 0) + 1 FROM SanPham
+	SELECT @newProductCode = @defaultCode + '0000' + CAST(@getIndexProduct AS NVARCHAR(5))
+
+	INSERT INTO SanPham (IdSP, MaSP, Ten) VALUES (newId(), @newProductCode, @Ten)
+	SELECT MaSP 
+	From SanPham
+	Where MaSP = @newProductCode
+	RETURN
+END
+
+---- Proc KH
+CREATE proc [dbo].[procKH]
+		@TenKH nvarchar(50),
+		@SDT varchar(30)
+	as
+	begin
+		Declare @MaKH char(7)
+		if not exists (select * from KhachHang) 
+			Set @MaKH=1
+		else
+			Set @MaKH=(select RIGHT(MAX(MAKH),5) from KhachHang)+1
+		Set @MaKH='KH'+REPLICATE('0',5-LEN(@MaKH))+@MaKH
+		insert into KhachHang(MaKH, Ten, Sdt, TrangThai) values(@MaKH,@TenKH, @SDT, 1)
+		select MAKH
+		from KhachHang
+		where MaKH = @MaKH
+		return
+	end
