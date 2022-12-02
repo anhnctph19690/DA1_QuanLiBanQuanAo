@@ -22,7 +22,7 @@ import java.sql.*;
 public class LoaiSanPhamRepository implements ILoaiSanPhamRepository{
 
     Connection conn = DBConnection.getConnection();
-    final String InsertLoaiSP= "{call procLSP(?)}";
+    final String InsertLoaiSP= "{call procThemLoaiSanPham(?)}";
     @Override
     public List<LoaiSanPham> getAll() {
          List<LoaiSanPham> ListLSP = new ArrayList<>();

@@ -25,7 +25,7 @@ public class SanPhamRepository implements ISanPhamRepository {
     final String sql = "insert into SanPham "
             + "(MaSP,Ten)"
             + "VALUES(?,?)";
-    final String InsertNewProduct = "{call procThemSP(?)}";
+    final String InsertNewProduct = "{call InsertNewProduct(?)}";
 
     @Override
     public SanPham add(String name) {

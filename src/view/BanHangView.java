@@ -1423,7 +1423,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         // TODO add your handling code here:
         HoaDon hd = new HoaDon();
         hd.setNgayTao(new Date(labelNgayTao.getText()));
-        hd.setIdNhanVien("410DDF58-4BDC-4C6A-BB33-21BBDDF3CC72");
+        hd.setIdNhanVien("318A8FCB-C228-405B-B5B5-2B2C59042345");
         hd.setTrangThai(0);
 
         JOptionPane.showMessageDialog(this, _iHoaDonService.add(hd));
@@ -1496,7 +1496,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         // TODO add your handling code here:
         HoaDon hd = new HoaDon();
         hd.setNgayTao(new Date());
-        hd.setIdNhanVien("410DDF58-4BDC-4C6A-BB33-21BBDDF3CC72");
+        hd.setIdNhanVien("318A8FCB-C228-405B-B5B5-2B2C59042345");
         hd.setTrangThai(2);
 
         JOptionPane.showMessageDialog(this, _iHoaDonService.add(hd));

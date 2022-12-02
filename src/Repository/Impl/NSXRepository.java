@@ -20,7 +20,7 @@ import java.sql.*;
 public class NSXRepository implements INSXRepository {
 
     Connection conn = DBConnection.getConnection();
-      final String InsertNSX= "{call procThemNSXXX(?)}";
+      final String InsertNSX= "{call procThemNSX(?)}";
 
     @Override
     public List<NSX> getAll() {
