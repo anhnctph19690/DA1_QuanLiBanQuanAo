@@ -13,6 +13,7 @@ import ViewModel.QLThongKe;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import ViewModel.QLThongKeHD;
+import Services.Impl.ThongKeHdService;
 
 /**
  *
@@ -23,6 +24,7 @@ public class ThongKeView extends javax.swing.JFrame {
     private HoaDonService hoaDonService;
     private HoaDonChiTietService hoaDonChiTietService;
     private ChiTietSanPhamService chiTietSanPhamService;
+    private ThongKeHdService thongKeHdService;
     private List<HoaDon> hoadon;
     private DefaultTableModel model;
     
@@ -32,7 +34,7 @@ public class ThongKeView extends javax.swing.JFrame {
     public ThongKeView() {
         initComponents();
         setLocationRelativeTo(null);
-        
+        this.thongKeHdService = new ThongKeHdService();
         this.hoaDonService = new HoaDonService();
         this.chiTietSanPhamService = new ChiTietSanPhamService();
         this.hoaDonChiTietService = new HoaDonChiTietService();
@@ -40,7 +42,8 @@ public class ThongKeView extends javax.swing.JFrame {
         hienthithongkehoadon();
         hienthithongkeSP();
         doanhthu();
-        model = (DefaultTableModel) tb_tkhd.getModel();
+        this.loadTableTKHD();
+        
         
     }
 
@@ -113,24 +116,25 @@ public class ThongKeView extends javax.swing.JFrame {
         }
 
     }
-    public void loadTableTKHD(String thongKeTheo, String sapXepTheo) {
+    public void loadTableTKHD() {
 
         DefaultTableModel dtm = (DefaultTableModel) tb_tkhd.getModel();
         dtm.setRowCount(0);
         int stt = 1;
-        for (QLThongKeHD QLtk : this.chiTietSanPhamService.thongKeALL(thongKeTheo, sapXepTheo)) {
+        for (QLThongKeHD QLtkhd : this.thongKeHdService.getALLThongKeHDs()) {
             Object rowData[] = {
                 stt++,
-                QLtk.getMaSP(),
-                QLtk.getTenSP(),
-                QLtk.getChatLieu(),
-                QLtk.getMauSac(),
-                QLtk.getKichThuoc(),
-                QLtk.getThuongHieu(),
-                QLtk.getNsx(),
-                QLtk.getSoLuong(),
-                QLtk.getGiaNhap(),
-                QLtk.getGiaBan(),};
+                QLtkhd.getMahd(),
+                QLtkhd.getNgayTao(),
+                QLtkhd.getTennv(),
+//                QLtkhd.getMauSac(),
+//                QLtk.getKichThuoc(),
+//                QLtk.getThuongHieu(),
+//                QLtk.getNsx(),
+//                QLtk.getSoLuong(),
+//                QLtk.getGiaNhap(),
+//                QLtk.getGiaBan(),
+            };
             dtm.addRow(rowData);
         }
 
@@ -147,6 +151,7 @@ public class ThongKeView extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
         jPanel8 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lbdoanhthuNam = new javax.swing.JLabel();
@@ -597,6 +602,8 @@ public class ThongKeView extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Doanh Thu", jPanel17);
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
         tb_tkhd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -610,8 +617,12 @@ public class ThongKeView extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tb_tkhd);
 
+        jPanel4.setBackground(new java.awt.Color(153, 255, 255));
+
+        buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Tổng số lượng");
 
+        buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Tổng tiền hàng");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tăng Dần ", "Giảm Dần" }));
@@ -828,6 +839,7 @@ public class ThongKeView extends javax.swing.JFrame {
     private javax.swing.JButton btnThoat;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JComboBox<String> cbbSapXep4;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;

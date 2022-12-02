@@ -21,6 +21,13 @@ public class QLThongKeHD {
     public QLThongKeHD() {
     }
 
+    public QLThongKeHD(Integer stt, String mahd, Date NgayTao, String tennv) {
+        this.stt = stt;
+        this.mahd = mahd;
+        this.NgayTao = NgayTao;
+        this.tennv = tennv;
+    }
+    
     public QLThongKeHD(Integer stt, String mahd, Date NgayTao, String tennv, Integer tongslsp, Double tongtien) {
         this.stt = stt;
         this.mahd = mahd;
