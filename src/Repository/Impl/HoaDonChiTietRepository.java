@@ -41,6 +41,8 @@ public class HoaDonChiTietRepository implements IHoaDonChiTietRepository {
         return HDCTList;
     }
 
+   
+
     public String getIDByMaHD(String maHD) {
         String query = "SELECT IdHoaDon FROM dbo.HoaDon WHERE MaHD = ?";
         String id = null;
@@ -80,17 +82,23 @@ public class HoaDonChiTietRepository implements IHoaDonChiTietRepository {
         }
         return arr.length > 0;
     }
-    
-    
 
     public static void main(String[] args) {
-        new HoaDonChiTietRepository().getAllInvoices("7096376D-C3F7-48F6-86DD-9EBB2A70DFA6").forEach(s -> System.out.println(s.toString()));
-
+//        new HoaDonChiTietRepository().getAllInvoices("7096376D-C3F7-48F6-86DD-9EBB2A70DFA6").forEach(s -> System.out.println(s.toString()));
+//        for (QLHoaDonChiTiet x : new HoaDonChiTietRepository().getAllHDCT()) {
+//            System.out.println(x.toString());
+//        }
+            
+          String ngayBatDau = "2022-11-29";
+          String ngayKetThuc = "2022-12-02";
+          for (QLHoaDonChiTiet x : new HoaDonChiTietRepository().getFilters(ngayBatDau, ngayKetThuc)) {
+              System.out.println(x.toString());
+        }
     }
 
     @Override
     public int doanhthu() {
-   
+
         int tongDoanhThu = 0;
         Connection conn = DBConnection.getConnection();
         String sql = "select  sum(SoLuong * donGia) as DoanhThu from HoaDonChiTiet  ";
@@ -111,5 +119,54 @@ public class HoaDonChiTietRepository implements IHoaDonChiTietRepository {
 
     }
 
+    @Override
+    public List<QLHoaDonChiTiet> getAllHDCT() {
+          ArrayList<QLHoaDonChiTiet> HDCTList = new ArrayList<>();
+        String query = "select HoaDonChiTiet.IdHoaDon,HoaDonChiTiet.IdCTSP,SanPham.MaSP,SanPham.Ten,HoaDonChiTiet.SoLuong,HoaDonChiTiet.DonGia\n"
+                + "from SanPham join ChiTietSP on SanPham.IdSP = ChiTietSP.IdSP \n"
+                + "join HoaDonChiTiet on ChiTietSP.IdCTSP = HoaDonChiTiet.IdCTSP";
+        try ( Connection conn = DBConnection.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                HDCTList.add(new QLHoaDonChiTiet(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getBigDecimal(6)));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return HDCTList;
+    }
+
+    @Override
+    public List<QLHoaDonChiTiet> getFilters(String ngayBatDau,String ngayKetThuc) {
+        String query = "Select HoaDonChiTiet.IdHoaDon,HoaDonChiTiet.IdCTSP,SanPham.MaSP,SanPham.Ten,HoaDonChiTiet.SoLuong,HoaDonChiTiet.DonGia,HoaDon.NgayTao,HoaDon.maHD\n" +
+"                from SanPham join ChiTietSP on SanPham.IdSP = ChiTietSP.IdSP \n" +
+"                join HoaDonChiTiet on ChiTietSP.IdCTSP = HoaDonChiTiet.IdCTSP\n" +
+"				join HoaDon on HoaDon.IdHoaDon = HoaDonChiTiet.IdHoaDon\n" +
+"				where HoaDon.NgayTao between ? and ?";
+
+        try ( Connection conn = DBConnection.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setObject(1, ngayBatDau);
+            ps.setObject(2, ngayKetThuc);
+            ResultSet rs = ps.executeQuery();
+            List<QLHoaDonChiTiet> list = new ArrayList<>();
+            while (rs.next()) {
+                QLHoaDonChiTiet hoaDonCT = new QLHoaDonChiTiet(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getInt(5), rs.getBigDecimal(6), rs.getDate(7), rs.getString(8));
+                list.add(hoaDonCT);
+            }
+            return list;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
+
+   
+    }
     
+    
+
 }

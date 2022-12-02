@@ -20,5 +20,9 @@ public interface IHoaDonChiTietRepository {
     boolean addListInvoice(List<QLHoaDonChiTiet> list);
     
     public int doanhthu();
+    
+    List<QLHoaDonChiTiet> getAllHDCT();
+    
+    List<QLHoaDonChiTiet> getFilters(String ngayBatDau,String ngayKetThuc);
 
 }

@@ -24,6 +24,19 @@ public class QLHoaDon {
     public QLHoaDon() {
     }
 
+    public QLHoaDon(int soThuTu, String idHoaDon, String maHoaDon, Date ngayTao, String tenNhanVien, int trangThai, String tenKhachHang, String sdt) {
+        this.soThuTu = soThuTu;
+        this.idHoaDon = idHoaDon;
+        this.maHoaDon = maHoaDon;
+        this.ngayTao = ngayTao;
+        this.tenNhanVien = tenNhanVien;
+        this.trangThai = trangThai;
+        this.tenKhachHang = tenKhachHang;
+        this.sdt = sdt;
+    }
+    
+    
+
     public int getSoThuTu() {
         return soThuTu;
     }
@@ -89,7 +102,11 @@ public class QLHoaDon {
     }
 
     public Object[] toDataRow() {
-        return new Object[]{soThuTu, maHoaDon, ngayTao, tenNhanVien, tenKhachHang == null ? "Khách lẻ" : tenKhachHang, trangThai == 0 ? "Chờ thanh toán" : trangThai == 1 ? "Đã thanh toán" : trangThai == 2 ? "Đang tạo" : trangThai == 3 ? "Đang giao" : "Đã giao"};
+        return new Object[]{soThuTu, maHoaDon, ngayTao,tenNhanVien, tenKhachHang == null ? "Khách lẻ" : tenKhachHang, trangThai == 0 ? "Chờ thanh toán" : trangThai == 1 ? "Đã thanh toán" : trangThai == 2 ? "Đang tạo" : trangThai == 3 ? "Đang giao" : "Đã giao"};
+    }
+    
+    public Object[] dataRow(){
+          return new Object[]{soThuTu,maHoaDon,tenNhanVien,ngayTao,trangThai == 0 ? "Chờ thanh toán" : trangThai == 1 ? "Đã thanh toán" : trangThai == 2 ? "Đang tạo" : trangThai == 3 ? "Đang giao" : "Đã giao"};
     }
 
     @Override

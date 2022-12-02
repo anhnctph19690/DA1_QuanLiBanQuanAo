@@ -46,4 +46,16 @@ public class HoaDonChiTietService implements IHoaDonChiTietService {
         return hoaDonChiTietRepository.doanhthu();
     }
 
+    @Override
+    public List<QLHoaDonChiTiet> getAllHDCT() {
+        return hoaDonChiTietRepository.getAllHDCT();
+    }
+
+    @Override
+    public List<QLHoaDonChiTiet> getFilters(String ngayBatDau,String ngayKetThuc) {
+        return hoaDonChiTietRepository.getFilters(ngayBatDau, ngayKetThuc);
+    }
+
+  
+
 }

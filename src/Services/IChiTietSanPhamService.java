@@ -34,4 +34,8 @@ public interface IChiTietSanPhamService {
     public int demSoLuongSPHH();
 
     public int TongSP();
+    
+    List<QLChiTietSanPham> searchByName(String name);
+    
+    List<QLChiTietSanPham> searchByMa(String ma);
 }

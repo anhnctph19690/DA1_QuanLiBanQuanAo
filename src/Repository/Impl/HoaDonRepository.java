@@ -90,9 +90,14 @@ public class HoaDonRepository implements IHoaDonRepository {
 
     public static void main(String[] args) {
         //new HoaDonRepository().getAllHoaDonCho(1).forEach(s -> System.out.println(s.toString()));
-        HoaDonRepository hdr = new HoaDonRepository();
+//        HoaDonRepository hdr = new HoaDonRepository();
 
-        System.out.println(hdr.doanhThuQuy());
+          String ngayBatDau = "2022-11-29";
+          String ngayKetThuc = "2022-12-02";
+          for (QLHoaDon x : new HoaDonRepository().getFilter(ngayBatDau, ngayKetThuc)) {
+              System.out.println(x.toString());
+        }
+       
     }
 
     @Override
@@ -300,11 +305,67 @@ public class HoaDonRepository implements IHoaDonRepository {
                 doanhThuQuy = rs.getInt("DoanhThuQuy");
                 quy = rs.getInt("Quy");
             }
-            
+
         } catch (Exception e) {
         }
         return doanhThuQuy;
 
+    }
+
+    @Override
+    public List<QLHoaDon> getAllHD() {
+
+        String query = "select ROW_NUMBER() OVER (ORDER BY hd.Mahd DESC) , hd.IdHoaDon, hd.MaHD, hd.NgayTao, nv.TenNV, hd.TrangThai, kh.Ten, kh.Sdt\n"
+                + "    from NhanVien nv\n"
+                + "	join HoaDon hd on hd.IdNV = nv.IdNV\n"
+                + "    left join KhachHang kh on hd.IdKH = kh.IdKH\n";
+
+        try ( Connection conn = DBConnection.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(query);
+
+            ResultSet rs = ps.executeQuery();
+            List<QLHoaDon> list = new ArrayList<>();
+            while (rs.next()) {
+                QLHoaDon hoaDon = new QLHoaDon(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4),
+                        rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8));
+                list.add(hoaDon);
+            }
+            return list;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
+
+    }
+
+
+    @Override
+    public List<QLHoaDon> getFilter(String ngayBatDau, String ngayKetThuc) {
+         String query = "select ROW_NUMBER() OVER (ORDER BY hd.Mahd DESC) , hd.IdHoaDon, hd.MaHD, hd.NgayTao, nv.TenNV, hd.TrangThai, kh.Ten, kh.Sdt\n"
+                + "    from NhanVien nv\n"
+                + "	join HoaDon hd on hd.IdNV = nv.IdNV\n"
+                + "    left join KhachHang kh on hd.IdKH = kh.IdKH\n"
+                + "    where hd.ngaytao between ? and ? ";
+
+        try ( Connection conn = DBConnection.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setObject(1, ngayBatDau);
+            ps.setObject(2, ngayKetThuc);
+
+            ResultSet rs = ps.executeQuery();
+            List<QLHoaDon> list = new ArrayList<>();
+            while (rs.next()) {
+                QLHoaDon hoaDon = new QLHoaDon(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4),
+                        rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8));
+                list.add(hoaDon);
+            }
+            return list;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
     }
 
 }

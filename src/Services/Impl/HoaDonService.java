@@ -77,7 +77,19 @@ public class HoaDonService implements IHoaDonService {
     public int doanhThuNgay() {
         return hoaDonRepository.doanhThuNgay();
     }
+
     public int doanhThuQuy() {
         return hoaDonRepository.doanhThuQuy();
     }
+
+    @Override
+    public List<QLHoaDon> getAllHD() {
+        return hoaDonRepository.getAllHD();
+    }
+
+    @Override
+    public List<QLHoaDon> getFilter(String ngayBatDau, String ngayKetThuc) {
+        return hoaDonRepository.getFilter(ngayBatDau, ngayKetThuc);
+    }
+
 }

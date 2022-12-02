@@ -34,5 +34,9 @@ public interface IHoaDonService {
     public int demSoLuongHoaDonCTT();
 
     public int Tonghoadon();
+    
+    List<QLHoaDon> getAllHD();
+    
+    List<QLHoaDon> getFilter(String ngayBatDau,String ngayKetThuc);
 
 }

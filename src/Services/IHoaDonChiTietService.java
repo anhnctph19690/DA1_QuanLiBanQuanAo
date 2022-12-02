@@ -21,4 +21,8 @@ public interface IHoaDonChiTietService {
      Double totalMoneyOfInvoice(List<QLHoaDonChiTiet> list);
      
      public int doanhthu();
+     
+     List<QLHoaDonChiTiet> getAllHDCT();
+     
+     List<QLHoaDonChiTiet> getFilters(String ngayBatDau, String ngayKetThuc);
 }

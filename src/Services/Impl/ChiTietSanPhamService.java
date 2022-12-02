@@ -87,4 +87,14 @@ public class ChiTietSanPhamService implements IChiTietSanPhamService {
     public List<QLThongKe> thongKeALL(String thongKeTheo, String SapXepTheo) {
         return _iChiTietSanPhamRepository.thongKeALL(thongKeTheo, SapXepTheo);
     }
+
+    @Override
+    public List<QLChiTietSanPham> searchByName(String name) {
+        return _iChiTietSanPhamRepository.searchByName(name);
+    }
+
+    @Override
+    public List<QLChiTietSanPham> searchByMa(String ma) {
+        return _iChiTietSanPhamRepository.searchByMa(ma);
+    }
 }
