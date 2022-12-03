@@ -4,7 +4,16 @@
  */
 package view;
 
+import Models.NhanVien;
+import Repository.Impl.NhanVienRepository;
+import Services.INhanVienServicer;
+import Services.Impl.NhanVienServicer;
+import ViewModel.QLNhanVien;
+import java.awt.Frame;
 import java.awt.SystemTray;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -14,12 +23,23 @@ import javax.swing.JOptionPane;
  */
 public class DashBoard extends javax.swing.JFrame {
 
+    
+    NhanVienRepository nhanVienRepository = new NhanVienRepository();
     /**
      * Creates new form DashBoard
      */
+    
+    NhanVien nv = this.nhanVienRepository.getNhanVienByStatus(3);
+    
     public DashBoard() {
         initComponents();
+        
+         lblTenNv.setText(nv.getTenNV());
+        
+        
        
+//        new DashBoard().add(new HoaDonView()).setVisible(true);
+        
     }
 
     /**
@@ -33,7 +53,7 @@ public class DashBoard extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblTenNv = new javax.swing.JLabel();
         btnHome = new javax.swing.JButton();
         btnBanHang = new javax.swing.JButton();
         btnHoaDon = new javax.swing.JButton();
@@ -68,8 +88,8 @@ public class DashBoard extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("Nhóm 113");
+        lblTenNv.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTenNv.setText("Nhóm 113");
 
         btnHome.setBackground(new java.awt.Color(102, 102, 255));
         btnHome.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -87,6 +107,11 @@ public class DashBoard extends javax.swing.JFrame {
         btnHoaDon.setBackground(new java.awt.Color(51, 102, 255));
         btnHoaDon.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         btnHoaDon.setText("Hoá Đơn");
+        btnHoaDon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHoaDonActionPerformed(evt);
+            }
+        });
 
         btnSanPham.setBackground(new java.awt.Color(102, 102, 255));
         btnSanPham.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -166,7 +191,7 @@ public class DashBoard extends javax.swing.JFrame {
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(105, 105, 105)
-                                .addComponent(jLabel1)))
+                                .addComponent(lblTenNv)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -197,7 +222,7 @@ public class DashBoard extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
+                .addComponent(lblTenNv)
                 .addGap(18, 18, 18)
                 .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -216,7 +241,7 @@ public class DashBoard extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton9)
                     .addComponent(jLabel2))
-                .addGap(42, 328, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jplAnhNen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -282,9 +307,18 @@ public class DashBoard extends javax.swing.JFrame {
         int check = JOptionPane.showConfirmDialog(this, "Bạn có chắn chắn muốn đăng xuất !!!!", "Đăng xuất", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (check == JOptionPane.YES_OPTION) {
             this.dispose();
+           this.nhanVienRepository.updateStatusLogin(nv.getMaNV(), 1);
             new Login().setVisible(true);
+            
         } 
     }//GEN-LAST:event_btnDangXuatActionPerformed
+
+    private void btnHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoaDonActionPerformed
+        // TODO add your handling code here:
+       ViewHoaDon hoaDonView = new ViewHoaDon();
+        new DashBoard().add(hoaDonView);
+       hoaDonView.setLocation(100, 100);
+    }//GEN-LAST:event_btnHoaDonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -330,12 +364,12 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JButton btnSanPham;
     private javax.swing.JButton btnThongKe;
     private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jplAnhNen;
+    private javax.swing.JLabel lblTenNv;
     // End of variables declaration//GEN-END:variables
 }

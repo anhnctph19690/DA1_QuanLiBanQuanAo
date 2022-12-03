@@ -87,7 +87,7 @@ public class NhanVienVIew extends javax.swing.JFrame {
             gioiTinh = "Nữ";
         }
 
-        Date ngaySinh = jDateChooser.getDate();
+        Date ngaySinh = jDateChooser1.getDate();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         String ngaySinhString = dateFormat.format(ngaySinh);
@@ -117,7 +117,7 @@ public class NhanVienVIew extends javax.swing.JFrame {
         txtdiaChi.setText("");
         txtSdt.setText("");
         rdoNam.setSelected(true);
-        jDateChooser.setDate(Calendar.getInstance().getTime());
+        jDateChooser1.setDate(Calendar.getInstance().getTime());
         txtMK.setText("");
         cboChucVu.setSelectedIndex(0);
         chkTrangThai.setSelected(false);
@@ -146,7 +146,7 @@ public class NhanVienVIew extends javax.swing.JFrame {
         txtMK = new javax.swing.JTextField();
         cboChucVu = new javax.swing.JComboBox<>();
         chkTrangThai = new javax.swing.JCheckBox();
-        jDateChooser = new com.toedter.calendar.JDateChooser();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
         btnXoa = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
@@ -271,7 +271,7 @@ public class NhanVienVIew extends javax.swing.JFrame {
                             .addComponent(txtMK, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cboChucVu, javax.swing.GroupLayout.Alignment.LEADING, 0, 232, Short.MAX_VALUE)
                             .addComponent(chkTrangThai, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jLabel6)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(162, 162, 162)
@@ -303,8 +303,8 @@ public class NhanVienVIew extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
+                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtdiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel4)
@@ -383,7 +383,7 @@ public class NhanVienVIew extends javax.swing.JFrame {
                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -635,7 +635,7 @@ public class NhanVienVIew extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkTrangThai;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private com.toedter.calendar.JDateChooser jDateChooser;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

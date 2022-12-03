@@ -94,6 +94,8 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
     /**
      * Creates new form From_BanHang
      */
+    
+    NhanVienRepository nhanVienRepository = new NhanVienRepository();
     private WebcamPanel panel = null;
     private Webcam webcam = null;
 
@@ -1264,7 +1266,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
             QLHoaDonChiTiet hdct = new QLHoaDonChiTiet();
             QLChiTietSanPham sp = getProductByIndex(dtmSanPham.getValueAt(rowSanPham, 1).toString());
             hdct.setIdHoaDon(insert.getIdHoaDon());
-            hdct.setIdCTSP(sp.getIdCTSP()); 
+            hdct.setIdCTSP(sp.getIdCTSP());
             hdct.setMaSP(sp.getMaSanPham());
             hdct.setTenSP(sp.getTenSanPham());
             hdct.setSoLuongMua(Integer.valueOf(soLuong));
@@ -1421,9 +1423,12 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
 
     private void btnTaoHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHoaDonActionPerformed
         // TODO add your handling code here:
-        HoaDon hd = new HoaDon();
+
+        NhanVien nv = this.nhanVienRepository.getNhanVienByStatus(3);
+        
+       HoaDon hd = new HoaDon();
         hd.setNgayTao(new Date(labelNgayTao.getText()));
-        hd.setIdNhanVien("318A8FCB-C228-405B-B5B5-2B2C59042345");
+        hd.setIdNhanVien(nv.getIdNhanVien());
         hd.setTrangThai(0);
 
         JOptionPane.showMessageDialog(this, _iHoaDonService.add(hd));
@@ -1433,7 +1438,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
 
         _listHoaDonChiTiet.removeAll(_listHoaDonChiTiet);
         showDataTableGioHang(_listHoaDonChiTiet);
-        
+
         _listChiTietSanPham = _iChiTietSanPhamService.getAll();
         showDataTableSanPham(_listChiTietSanPham);
     }//GEN-LAST:event_btnTaoHoaDonActionPerformed
@@ -1506,7 +1511,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
 
         _listHoaDonChiTiet.removeAll(_listHoaDonChiTiet);
         showDataTableGioHang(_listHoaDonChiTiet);
-        
+
         _listChiTietSanPham = _iChiTietSanPhamService.getAll();
         showDataTableSanPham(_listChiTietSanPham);
     }//GEN-LAST:event_btnTaoHoaDon1ActionPerformed

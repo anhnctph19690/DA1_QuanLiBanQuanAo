@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class NhanVienRepository implements INhanVienRepository{
+public class NhanVienRepository implements INhanVienRepository {
 
     Connection conn = DBConnection.getConnection();
 
@@ -61,7 +61,7 @@ public class NhanVienRepository implements INhanVienRepository{
 
             String query = "{call procThemNV(?, ?, ?, ?, ?, ?, ?, ?)}";
             PreparedStatement ps = conn.prepareStatement(query);
-            
+
             ps.setString(1, nv.getTenNV());
             ps.setString(2, nv.getDiaChi());
             ps.setString(3, nv.getsDT());
@@ -81,6 +81,7 @@ public class NhanVienRepository implements INhanVienRepository{
 //        NhanVienRepository nhanVienRepository = new NhanVienRepository();
 //        nhanVienRepository.insert(new NhanVien("", "", "Tuan Anh", "uhdsfuds", "gfsdgs", "Nam", "2022-12-12", "frsgfs", 1, "D1C3E9A0-A6A8-4AA7-A6EA-D5A08874AE75"));
 //    }
+
     @Override
     public void update(NhanVien nv, String maNV) {
         try {
@@ -108,7 +109,7 @@ public class NhanVienRepository implements INhanVienRepository{
 
     }
 
-   @Override
+    @Override
     public void delete(String maNv) {
         try {
 
@@ -123,16 +124,16 @@ public class NhanVienRepository implements INhanVienRepository{
         }
     }
 
-  @Override
+    @Override
     public String getIDChucVu(String tenCV) {
-String query = "SELECT * FROM dbo.ChucVu WHERE ChucVu = ?";
-String idCV = null;
+        String query = "SELECT * FROM dbo.ChucVu WHERE ChucVu = ?";
+        String idCV = null;
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, tenCV);
             ps.execute();
             ResultSet rs = ps.getResultSet();
-            while (rs.next()) {                
+            while (rs.next()) {
                 idCV = rs.getString("IdCV");
             }
         } catch (SQLException ex) {
@@ -141,5 +142,46 @@ String idCV = null;
         return idCV;
     }
 
+    public void updateStatusLogin(String user, int status) {
+        String query = "UPDATE NhanVien SET TrangThai = ? WHERE MANV = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(2, user);
+            ps.setInt(1, status);
+            ps.execute();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    public NhanVien getNhanVienByStatus(int status) {
+        String query = "SELECT * FROM NhanVien WHERE TrangThai = ?";
+        NhanVien nv = null;
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, status);
+            ps.execute();
+            ResultSet rs = ps.getResultSet();
+            while (rs.next()) {
+                String id = rs.getString("IdNV");
+                String ma = rs.getString("MaNV");
+                String ten = rs.getString("TenNV");
+                String idCV = rs.getString("IdCV");
+                String diaChi = rs.getString("DiaChi");
+                String sDT = rs.getString("Sdt");
+                String gioiTinh = rs.getString("GioiTinh");
+                String NgaySinh = rs.getString("NgaySinh");
+                String matKhau = rs.getString("MatKhau");
+                Integer trangThai = rs.getInt("TrangThai");
+                
+                nv = new NhanVien(id, ma, ten, diaChi, sDT, gioiTinh, NgaySinh, matKhau, trangThai, idCV);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return nv;
+    }
 
 }
