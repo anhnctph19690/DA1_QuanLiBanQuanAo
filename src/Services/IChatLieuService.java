@@ -4,7 +4,7 @@
  */
 package Services;
 
-import Models.ChatLieu;
+import DomainModels.ChatLieu;
 import ViewModel.QLChatLieu;
 import java.util.List;
 

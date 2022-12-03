@@ -1,6 +1,6 @@
 package Services.Impl;
 
-import Models.NhanVien;
+import DomainModels.NhanVien;
 import Repository.INhanVienRepository;
 import Repository.Impl.NhanVienRepository;
 import Services.INhanVienServicer;

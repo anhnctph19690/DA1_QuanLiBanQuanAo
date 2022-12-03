@@ -4,7 +4,7 @@
  */
 package Services.Impl;
 
-import Models.SanPham;
+import DomainModels.SanPham;
 import Repository.Impl.SanPhamRepository;
 import Services.ISanPhamService;
 import ViewModel.QLSanPham;

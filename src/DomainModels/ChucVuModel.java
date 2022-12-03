@@ -1,4 +1,4 @@
-package Models;
+package DomainModels;
 
 public class ChucVuModel {
 

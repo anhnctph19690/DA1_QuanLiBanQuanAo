@@ -4,7 +4,7 @@
  */
 package Repository;
 
-import Models.ChatLieu;
+import DomainModels.ChatLieu;
 import java.util.List;
 
 /**

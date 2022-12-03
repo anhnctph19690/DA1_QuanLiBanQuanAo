@@ -4,7 +4,7 @@
  */
 package Services;
 
-import Models.MauSac;
+import DomainModels.MauSac;
 
 /**
  *

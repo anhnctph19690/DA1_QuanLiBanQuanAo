@@ -4,7 +4,7 @@
  */
 package Services.Impl;
 
-import Models.ThuongHieu;
+import DomainModels.ThuongHieu;
 import Repository.Impl.ThuongHieuRepository;
 import ViewModel.QLThuongHieu;
 import java.util.ArrayList;

@@ -1150,4 +1150,10 @@ CONSTRAINT FK_GiamGia FOREIGN KEY(IdGiamGia) REFERENCES dbo.GiamGia(IdGiamGia),
 CONSTRAINT FK_IdHoaDon FOREIGN KEY(IdHoaDon) REFERENCES dbo.HoaDon(IdHoaDon),
 )
 
->>>>>>> 5f931ee24919c081a908e8a85c141b0fa6a5c546
+
+
+
+SELECT        dbo.HoaDon.MaHD, dbo.HoaDon.NgayTao, dbo.HoaDon.TongTien, dbo.NhanVien.TenNV, dbo.HoaDon.TrangThai, dbo.HoaDonChiTiet.SoLuong, SUM(SoLuong)
+FROM            dbo.HoaDon INNER JOIN
+                         dbo.NhanVien ON dbo.HoaDon.IdNV = dbo.NhanVien.IdNV INNER JOIN
+                         dbo.HoaDonChiTiet ON dbo.HoaDon.IdHoaDon = dbo.HoaDonChiTiet.IdHoaDon

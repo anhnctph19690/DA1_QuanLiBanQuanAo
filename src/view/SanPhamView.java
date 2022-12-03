@@ -4,10 +4,10 @@
  */
 package view;
 
-import Models.ChiTietSanPham;
-import Models.LoaiSanPham;
-import Models.MauSac;
-import Models.SanPham;
+import DomainModels.ChiTietSanPham;
+import DomainModels.LoaiSanPham;
+import DomainModels.MauSac;
+import DomainModels.SanPham;
 import Repository.Impl.ChatLieuRepository;
 import Repository.Impl.KichThuocRepo;
 import Repository.Impl.LoaiSanPhamRepository;

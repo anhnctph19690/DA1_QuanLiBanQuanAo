@@ -4,7 +4,7 @@
  */
 package Services.Impl;
 
-import Models.ChatLieu;
+import DomainModels.ChatLieu;
 import Repository.IChatLieuRepository;
 import Repository.Impl.ChatLieuRepository;
 import Services.IChatLieuService;

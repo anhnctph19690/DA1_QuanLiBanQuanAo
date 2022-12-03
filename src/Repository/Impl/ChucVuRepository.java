@@ -1,6 +1,6 @@
 package Repository.Impl;
 
-import Models.ChucVuModel;
+import DomainModels.ChucVuModel;
 import Repository.IChucVurepository;
 import Ultilities.DBConnection;
 import java.sql.Connection;

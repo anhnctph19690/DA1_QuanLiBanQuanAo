@@ -4,7 +4,7 @@
  */
 package Repository;
 
-import Models.HoaDonChiTiet;
+import DomainModels.HoaDonChiTiet;
 import ViewModel.QLHoaDonChiTiet;
 import java.util.ArrayList;
 import java.util.List;

@@ -4,7 +4,7 @@
  */
 package Services.Impl;
 
-import Models.NSX;
+import DomainModels.NSX;
 import Repository.Impl.NSXRepository;
 import Services.INSXService;
 import ViewModel.QLNSX;

@@ -4,7 +4,7 @@
  */
 package Repository.Impl;
 
-import Models.ChatLieu;
+import DomainModels.ChatLieu;
 import Repository.IChatLieuRepository;
 import Ultilities.DBConnection;
 import java.util.ArrayList;

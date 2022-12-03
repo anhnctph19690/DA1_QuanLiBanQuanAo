@@ -4,7 +4,7 @@
  */
 package Repository;
 
-import Models.HoaDon;
+import DomainModels.HoaDon;
 import Ultilities.DBConnection;
 import ViewModel.QLHoaDon;
 import java.sql.*;

@@ -4,7 +4,7 @@
  */
 package Services;
 
-import Models.LoaiSanPham;
+import DomainModels.LoaiSanPham;
 import ViewModel.QLLoaiSanPham;
 import java.util.List;
 

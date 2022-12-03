@@ -4,8 +4,8 @@
  */
 package Repository;
 
-import Models.ChiTietSanPham;
-import Models.HoaDonChiTiet;
+import DomainModels.ChiTietSanPham;
+import DomainModels.HoaDonChiTiet;
 import ViewModel.QLChiTietSanPham;
 import ViewModel.QLThongKe;
 import java.util.List;

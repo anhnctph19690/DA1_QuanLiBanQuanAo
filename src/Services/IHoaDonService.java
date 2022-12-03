@@ -4,7 +4,7 @@
  */
 package Services;
 
-import Models.HoaDon;
+import DomainModels.HoaDon;
 import ViewModel.QLHoaDon;
 import java.util.ArrayList;
 import java.util.List;

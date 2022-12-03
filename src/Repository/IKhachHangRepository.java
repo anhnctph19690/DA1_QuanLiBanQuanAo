@@ -4,8 +4,8 @@
  */
 package Repository;
 
-import Models.HoaDon;
-import Models.KhachHang;
+import DomainModels.HoaDon;
+import DomainModels.KhachHang;
 import Ultilities.DBConnection;
 import ViewModel.QLHoaDon;
 import ViewModel.QLKhachHang;

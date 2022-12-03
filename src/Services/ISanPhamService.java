@@ -4,7 +4,7 @@
  */
 package Services;
 
-import Models.SanPham;
+import DomainModels.SanPham;
 import ViewModel.QLSanPham;
 import java.util.List;
 

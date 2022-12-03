@@ -4,7 +4,7 @@
  */
 package Repository.Impl;
 
-import Models.ThuongHieu;
+import DomainModels.ThuongHieu;
 import Repository.IThuongHieuRepository;
 import Ultilities.DBConnection;
 import java.sql.*;

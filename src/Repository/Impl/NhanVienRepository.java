@@ -1,6 +1,6 @@
 package Repository.Impl;
 
-import Models.NhanVien;
+import DomainModels.NhanVien;
 import Repository.INhanVienRepository;
 import Ultilities.DBConnection;
 import ViewModel.QLNhanVien;

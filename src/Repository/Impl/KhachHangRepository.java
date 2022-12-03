@@ -4,8 +4,8 @@
  */
 package Repository.Impl;
 
-import Models.HoaDon;
-import Models.KhachHang;
+import DomainModels.HoaDon;
+import DomainModels.KhachHang;
 import Repository.IHoaDonRepository;
 import Repository.IKhachHangRepository;
 import Ultilities.DBConnection;

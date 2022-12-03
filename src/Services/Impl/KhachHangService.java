@@ -4,7 +4,7 @@
  */
 package Services.Impl;
 
-import Models.KhachHang;
+import DomainModels.KhachHang;
 import Repository.IKhachHangRepository;
 import Repository.Impl.KhachHangRepository;
 import Services.IKhachHangService;

@@ -4,7 +4,7 @@
  */
 package Services;
 
-import Models.ChiTietSanPham;
+import DomainModels.ChiTietSanPham;
 import ViewModel.QLChiTietSanPham;
 import java.util.List;
 import java.util.Map;

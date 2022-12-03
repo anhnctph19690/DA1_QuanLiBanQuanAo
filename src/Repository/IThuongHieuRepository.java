@@ -4,7 +4,7 @@
  */
 package Repository;
 
-import Models.ThuongHieu;
+import DomainModels.ThuongHieu;
 import java.util.List;
 
 /**

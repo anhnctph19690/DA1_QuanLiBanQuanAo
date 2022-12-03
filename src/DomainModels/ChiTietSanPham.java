@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Models;
+package DomainModels;
 
 import java.math.BigDecimal;
 
@@ -149,4 +149,11 @@ public class ChiTietSanPham {
         this.trangThai = trangThai;
     }
 
+    @Override
+    public String toString() {
+        return "ChiTietSanPham{" + "id=" + id + ", idSanPham=" + idSanPham + ", idNhaSanXuat=" + idNhaSanXuat + ", idMauSac=" + idMauSac + ", idLoaiSanPham=" + idLoaiSanPham + ", idChatLieu=" + idChatLieu + ", idThuongHieu=" + idThuongHieu + ", idSize=" + idSize + ", soLuong=" + soLuong + ", giaNhap=" + giaNhap + ", giaBan=" + giaBan + ", moTa=" + moTa + ", trangThai=" + trangThai + '}';
+    }
+
+    
+    
 }

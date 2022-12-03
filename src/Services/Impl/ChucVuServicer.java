@@ -1,6 +1,6 @@
 package Services.Impl;
 
-import Models.ChucVuModel;
+import DomainModels.ChucVuModel;
 import Repository.IChucVurepository;
 import Repository.Impl.ChucVuRepository;
 import Services.IChucVuServicer;

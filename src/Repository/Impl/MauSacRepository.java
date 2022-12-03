@@ -4,7 +4,7 @@
  */
 package Repository.Impl;
 
-import Models.MauSac;
+import DomainModels.MauSac;
 import Repository.*;
 import Ultilities.DBConnection;
 import java.sql.*;

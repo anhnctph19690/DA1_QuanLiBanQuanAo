@@ -4,7 +4,7 @@
  */
 package Repository.Impl;
 
-import Models.KichThuoc;
+import DomainModels.KichThuoc;
 import Ultilities.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;

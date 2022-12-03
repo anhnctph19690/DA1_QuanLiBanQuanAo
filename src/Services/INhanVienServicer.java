@@ -1,6 +1,6 @@
 package Services;
 
-import Models.NhanVien;
+import DomainModels.NhanVien;
 import ViewModel.QLNhanVien;
 import java.util.List;
 

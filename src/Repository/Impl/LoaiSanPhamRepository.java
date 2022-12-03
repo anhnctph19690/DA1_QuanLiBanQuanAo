@@ -4,8 +4,8 @@
  */
 package Repository.Impl;
 
-import Models.KichThuoc;
-import Models.LoaiSanPham;
+import DomainModels.KichThuoc;
+import DomainModels.LoaiSanPham;
 import Repository.ILoaiSanPhamRepository;
 import java.util.ArrayList;
 import java.util.List;

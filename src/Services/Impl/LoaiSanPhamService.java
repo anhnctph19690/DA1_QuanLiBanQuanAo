@@ -4,7 +4,7 @@
  */
 package Services.Impl;
 
-import Models.LoaiSanPham;
+import DomainModels.LoaiSanPham;
 import Repository.Impl.LoaiSanPhamRepository;
 import Services.ILoaiSanPhamService;
 import ViewModel.QLLoaiSanPham;

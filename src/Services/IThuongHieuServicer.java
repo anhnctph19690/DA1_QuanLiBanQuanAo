@@ -4,7 +4,7 @@
  */
 package Services;
 
-import Models.ThuongHieu;
+import DomainModels.ThuongHieu;
 import ViewModel.QLSanPham;
 import ViewModel.QLThuongHieu;
 import java.util.List;

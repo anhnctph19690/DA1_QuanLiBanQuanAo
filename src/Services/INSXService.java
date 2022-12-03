@@ -5,7 +5,7 @@
 package Services;
 
 
-import Models.NSX;
+import DomainModels.NSX;
 import ViewModel.QLNSX;
 import java.util.List;
 

@@ -4,7 +4,7 @@
  */
 package Services;
 
-import Models.KichThuoc;
+import DomainModels.KichThuoc;
 import ViewModel.QLKichThuoc;
 import java.util.ArrayList;
 

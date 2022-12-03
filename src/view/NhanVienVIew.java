@@ -1,6 +1,6 @@
 package view;
 
-import Models.NhanVien;
+import DomainModels.NhanVien;
 import Repository.INhanVienRepository;
 import Repository.Impl.NhanVienRepository;
 import Services.IChucVuServicer;

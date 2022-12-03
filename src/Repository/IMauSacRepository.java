@@ -4,7 +4,7 @@
  */
 package Repository;
 
-import Models.MauSac;
+import DomainModels.MauSac;
 import java.util.ArrayList;
 
 /**

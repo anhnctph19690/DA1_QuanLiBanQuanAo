@@ -4,7 +4,7 @@
  */
 package Services.Impl;
 
-import Models.HoaDon;
+import DomainModels.HoaDon;
 import Repository.IHoaDonRepository;
 import Repository.Impl.HoaDonRepository;
 import Repository.Impl.NhanVienRepository;

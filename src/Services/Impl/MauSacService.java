@@ -4,7 +4,7 @@
  */
 package Services.Impl;
 
-import Models.MauSac;
+import DomainModels.MauSac;
 import Repository.IMauSacRepository;
 import Repository.Impl.MauSacRepository;
 import Services.IMauSacSerVice;

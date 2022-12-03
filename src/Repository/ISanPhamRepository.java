@@ -4,7 +4,7 @@
  */
 package Repository;
 
-import Models.SanPham;
+import DomainModels.SanPham;
 import java.util.List;
 
 /**

@@ -4,7 +4,7 @@
  */
 package Repository.Impl;
 
-import Models.HoaDonChiTiet;
+import DomainModels.HoaDonChiTiet;
 import Repository.IHoaDonChiTietRepository;
 import Ultilities.DBConnection;
 import ViewModel.QLHoaDonChiTiet;

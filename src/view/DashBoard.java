@@ -4,7 +4,7 @@
  */
 package view;
 
-import Models.NhanVien;
+import DomainModels.NhanVien;
 import Repository.Impl.NhanVienRepository;
 import Services.INhanVienServicer;
 import Services.Impl.NhanVienServicer;

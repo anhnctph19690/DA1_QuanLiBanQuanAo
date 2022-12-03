@@ -1,6 +1,6 @@
 package Repository;
 
-import Models.ChucVuModel;
+import DomainModels.ChucVuModel;
 import java.util.List;
 
 public interface IChucVurepository {

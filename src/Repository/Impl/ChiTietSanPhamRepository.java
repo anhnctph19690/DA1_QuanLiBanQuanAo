@@ -4,11 +4,12 @@
  */
 package Repository.Impl;
 
-import Models.ChiTietSanPham;
+import DomainModels.ChiTietSanPham;
 import Repository.IChiTietSanPhamRepository;
 import Ultilities.DBConnection;
 import ViewModel.QLChiTietSanPham;
 import ViewModel.QLThongKe;
+import java.math.BigDecimal;
 import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -64,7 +65,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     public List<QLChiTietSanPham> getAll() {
 
         List<QLChiTietSanPham> list = new ArrayList<>();
-        try ( Connection conn = DBConnection.getConnection();) {
+        try (Connection conn = DBConnection.getConnection();) {
             PreparedStatement ps = conn.prepareStatement(SELECT_ALL);
             ResultSet rs = ps.executeQuery();
 
@@ -98,7 +99,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     @Override
     public boolean add(ChiTietSanPham chiTietSanPham) {
         int check = 0;
-        try ( Connection conn = DBConnection.getConnection();) {
+        try (Connection conn = DBConnection.getConnection();) {
             PreparedStatement ps = conn.prepareStatement(INSERT_SQL);
             ps.setObject(1, chiTietSanPham.getIdSanPham());
             ps.setObject(2, chiTietSanPham.getIdNhaSanXuat());
@@ -125,7 +126,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     @Override
     public boolean update(ChiTietSanPham chiTietSanPham, String id) {
         int check = 0;
-        try ( Connection conn = DBConnection.getConnection();) {
+        try (Connection conn = DBConnection.getConnection();) {
             PreparedStatement ps = conn.prepareStatement(UPDATE_SQL);
             ps.setObject(1, chiTietSanPham.getIdNhaSanXuat());
             ps.setObject(2, chiTietSanPham.getIdMauSac());
@@ -152,7 +153,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     @Override
     public boolean delete(String id) {
         int check = 0;
-        try ( Connection conn = DBConnection.getConnection()) {
+        try (Connection conn = DBConnection.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(DELETE_BY_ID);
             ps.setObject(1, id);
 
@@ -168,7 +169,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     public String getIdSP(String id) {
         String query = "SELECT IdSP FROM dbo.SanPham WHERE MaSP = ?";
         String IdSP = null;
-        try ( Connection conn = DBConnection.getConnection()) {
+        try (Connection conn = DBConnection.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
@@ -186,7 +187,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     public boolean uppdateSoLuong(String IdCTSP, int soLuong) {
         int check = 0;
         String query = "UPDATE dbo.ChiTietSP SET SoLuong = ? WHERE IdCTSP = ?";
-        try ( Connection conn = DBConnection.getConnection()) {
+        try (Connection conn = DBConnection.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1, soLuong);
             ps.setString(2, IdCTSP);
@@ -201,7 +202,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     public int checkSoLuong(String id) {
         String query = "SELECT SoLuong FROM dbo.ChiTietSP WHERE IdSP = ?";
         int soLuong = 0;
-        try ( Connection conn = DBConnection.getConnection()) {
+        try (Connection conn = DBConnection.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setObject(1, id);
             ResultSet rs = ps.executeQuery();
@@ -218,7 +219,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     @Override
     public List<QLChiTietSanPham> searchByName(String name) {
         List<QLChiTietSanPham> list = new ArrayList<>();
-        try ( Connection conn = DBConnection.getConnection();) {
+        try (Connection conn = DBConnection.getConnection();) {
             PreparedStatement ps = conn.prepareStatement(SEARCH_SQL_BY_NAME);
             ps.setObject(1, "%" + name + "%");
             ResultSet rs = ps.executeQuery();
@@ -249,12 +250,17 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     }
 
     public static void main(String[] args) {
+        ChiTietSanPhamRepository chiTietSanPhamRepository = new ChiTietSanPhamRepository();
+        ArrayList<QLChiTietSanPham> list = chiTietSanPhamRepository.getListByLoaiSP("Quần");
+        for (QLChiTietSanPham o : list) {
+            o.toString();
+        }
     }
 
     @Override
     public List<QLChiTietSanPham> searchByMa(String ma) {
         List<QLChiTietSanPham> list = new ArrayList<>();
-        try ( Connection conn = DBConnection.getConnection();) {
+        try (Connection conn = DBConnection.getConnection();) {
             PreparedStatement ps = conn.prepareStatement(SEARCH_SQL_BY_MA);
             ps.setObject(1, "%" + ma + "%");
             ResultSet rs = ps.executeQuery();
@@ -374,7 +380,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     public List<QLThongKe> thongKeALL(String thongKeTheo, String SapXepTheo) {
 
         List<QLThongKe> listQLThongKe = new ArrayList<>();
-        try ( Connection conn = DBConnection.getConnection();) {
+        try (Connection conn = DBConnection.getConnection();) {
             String sql
                     = "SELECT dbo.SanPham.MaSP, dbo.SanPham.Ten, dbo.ChatLieu.TenChatLieu, dbo.MauSac.TenMauSac, dbo.Size.SoSize, dbo.ThuongHieu.TenThuongHieu, dbo.NSX.Ten as TenNSX, dbo.ChiTietSP.SoLuong, dbo.ChiTietSP.GiaNhap, "
                     + " dbo.ChiTietSP.GiaBan "
@@ -416,6 +422,52 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
             ex.printStackTrace();
         }
         return listQLThongKe;
+    }
+
+    public ArrayList<QLChiTietSanPham> getListByLoaiSP(String loaiSP) {
+        ArrayList<QLChiTietSanPham> list = new ArrayList<>();
+        Connection conn = DBConnection.getConnection();
+        String query = "SELECT        dbo.SanPham.MaSP, dbo.SanPham.Ten, dbo.Size.SoSize, dbo.ChatLieu.TenChatLieu, dbo.ChiTietSP.GiaBan, dbo.ChiTietSP.TrangThai, dbo.LoaiSanPham.TenLoaiSP, dbo.MauSac.TenMauSac,dbo.NSX.Ten AS TenNSX,dbo.ThuongHieu.TenThuongHieu\n"
+                + "FROM            dbo.ChatLieu INNER JOIN\n"
+                + "                         dbo.ChiTietSP ON dbo.ChatLieu.IdChatLieu = dbo.ChiTietSP.IdChatLieu INNER JOIN\n"
+                + "                         dbo.LoaiSanPham ON dbo.ChiTietSP.IdLoaiSP = dbo.LoaiSanPham.IdLoaiSP INNER JOIN\n"
+                + "                         dbo.MauSac ON dbo.ChiTietSP.IdMauSac = dbo.MauSac.IdMauSac INNER JOIN\n"
+                + "                         dbo.Size ON dbo.ChiTietSP.IdSize = dbo.Size.IdSize INNER JOIN\n"
+                + "                         dbo.ThuongHieu ON dbo.ChiTietSP.IdThuongHieu = dbo.ThuongHieu.IdThuongHieu INNER JOIN \n"
+                + "                         dbo.ThuongHieu ON dbo.ChiTietSP.IdThuongHieu = dbo.ThuongHieu.IdThuongHieu INNER JOIN\n"
+                + "                         dbo.SanPham ON dbo.ChiTietSP.IdSP = dbo.SanPham.IdSP\n"
+                + "                         dbo.NSX ON dbo.ChiTietSP.IdNSX = dbo.NSX.IdNSX\n"
+                + "						 WHERE TenLoaiSP = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, loaiSP);
+            ps.execute();
+
+            ResultSet rs = ps.getResultSet();
+            while (rs.next()) {
+
+                QLChiTietSanPham qlctsp = new QLChiTietSanPham();
+
+                qlctsp.setMaSanPham(rs.getString("MaSP"));
+                qlctsp.setTenSanPham(rs.getString("SanPham.Ten"));
+                qlctsp.setTenNhaSanXuat(rs.getString("TenNSX"));
+                qlctsp.setTenMauSac(rs.getString("TenMauSac"));
+                qlctsp.setTenLoai(rs.getString("TenLoaiSP"));
+                qlctsp.setTenChatLieu(rs.getString("TenChatLieu"));
+                qlctsp.setTenThuongHieu(rs.getString("TenThuongHieu"));
+                qlctsp.setSoSize(rs.getString("SoSize"));
+                
+                qlctsp.setGiaBan(rs.getBigDecimal("GiaBan"));
+             
+                qlctsp.setTrangThai(rs.getInt("TrangThai"));
+                list.add(qlctsp);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return list;
     }
 
 }

@@ -4,7 +4,7 @@
  */
 package Repository;
 
-import Models.KichThuoc;
+import DomainModels.KichThuoc;
 import java.util.ArrayList;
 
 /**

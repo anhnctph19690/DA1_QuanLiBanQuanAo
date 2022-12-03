@@ -4,7 +4,7 @@
  */
 package Services;
 
-import Models.KhachHang;
+import DomainModels.KhachHang;
 import ViewModel.QLKhachHang;
 import java.util.List;
 

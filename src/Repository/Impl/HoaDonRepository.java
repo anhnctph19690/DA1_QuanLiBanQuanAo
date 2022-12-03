@@ -4,10 +4,11 @@
  */
 package Repository.Impl;
 
-import Models.HoaDon;
+import DomainModels.HoaDon;
 import Repository.IHoaDonRepository;
 import Ultilities.DBConnection;
 import ViewModel.QLHoaDon;
+import ViewModel.QLHoaDonThongKe;
 import java.util.ArrayList;
 import java.sql.*;
 import java.util.logging.Level;
@@ -368,4 +369,10 @@ public class HoaDonRepository implements IHoaDonRepository {
         return null;
     }
 
+    
+//    public ArrayList<QLHoaDonThongKe> getListHDByNgayTao(){
+//        ArrayList<QLHoaDonThongKe> list = new ArrayList<>();
+//        
+//        String query = "";
+//    }
 }

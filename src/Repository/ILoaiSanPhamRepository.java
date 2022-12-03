@@ -4,7 +4,7 @@
  */
 package Repository;
 
-import Models.LoaiSanPham;
+import DomainModels.LoaiSanPham;
 import java.util.List;
 
 /**

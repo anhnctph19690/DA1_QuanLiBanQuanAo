@@ -4,7 +4,7 @@
  */
 package Services.Impl;
 
-import Models.KichThuoc;
+import DomainModels.KichThuoc;
 import java.util.ArrayList;
 import Repository.IKichThuocRepo;
 import Repository.Impl.KichThuocRepo;

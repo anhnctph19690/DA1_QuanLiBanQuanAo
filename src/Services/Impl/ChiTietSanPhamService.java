@@ -4,12 +4,13 @@
  */
 package Services.Impl;
 
-import Models.ChiTietSanPham;
+import DomainModels.ChiTietSanPham;
 import Repository.IChiTietSanPhamRepository;
 import Repository.Impl.ChiTietSanPhamRepository;
 import Services.IChiTietSanPhamService;
 import ViewModel.QLChiTietSanPham;
 import ViewModel.QLThongKe;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ import java.util.Map;
 public class ChiTietSanPhamService implements IChiTietSanPhamService {
 
     private IChiTietSanPhamRepository _iChiTietSanPhamRepository = new ChiTietSanPhamRepository();
-
+    ChiTietSanPhamRepository chiTietSanPhamRepository = new ChiTietSanPhamRepository();
     @Override
     public List<QLChiTietSanPham> getAll() {
         return _iChiTietSanPhamRepository.getAll();
@@ -96,5 +97,9 @@ public class ChiTietSanPhamService implements IChiTietSanPhamService {
     @Override
     public List<QLChiTietSanPham> searchByMa(String ma) {
         return _iChiTietSanPhamRepository.searchByMa(ma);
+    }
+    
+    public ArrayList<QLChiTietSanPham> getListByLoaiSP(String loaiSP){
+        return this.chiTietSanPhamRepository.getListByLoaiSP(loaiSP);
     }
 }

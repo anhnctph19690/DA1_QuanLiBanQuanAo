@@ -4,7 +4,7 @@
  */
 package Repository.Impl;
 
-import Models.NSX;
+import DomainModels.NSX;
 import Repository.INSXRepository;
 import java.util.ArrayList;
 import java.util.List;

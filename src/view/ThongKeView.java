@@ -4,7 +4,7 @@
  */
 package view;
 
-import Models.HoaDon;
+import DomainModels.HoaDon;
 import Services.IHoaDonService;
 import Services.Impl.ChiTietSanPhamService;
 import Services.Impl.HoaDonChiTietService;

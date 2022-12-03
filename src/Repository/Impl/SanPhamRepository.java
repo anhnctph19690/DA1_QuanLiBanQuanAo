@@ -4,9 +4,10 @@
  */
 package Repository.Impl;
 
-import Models.SanPham;
+import DomainModels.SanPham;
 import Repository.ISanPhamRepository;
 import Ultilities.DBConnection;
+import ViewModel.QLNhanVien;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,8 @@ public class SanPhamRepository implements ISanPhamRepository {
             + "VALUES(?,?)";
     final String InsertNewProduct = "{call InsertNewProduct(?)}";
 
+    
+    
     @Override
     public SanPham add(String name) {
         try ( Connection conn = DBConnection.getConnection()) {
@@ -101,8 +104,6 @@ public class SanPhamRepository implements ISanPhamRepository {
         return null;
     }
 
-    public static void main(String[] args) {
-        new SanPhamRepository().add("Ao 1");
-    }
+    
 
 }
