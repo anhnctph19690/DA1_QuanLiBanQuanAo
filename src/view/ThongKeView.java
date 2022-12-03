@@ -42,7 +42,7 @@ public class ThongKeView extends javax.swing.JFrame {
         hienthithongkehoadon();
         hienthithongkeSP();
         doanhthu();
-        this.loadTableTKHD();
+//        this.loadTableTKHD();
         
         
     }
@@ -116,29 +116,29 @@ public class ThongKeView extends javax.swing.JFrame {
         }
 
     }
-    public void loadTableTKHD() {
-
-        DefaultTableModel dtm = (DefaultTableModel) tb_tkhd.getModel();
-        dtm.setRowCount(0);
-        int stt = 1;
-        for (QLThongKeHD QLtkhd : this.thongKeHdService.getALLThongKeHDs()) {
-            Object rowData[] = {
-                stt++,
-                QLtkhd.getMahd(),
-                QLtkhd.getNgayTao(),
-                QLtkhd.getTennv(),
-//                QLtkhd.getMauSac(),
-//                QLtk.getKichThuoc(),
-//                QLtk.getThuongHieu(),
-//                QLtk.getNsx(),
-//                QLtk.getSoLuong(),
-//                QLtk.getGiaNhap(),
-//                QLtk.getGiaBan(),
-            };
-            dtm.addRow(rowData);
-        }
-
-    }
+//    public void loadTableTKHD() {
+//
+//        DefaultTableModel dtm = (DefaultTableModel) tb_tkhd.getModel();
+//        dtm.setRowCount(0);
+//        int stt = 1;
+//        for (QLThongKeHD QLtkhd : this.thongKeHdService.getALLThongKeHDs()) {
+//            Object rowData[] = {
+//                stt++,
+//                QLtkhd.getMahd(),
+//                QLtkhd.getNgayTao(),
+//                QLtkhd.getTennv(),
+////                QLtkhd.getMauSac(),
+////                QLtk.getKichThuoc(),
+////                QLtk.getThuongHieu(),
+////                QLtk.getNsx(),
+////                QLtk.getSoLuong(),
+////                QLtk.getGiaNhap(),
+////                QLtk.getGiaBan(),
+//            };
+//            dtm.addRow(rowData);
+//        }
+//
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -189,15 +189,6 @@ public class ThongKeView extends javax.swing.JFrame {
         radioGiaNhap4 = new javax.swing.JRadioButton();
         radioSoLuong4 = new javax.swing.JRadioButton();
         cbbSapXep4 = new javax.swing.JComboBox<>();
-        jPanel17 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tb_tkhd = new javax.swing.JTable();
-        jPanel4 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -589,98 +580,6 @@ public class ThongKeView extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Thống Kê", jPanel16);
 
-        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
-        jPanel17.setLayout(jPanel17Layout);
-        jPanel17Layout.setHorizontalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1334, Short.MAX_VALUE)
-        );
-        jPanel17Layout.setVerticalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 432, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Doanh Thu", jPanel17);
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-
-        tb_tkhd.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "STT", "Mã Hóa Đơn", "Ngày Tạo", "Tên Nhân Viên", "Tổng Số Lượng Sản Phẩm", "Tổng Tiền Hàng"
-            }
-        ));
-        jScrollPane1.setViewportView(tb_tkhd);
-
-        jPanel4.setBackground(new java.awt.Color(153, 255, 255));
-
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("Tổng số lượng");
-
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Tổng tiền hàng");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tăng Dần ", "Giảm Dần" }));
-
-        jButton1.setText("Lọc");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton2)
-                .addGap(54, 54, 54)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(23, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 832, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jTabbedPane1.addTab("Hóa Đơn", jPanel3);
-
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -841,8 +740,6 @@ public class ThongKeView extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JComboBox<String> cbbSapXep4;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -852,17 +749,11 @@ public class ThongKeView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lbHoaDonCTT;
@@ -884,7 +775,6 @@ public class ThongKeView extends javax.swing.JFrame {
     private javax.swing.JRadioButton radioGiaNhap4;
     private javax.swing.JRadioButton radioSoLuong4;
     private javax.swing.JTable tbCTSP4;
-    private javax.swing.JTable tb_tkhd;
     // End of variables declaration//GEN-END:variables
 
     
