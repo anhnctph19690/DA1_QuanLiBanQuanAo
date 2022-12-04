@@ -4,6 +4,7 @@
  */
 package ViewModel;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -33,9 +34,8 @@ public class QLHoaDon {
         this.trangThai = trangThai;
         this.tenKhachHang = tenKhachHang;
         this.sdt = sdt;
+
     }
-    
-    
 
     public int getSoThuTu() {
         return soThuTu;
@@ -102,16 +102,32 @@ public class QLHoaDon {
     }
 
     public Object[] toDataRow() {
-        return new Object[]{soThuTu, maHoaDon, ngayTao,tenNhanVien, tenKhachHang == null ? "Khách lẻ" : tenKhachHang, trangThai == 0 ? "Chờ thanh toán" : trangThai == 1 ? "Đã thanh toán" : trangThai == 2 ? "Đang tạo" : trangThai == 3 ? "Đang giao" : "Đã giao"};
+        return new Object[]{soThuTu, maHoaDon, ngayTao, tenNhanVien, tenKhachHang == null ? "Khách lẻ" : tenKhachHang, trangThai == 0 ? "Chờ thanh toán" : trangThai == 1 ? "Đã thanh toán" : trangThai == 2 ? "Đang tạo" : trangThai == 3 ? "Đang giao" : "Đã giao"};
     }
-    
-    public Object[] dataRow(){
-          return new Object[]{soThuTu,maHoaDon,tenNhanVien,ngayTao,trangThai == 0 ? "Chờ thanh toán" : trangThai == 1 ? "Đã thanh toán" : trangThai == 2 ? "Đang tạo" : trangThai == 3 ? "Đang giao" : "Đã giao"};
+
+    public Object[] dataRow() {
+        return new Object[]{soThuTu, maHoaDon, tenNhanVien, ngayTao, trangThai == 0 ? "Chờ thanh toán" : trangThai == 1 ? "Đã thanh toán" : trangThai == 2 ? "Đang tạo" : trangThai == 3 ? "Đang giao" : "Đã giao"};
     }
 
     @Override
     public String toString() {
         return "QLHoaDon{" + "soThuTu=" + soThuTu + ", idHoaDon=" + idHoaDon + ", maHoaDon=" + maHoaDon + ", ngayTao=" + ngayTao + ", tenNhanVien=" + tenNhanVien + ", trangThai=" + trangThai + ", tenKhachHang=" + tenKhachHang + ", sdt=" + sdt + '}';
+    }
+
+    public String getTrangThai1() {
+        if (trangThai == 0) {
+            return "Chờ thanh toán";
+        }
+        if (trangThai == 1) {
+            return "Đã thanh toán";
+        }
+        if (trangThai == 2) {
+            return "Đang tạo";
+        }
+        if (trangThai == 3) {
+            return "Đang giao";
+        }
+        return "Đã giao";
     }
 
 }

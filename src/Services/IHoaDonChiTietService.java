@@ -25,4 +25,6 @@ public interface IHoaDonChiTietService {
      List<QLHoaDonChiTiet> getAllHDCT();
      
      List<QLHoaDonChiTiet> getFilters(String ngayBatDau, String ngayKetThuc);
+     
+     
 }

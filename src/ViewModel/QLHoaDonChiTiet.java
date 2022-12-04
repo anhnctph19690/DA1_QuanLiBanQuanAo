@@ -139,7 +139,7 @@ public class QLHoaDonChiTiet {
         return new Object[]{maSP, tenSP, soLuongMua, donGia, getTotal()};
     }
      public Object[] DataRow() {
-        return new Object[]{maHD, maSP,tenSP, soLuongMua, donGia, getTotal()};
+        return new Object[]{ maSP,tenSP, soLuongMua, donGia, getTotal()};
     }
 
 }

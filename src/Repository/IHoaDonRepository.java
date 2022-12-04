@@ -5,6 +5,7 @@
 package Repository;
 
 import DomainModels.HoaDon;
+
 import Ultilities.DBConnection;
 import ViewModel.QLHoaDon;
 import java.sql.*;
@@ -33,5 +34,9 @@ public interface IHoaDonRepository {
     List<QLHoaDon> getAllHD();
 
     List<QLHoaDon> getFilter(String ngayBatDau,String ngayKetThuc);
+
+    List<QLHoaDon> getTrangThai();
+    
+    List<QLHoaDon> getByName(String name);
 
 }
