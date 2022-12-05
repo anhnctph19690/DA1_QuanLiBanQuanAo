@@ -329,7 +329,7 @@ public class NhanVienVIew extends javax.swing.JFrame {
 
         btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         btnXoa.setForeground(new java.awt.Color(51, 51, 51));
-        btnXoa.setIcon(new javax.swing.ImageIcon("D:\\DA1_QuanLiBanQuanAo\\Images\\Icon\\delete-32.png")); // NOI18N
+        btnXoa.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\Downloads\\delete-32.png")); // NOI18N
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -339,7 +339,7 @@ public class NhanVienVIew extends javax.swing.JFrame {
 
         btnSua.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         btnSua.setForeground(new java.awt.Color(51, 51, 51));
-        btnSua.setIcon(new javax.swing.ImageIcon("D:\\DA1_QuanLiBanQuanAo\\Images\\Icon\\edit-5-32.png")); // NOI18N
+        btnSua.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\Downloads\\edit-5-32.png")); // NOI18N
         btnSua.setText("  Sửa ");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
