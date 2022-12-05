@@ -9,6 +9,7 @@ import Repository.Impl.NhanVienRepository;
 import Services.INhanVienServicer;
 import Services.Impl.NhanVienServicer;
 import ViewModel.QLNhanVien;
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.SystemTray;
 import java.lang.reflect.Array;
@@ -25,15 +26,14 @@ public class DashBoard extends javax.swing.JFrame {
 
     
     NhanVienRepository nhanVienRepository = new NhanVienRepository();
-    /**
-     * Creates new form DashBoard
-     */
+   
     
     NhanVien nv = this.nhanVienRepository.getNhanVienByStatus(3);
     
     public DashBoard() {
-        initComponents();
         
+        initComponents();
+        setBackground(new Color(0, 0, 0, 0));
          lblTenNv.setText(nv.getTenNV());
         
         
@@ -70,7 +70,6 @@ public class DashBoard extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản Lí Bán Quần Áo");
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1920, 1080));
         setSize(new java.awt.Dimension(1920, 1080));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
