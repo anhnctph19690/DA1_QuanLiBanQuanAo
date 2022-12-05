@@ -102,4 +102,14 @@ public class HoaDonService implements IHoaDonService {
         return hoaDonRepository.getByName(name);
     }
 
+    @Override
+    public List<QLHoaDon> getTongTienTren500000() {
+        return hoaDonRepository.getTongTienTren500000();
+    }
+
+    @Override
+    public List<QLHoaDon> getTongTienDuoi500000() {
+        return hoaDonRepository.getTongTienDuoi500000();
+    }
+
 }

@@ -19,7 +19,6 @@ public class QLHoaDonChiTiet {
     private String tenSP;
     private int soLuongMua;
     private BigDecimal donGia;
-    private double thanhTien;
     private Date ngayTao;
      private String maHD;
 
@@ -87,9 +86,9 @@ public class QLHoaDonChiTiet {
         return soLuongMua;
     }
 
-    public double getThanhTien() {
-        return thanhTien;
-    }
+//    public double getThanhTien() {
+//        return thanhTien;
+//    }
 
     public void setMaSP(String maSP) {
         this.maSP = maSP;
@@ -111,9 +110,9 @@ public class QLHoaDonChiTiet {
         this.donGia = donGia;
     }
 
-    public void setThanhTien(double thanhTien) {
-        this.thanhTien = thanhTien;
-    }
+//    public void setThanhTien(double thanhTien) {
+//        this.thanhTien = thanhTien;
+//    }
 
     public Date getNgayTao() {
         return ngayTao;
@@ -131,7 +130,7 @@ public class QLHoaDonChiTiet {
 
     @Override
     public String toString() {
-        return "QLHoaDonChiTiet{" + "idHoaDon=" + idHoaDon + ", idCTSP=" + idCTSP + ", maSP=" + maSP + ", tenSP=" + tenSP + ", soLuongMua=" + soLuongMua + ", donGia=" + donGia + ", thanhTien=" + thanhTien + ", ngayTao=" + ngayTao + ", maHD=" + maHD + '}';
+        return "QLHoaDonChiTiet{" + "idHoaDon=" + idHoaDon + ", idCTSP=" + idCTSP + ", maSP=" + maSP + ", tenSP=" + tenSP + ", soLuongMua=" + soLuongMua + ", donGia=" + donGia  + ", ngayTao=" + ngayTao + ", maHD=" + maHD + '}';
     }
 
   

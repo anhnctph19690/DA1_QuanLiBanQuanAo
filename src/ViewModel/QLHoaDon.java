@@ -21,6 +21,8 @@ public class QLHoaDon {
     private int trangThai;
     private String tenKhachHang;
     private String sdt;
+    private int soLuong;
+    private BigDecimal donGia1;
 
     public QLHoaDon() {
     }
@@ -35,6 +37,19 @@ public class QLHoaDon {
         this.tenKhachHang = tenKhachHang;
         this.sdt = sdt;
 
+    }
+
+    public QLHoaDon(int soThuTu, String idHoaDon, String maHoaDon, Date ngayTao, String tenNhanVien, int trangThai, String tenKhachHang, String sdt, int soLuong, BigDecimal donGia1) {
+        this.soThuTu = soThuTu;
+        this.idHoaDon = idHoaDon;
+        this.maHoaDon = maHoaDon;
+        this.ngayTao = ngayTao;
+        this.tenNhanVien = tenNhanVien;
+        this.trangThai = trangThai;
+        this.tenKhachHang = tenKhachHang;
+        this.sdt = sdt;
+        this.soLuong = soLuong;
+        this.donGia1 = donGia1;
     }
 
     public int getSoThuTu() {
@@ -101,17 +116,44 @@ public class QLHoaDon {
         this.sdt = sdt;
     }
 
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public BigDecimal getDonGia1() {
+        return donGia1;
+    }
+
+    public void setDonGia1(BigDecimal donGia1) {
+        this.donGia1 = donGia1;
+    }
+    
+ 
+//     public Double getTong(){
+//       return soLuong * donGia1.doubleValue();
+//   }
+//    
+
+  
     public Object[] toDataRow() {
         return new Object[]{soThuTu, maHoaDon, ngayTao, tenNhanVien, tenKhachHang == null ? "Khách lẻ" : tenKhachHang, trangThai == 0 ? "Chờ thanh toán" : trangThai == 1 ? "Đã thanh toán" : trangThai == 2 ? "Đang tạo" : trangThai == 3 ? "Đang giao" : "Đã giao"};
     }
 
     public Object[] dataRow() {
-        return new Object[]{soThuTu, maHoaDon, tenNhanVien, ngayTao, trangThai == 0 ? "Chờ thanh toán" : trangThai == 1 ? "Đã thanh toán" : trangThai == 2 ? "Đang tạo" : trangThai == 3 ? "Đang giao" : "Đã giao"};
+        return new Object[]{soThuTu, maHoaDon, tenNhanVien, ngayTao,trangThai == 0 ? "Chờ thanh toán" : trangThai == 1 ? "Đã thanh toán" : trangThai == 2 ? "Đang tạo" : trangThai == 3 ? "Đang giao" : "Đã giao"};
     }
+
+//    public Object[] data1() {
+//        return new Object[]{soThuTu, maHoaDon, tenNhanVien, ngayTao, getTongTien(), trangThai == 0 ? "Chờ thanh toán" : trangThai == 1 ? "Đã thanh toán" : trangThai == 2 ? "Đang tạo" : trangThai == 3 ? "Đang giao" : "Đã giao"};
+//    }
 
     @Override
     public String toString() {
-        return "QLHoaDon{" + "soThuTu=" + soThuTu + ", idHoaDon=" + idHoaDon + ", maHoaDon=" + maHoaDon + ", ngayTao=" + ngayTao + ", tenNhanVien=" + tenNhanVien + ", trangThai=" + trangThai + ", tenKhachHang=" + tenKhachHang + ", sdt=" + sdt + '}';
+        return "QLHoaDon{" + "soThuTu=" + soThuTu + ", idHoaDon=" + idHoaDon + ", maHoaDon=" + maHoaDon + ", ngayTao=" + ngayTao + ", tenNhanVien=" + tenNhanVien + ", trangThai=" + trangThai + ", tenKhachHang="  + tenKhachHang + ", sdt=" + sdt + '}';
     }
 
     public String getTrangThai1() {
@@ -129,5 +171,7 @@ public class QLHoaDon {
         }
         return "Đã giao";
     }
+
+    
 
 }
