@@ -42,5 +42,9 @@ public interface IHoaDonService {
     List<QLHoaDon> getTrangThai();
     
     List<QLHoaDon> getByName(String name);
+    
+    List<QLHoaDon> getTongTienTren500000();
+    
+    List<QLHoaDon> getTongTienDuoi500000();
 
 }

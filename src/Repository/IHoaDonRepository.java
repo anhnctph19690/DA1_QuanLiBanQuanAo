@@ -8,6 +8,7 @@ import DomainModels.HoaDon;
 
 import Ultilities.DBConnection;
 import ViewModel.QLHoaDon;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.List;
 
@@ -38,5 +39,9 @@ public interface IHoaDonRepository {
     List<QLHoaDon> getTrangThai();
     
     List<QLHoaDon> getByName(String name);
+    
+    List<QLHoaDon> getTongTienTren500000();
+    
+    List<QLHoaDon> getTongTienDuoi500000();
 
 }
