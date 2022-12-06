@@ -102,4 +102,8 @@ public class ChiTietSanPhamService implements IChiTietSanPhamService {
     public ArrayList<QLChiTietSanPham> getListByLoaiSP(String loaiSP){
         return this.chiTietSanPhamRepository.getListByLoaiSP(loaiSP);
     }
+    
+    public List<QLChiTietSanPham> getListSPByKhoangGia(double min, double max){
+        return this.chiTietSanPhamRepository.getListSPByKhoangGia(min, max);
+    }
 }

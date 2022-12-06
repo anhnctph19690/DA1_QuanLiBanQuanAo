@@ -25,6 +25,7 @@ import java.util.logging.Logger;
  */
 public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
 
+    Connection conn = DBConnection.getConnection();
     final String SELECT_ALL = "select ROW_NUMBER() OVER (ORDER BY sp.MaSP), ctsp.IdCTSP, sp.MaSP, sp.Ten, nsx.Ten, ms.TenMauSac, lsp.TenLoaiSP, cl.TenChatLieu, th.TenThuongHieu, s.SoSize, ctsp.SoLuong, ctsp.GiaNhap, ctsp.GiaBan, ctsp.MoTa, ctsp.TrangThai\n"
             + "from SanPham sp, ChiTietSP ctsp, NSX nsx, MauSac ms, LoaiSanPham lsp, ChatLieu cl, ThuongHieu th, Size s \n"
             + "where sp.IdSP = ctsp.IdSP\n"
@@ -425,7 +426,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     }
 
     public ArrayList<QLChiTietSanPham> getListByLoaiSP(String loaiSP) {
-        ArrayList<QLChiTietSanPham> list = new ArrayList<>();
+         ArrayList<QLChiTietSanPham> list = new ArrayList<>();
         Connection conn = DBConnection.getConnection();
         String query = "SELECT        dbo.SanPham.MaSP, dbo.SanPham.Ten, dbo.Size.SoSize, dbo.ChatLieu.TenChatLieu, dbo.ChiTietSP.GiaBan, dbo.ChiTietSP.TrangThai, dbo.LoaiSanPham.TenLoaiSP, dbo.MauSac.TenMauSac,dbo.NSX.Ten AS TenNSX,dbo.ThuongHieu.TenThuongHieu\n"
                 + "FROM            dbo.ChatLieu INNER JOIN\n"
@@ -470,4 +471,45 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
         return list;
     }
 
+    public List<QLChiTietSanPham> getListSPByKhoangGia(double min, double max) {
+        String query = "SELECT        dbo.SanPham.MaSP, dbo.SanPham.Ten, dbo.Size.SoSize, dbo.ChatLieu.TenChatLieu, dbo.ChiTietSP.GiaBan, dbo.ChiTietSP.TrangThai, dbo.LoaiSanPham.TenLoaiSP, dbo.MauSac.TenMauSac,dbo.NSX.Ten AS TenNSX,dbo.ThuongHieu.TenThuongHieu\n"
+                + "FROM            dbo.ChatLieu INNER JOIN\n"
+                + "                         dbo.ChiTietSP ON dbo.ChatLieu.IdChatLieu = dbo.ChiTietSP.IdChatLieu INNER JOIN\n"
+                + "                         dbo.LoaiSanPham ON dbo.ChiTietSP.IdLoaiSP = dbo.LoaiSanPham.IdLoaiSP INNER JOIN\n"
+                + "                         dbo.MauSac ON dbo.ChiTietSP.IdMauSac = dbo.MauSac.IdMauSac INNER JOIN\n"
+                + "                         dbo.Size ON dbo.ChiTietSP.IdSize = dbo.Size.IdSize INNER JOIN\n"
+                + "                         dbo.ThuongHieu ON dbo.ChiTietSP.IdThuongHieu = dbo.ThuongHieu.IdThuongHieu INNER JOIN \n"
+                + "                         dbo.ThuongHieu ON dbo.ChiTietSP.IdThuongHieu = dbo.ThuongHieu.IdThuongHieu INNER JOIN\n"
+                + "                         dbo.SanPham ON dbo.ChiTietSP.IdSP = dbo.SanPham.IdSP\n"
+                + "                         dbo.NSX ON dbo.ChiTietSP.IdNSX = dbo.NSX.IdNSX\n"
+                + "						 WHERE  GiaBan BETWEEN ? AND ?";
+        List<QLChiTietSanPham> list = new ArrayList<>();
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setDouble(1, min);
+            ps.setDouble(2, max);
+            ps.execute();
+            ResultSet rs = ps.getResultSet();
+            while (rs.next()) {
+                QLChiTietSanPham qlctsp = new QLChiTietSanPham();
+
+                qlctsp.setMaSanPham(rs.getString("MaSP"));
+                qlctsp.setTenSanPham(rs.getString("SanPham.Ten"));
+                qlctsp.setTenNhaSanXuat(rs.getString("TenNSX"));
+                qlctsp.setTenMauSac(rs.getString("TenMauSac"));
+                qlctsp.setTenLoai(rs.getString("TenLoaiSP"));
+                qlctsp.setTenChatLieu(rs.getString("TenChatLieu"));
+                qlctsp.setTenThuongHieu(rs.getString("TenThuongHieu"));
+                qlctsp.setSoSize(rs.getString("SoSize"));
+
+                qlctsp.setGiaBan(rs.getBigDecimal("GiaBan"));
+
+//                qlctsp.setTrangThai(rs.getInt("TrangThai"));
+                list.add(qlctsp);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
 }

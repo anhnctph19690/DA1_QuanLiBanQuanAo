@@ -491,11 +491,11 @@ create proc procThemSIZE
 AS
 BEGIN
 	DECLARE @getIndexProduct int;
-	DECLARE @defaultCode NVARCHAR(10) = 'SP';
+	DECLARE @defaultCode NVARCHAR(10) = N'SP';
 	DECLARE @newProductCode NVARCHAR(25);
 	
 	SELECT @getIndexProduct = ISNULL(Count(IdSP), 0) + 1 FROM SanPham
-	SELECT @newProductCode = @defaultCode + '0000' + CAST(@getIndexProduct AS NVARCHAR(5))
+	SELECT @newProductCode = @defaultCode + N'0000' + CAST(@getIndexProduct AS NVARCHAR(5))
 
 	INSERT INTO SanPham (IdSP, MaSP, Ten) VALUES (newId(), @newProductCode, @Ten)
 	SELECT MaSP 
@@ -1067,11 +1067,11 @@ create proc procThemSIZE
 AS
 BEGIN
 	DECLARE @getIndexProduct int;
-	DECLARE @defaultCode NVARCHAR(10) = 'SP';
+	DECLARE @defaultCode NVARCHAR(10) = N'SP';
 	DECLARE @newProductCode NVARCHAR(25);
 	
 	SELECT @getIndexProduct = ISNULL(Count(IdSP), 0) + 1 FROM SanPham
-	SELECT @newProductCode = @defaultCode + '0000' + CAST(@getIndexProduct AS NVARCHAR(5))
+	SELECT @newProductCode = @defaultCode + N'0000' + CAST(@getIndexProduct AS NVARCHAR(5))
 
 	INSERT INTO SanPham (IdSP, MaSP, Ten) VALUES (newId(), @newProductCode, @Ten)
 	SELECT MaSP 
@@ -1150,10 +1150,119 @@ CONSTRAINT FK_GiamGia FOREIGN KEY(IdGiamGia) REFERENCES dbo.GiamGia(IdGiamGia),
 CONSTRAINT FK_IdHoaDon FOREIGN KEY(IdHoaDon) REFERENCES dbo.HoaDon(IdHoaDon),
 )
 
+SELECT * FROM dbo.HoaDonChiTiet
+SELECT * FROM dbo.HoaDon
+
+sel
 
 
+SELECT        dbo.SanPham.MaSP, dbo.SanPham.Ten, dbo.Size.SoSize, dbo.ChatLieu.TenChatLieu, dbo.ChiTietSP.GiaBan, dbo.ChiTietSP.TrangThai, dbo.LoaiSanPham.TenLoaiSP, dbo.MauSac.TenMauSac
+FROM            dbo.ChatLieu INNER JOIN
+                         dbo.ChiTietSP ON dbo.ChatLieu.IdChatLieu = dbo.ChiTietSP.IdChatLieu INNER JOIN
+                         dbo.LoaiSanPham ON dbo.ChiTietSP.IdLoaiSP = dbo.LoaiSanPham.IdLoaiSP INNER JOIN
+                         dbo.MauSac ON dbo.ChiTietSP.IdMauSac = dbo.MauSac.IdMauSac INNER JOIN
+                         dbo.Size ON dbo.ChiTietSP.IdSize = dbo.Size.IdSize INNER JOIN
+                         dbo.ThuongHieu ON dbo.ChiTietSP.IdThuongHieu = dbo.ThuongHieu.IdThuongHieu INNER JOIN
+                         dbo.SanPham ON dbo.ChiTietSP.IdSP = dbo.SanPham.IdSP
+						 WHERE GiaBan BETWEEN 0 AND 100000
 
-SELECT        dbo.HoaDon.MaHD, dbo.HoaDon.NgayTao, dbo.HoaDon.TongTien, dbo.NhanVien.TenNV, dbo.HoaDon.TrangThai, dbo.HoaDonChiTiet.SoLuong, SUM(SoLuong)
-FROM            dbo.HoaDon INNER JOIN
-                         dbo.NhanVien ON dbo.HoaDon.IdNV = dbo.NhanVien.IdNV INNER JOIN
-                         dbo.HoaDonChiTiet ON dbo.HoaDon.IdHoaDon = dbo.HoaDonChiTiet.IdHoaDon
+
+						 SELECT * FROM dbo.ChiTietSP WHERE GiaBan BETWEEN 0 AND 100000
+
+						 INSERT INTO dbo.GiamGia
+						 (
+						     IdGiamGia,
+						     MaGiamGia,
+						     TenGiamGia,
+						     NgayBatDau,
+						     NgayKetThuc,
+						     MucGiamGiaPhanTram,
+						     DieuKienGiamGia,
+						     TrangThai,
+						     LoaiGiamGia
+						 )
+						 VALUES
+						 (   DEFAULT, -- IdGiamGia - uniqueidentifier
+						     NULL,    -- MaGiamGia - varchar(20)
+						     NULL,    -- TenGiamGia - nvarchar(20)
+						     DEFAULT, -- NgayBatDau - date
+						     DEFAULT, -- NgayKetThuc - date
+						     DEFAULT, -- MucGiamGiaPhanTram - date
+						     NULL,    -- DieuKienGiamGia - nvarchar(50)
+						     DEFAULT, -- TrangThai - int
+						     NULL     -- LoaiGiamGia - nvarchar(1)
+						     )
+
+							 DROP PROC dbo.insertKhuyenMai
+							 CREATE PROC insertKhuyenMai
+    @TenGiamGia NVARCHAR(50),
+    @NgayBatDau DATE,
+	@NgayKetThuc DATE,
+	@MucGiam FLOAT,
+	@DieuKienGiamGia NVARCHAR(50),
+	@TrangThai INT,
+	@LoaiGiamGia NVARCHAR(50)
+AS
+BEGIN
+    DECLARE @MaGiamGgia CHAR(10);
+    IF NOT EXISTS (SELECT * FROM dbo.GiamGia)
+        SET @MaGiamGgia = 1;
+    ELSE
+        SET @MaGiamGgia =
+        (
+            SELECT RIGHT(MAX(MaGiamGia), 5)FROM dbo.GiamGia
+        ) + 1;
+    SET @MaGiamGgia = 'GG' + REPLICATE('0', 5 - LEN(@MaGiamGgia)) + @MaGiamGgia;
+    INSERT INTO dbo.GiamGia
+    (
+        IdGiamGia,
+        MaGiamGia,
+        TenGiamGia,
+        NgayBatDau,
+        NgayKetThuc,
+        MucGiamGiaPhanTram,
+        DieuKienGiamGia,
+        TrangThai,
+        LoaiGiamGia
+    )
+    VALUES
+    (   DEFAULT, -- IdGiamGia - uniqueidentifier
+        @MaGiamGgia,    -- MaGiamGia - varchar(20)
+        @TenGiamGia,    -- TenGiamGia - nvarchar(20)
+        @NgayBatDau, -- NgayBatDau - date
+        @NgayKetThuc, -- NgayKetThuc - date
+        @MucGiam, -- MucGiamGiaPhanTram - date
+        @DieuKienGiamGia,    -- DieuKienGiamGia - nvarchar(50)
+        @TrangThai, -- TrangThai - int
+        @LoaiGiamGia     -- LoaiGiamGia - nvarchar(50)
+        );
+
+		SELECT * FROM dbo.GiamGia;
+    RETURN;
+END;
+
+EXEC dbo.insertKhuyenMai @TenGiamGia = N'Combo1',           -- nvarchar(50)
+                         @NgayBatDau = '2022-12-05',  -- date
+                         @NgayKetThuc = '2022-12-05', -- date
+                         @MucGiam = 30,              -- float
+                         @DieuKienGiamGia = N'KO biet',      -- nvarchar(50)
+                         @TrangThai = 1,              -- int
+                         @LoaiGiamGia = N'ko Biet'           -- nvarchar(50)
+
+
+			
+						 DECLARE @MaGiamGgia CHAR(10);
+    IF NOT EXISTS (SELECT * FROM dbo.GiamGia)
+        SET @MaGiamGgia = 1;
+    ELSE
+        SET @MaGiamGgia =
+        (
+            SELECT RIGHT(MAX(MaGiamGia), 5)FROM dbo.GiamGia
+        ) + 1;
+    SET @MaGiamGgia = 'GG' + REPLICATE('0', 5 - LEN(@MaGiamGgia)) + @MaGiamGgia;
+	PRINT @MaGiamGgia
+
+	ALTER TABLE dbo.SPGiamGia
+	DROP CONSTRAINT FK_IdSP
+	ALTER TABLE dbo.SPGiamGia
+	ADD CONSTRAINT FK_IdSP FOREIGN KEY(IdSP) REFERENCES dbo.SanPham(IdSP)

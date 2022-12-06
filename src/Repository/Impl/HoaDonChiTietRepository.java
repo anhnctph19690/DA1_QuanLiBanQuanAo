@@ -83,18 +83,7 @@ public class HoaDonChiTietRepository implements IHoaDonChiTietRepository {
         return arr.length > 0;
     }
 
-    public static void main(String[] args) {
-//        new HoaDonChiTietRepository().getAllInvoices("7096376D-C3F7-48F6-86DD-9EBB2A70DFA6").forEach(s -> System.out.println(s.toString()));
-//        for (QLHoaDonChiTiet x : new HoaDonChiTietRepository().getAllHDCT()) {
-//            System.out.println(x.toString());
-//        }
-            
-          String ngayBatDau = "2022-11-29";
-          String ngayKetThuc = "2022-12-02";
-          for (QLHoaDonChiTiet x : new HoaDonChiTietRepository().getFilters(ngayBatDau, ngayKetThuc)) {
-              System.out.println(x.toString());
-        }
-    }
+   
 
     @Override
     public int doanhthu() {
