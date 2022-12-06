@@ -20,7 +20,7 @@ public interface IHoaDonRepository {
 
     List<QLHoaDon> getAllHoaDonDatHang();
 
-    boolean add(HoaDon hoaDon);
+    HoaDon add(HoaDon hoaDon);
 
     boolean updateTrangThai(String id, int trangThai);
 
@@ -29,9 +29,5 @@ public interface IHoaDonRepository {
     boolean updateNgayNhan(HoaDon hd, String id);
 
     boolean updateHoaDon(HoaDon hd, String id);
-
-    List<QLHoaDon> getAllHD();
-
-    List<QLHoaDon> getFilter(String ngayBatDau,String ngayKetThuc);
 
 }

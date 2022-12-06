@@ -10,6 +10,7 @@ import Services.IHoaDonChiTietService;
 import ViewModel.QLHoaDonChiTiet;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -21,12 +22,12 @@ public class HoaDonChiTietService implements IHoaDonChiTietService {
 
     @Override
     public List<QLHoaDonChiTiet> getListInvoices(String id) {
-        return hoaDonChiTietRepository.getAllInvoices(id);
+        return hoaDonChiTietRepository.getAllInvoiceDetails(id);
     }
 
     @Override
     public String addListInvoice(List<QLHoaDonChiTiet> list) {
-        if (hoaDonChiTietRepository.addListInvoice(list)) {
+        if (hoaDonChiTietRepository.addListInvoiceDetails(list)) {
             return "Thanh toán thành công";
         }
         return "Thanh toán thất bại";
@@ -46,16 +47,23 @@ public class HoaDonChiTietService implements IHoaDonChiTietService {
         return hoaDonChiTietRepository.doanhthu();
     }
 
-    @Override
-    public List<QLHoaDonChiTiet> getAllHDCT() {
-        return hoaDonChiTietRepository.getAllHDCT();
+    public QLHoaDonChiTiet getHoaDonChiTietByMa(String ma, List<QLHoaDonChiTiet> list) {
+        for (QLHoaDonChiTiet hdct : list) {
+            if (hdct.getMaSP().equals(ma)) {
+                return hdct;
+            }
+        }
+        return null;
     }
 
     @Override
-    public List<QLHoaDonChiTiet> getFilters(String ngayBatDau,String ngayKetThuc) {
-        return hoaDonChiTietRepository.getFilters(ngayBatDau, ngayKetThuc);
-    }
+    public void update(Map<QLHoaDonChiTiet, String> hdct) {
+        hdct.forEach(
+                (k, v) -> {
+                    hoaDonChiTietRepository.updateListInvoiceDetails(k.getIdCTSP(), v);
+                }
+        );
 
-  
+    }
 
 }

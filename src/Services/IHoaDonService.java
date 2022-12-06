@@ -19,7 +19,7 @@ public interface IHoaDonService {
 
     List<QLHoaDon> getAllHoaDonDatHang();
 
-    String add(HoaDon hd);
+    HoaDon add(HoaDon hd);
 
     void uppdateTrangThai(String id, int trangThai);
 
@@ -34,9 +34,7 @@ public interface IHoaDonService {
     public int demSoLuongHoaDonCTT();
 
     public int Tonghoadon();
-    
-    List<QLHoaDon> getAllHD();
-    
-    List<QLHoaDon> getFilter(String ngayBatDau,String ngayKetThuc);
+
+    QLHoaDon getHoaDonByMa(List<QLHoaDon> list, String ma);
 
 }

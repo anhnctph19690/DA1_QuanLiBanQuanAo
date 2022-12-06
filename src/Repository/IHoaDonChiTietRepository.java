@@ -15,14 +15,12 @@ import java.util.List;
  */
 public interface IHoaDonChiTietRepository {
 
-    List<QLHoaDonChiTiet> getAllInvoices(String id);
+    List<QLHoaDonChiTiet> getAllInvoiceDetails(String id);
 
-    boolean addListInvoice(List<QLHoaDonChiTiet> list);
-    
+    boolean addListInvoiceDetails(List<QLHoaDonChiTiet> list);
+
+    boolean updateListInvoiceDetails(String idCTSP, String idHoaDon);
+
     public int doanhthu();
-    
-    List<QLHoaDonChiTiet> getAllHDCT();
-    
-    List<QLHoaDonChiTiet> getFilters(String ngayBatDau,String ngayKetThuc);
 
 }

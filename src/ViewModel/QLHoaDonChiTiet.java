@@ -5,7 +5,8 @@
 package ViewModel;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 /**
  *
@@ -20,8 +21,6 @@ public class QLHoaDonChiTiet {
     private int soLuongMua;
     private BigDecimal donGia;
     private double thanhTien;
-    private Date ngayTao;
-     private String maHD;
 
     public QLHoaDonChiTiet() {
     }
@@ -34,30 +33,6 @@ public class QLHoaDonChiTiet {
         this.soLuongMua = soLuongMua;
         this.donGia = donGia;
     }
-
-    public QLHoaDonChiTiet(String idHoaDon, String idCTSP, String maSP, String tenSP, int soLuongMua, BigDecimal donGia,  Date ngayTao, String maHD) {
-        this.idHoaDon = idHoaDon;
-        this.idCTSP = idCTSP;
-        this.maSP = maSP;
-        this.tenSP = tenSP;
-        this.soLuongMua = soLuongMua;
-        this.donGia = donGia;
-        this.ngayTao = ngayTao;
-        this.maHD = maHD;
-    }
-
-   
-
-  
-    public String getMaHD() {
-        return maHD;
-    }
-
-    public void setMaHD(String maHD) {
-        this.maHD = maHD;
-    }
-    
-    
 
     public String getIdHoaDon() {
         return idHoaDon;
@@ -115,31 +90,14 @@ public class QLHoaDonChiTiet {
         this.thanhTien = thanhTien;
     }
 
-    public Date getNgayTao() {
-        return ngayTao;
-    }
-
-    public void setNgayTao(Date ngayTao) {
-        this.ngayTao = ngayTao;
-    }
-    
-    
-
     public Double getTotal() {
         return this.soLuongMua * this.donGia.doubleValue();
     }
 
-    @Override
-    public String toString() {
-        return "QLHoaDonChiTiet{" + "idHoaDon=" + idHoaDon + ", idCTSP=" + idCTSP + ", maSP=" + maSP + ", tenSP=" + tenSP + ", soLuongMua=" + soLuongMua + ", donGia=" + donGia + ", thanhTien=" + thanhTien + ", ngayTao=" + ngayTao + ", maHD=" + maHD + '}';
-    }
-
-  
     public Object[] toDataRow() {
-        return new Object[]{maSP, tenSP, soLuongMua, donGia, getTotal()};
-    }
-     public Object[] DataRow() {
-        return new Object[]{maHD, maSP,tenSP, soLuongMua, donGia, getTotal()};
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
+        return new Object[]{maSP, tenSP, soLuongMua, formatter.format(donGia), formatter.format(getTotal())};
     }
 
 }

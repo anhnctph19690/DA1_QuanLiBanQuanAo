@@ -8,7 +8,6 @@ import DomainModels.HoaDon;
 import Repository.IHoaDonRepository;
 import Ultilities.DBConnection;
 import ViewModel.QLHoaDon;
-import ViewModel.QLHoaDonThongKe;
 import java.util.ArrayList;
 import java.sql.*;
 import java.util.logging.Level;
@@ -44,7 +43,7 @@ public class HoaDonRepository implements IHoaDonRepository {
                 hoaDon.setTenNhanVien(rs.getString(5));
                 hoaDon.setTrangThai(rs.getInt(6));
                 hoaDon.setTenKhachHang(rs.getString(7));
-                hoaDon.setSdt(rs.getString(8));
+                hoaDon.setSdtKhachHang(rs.getString(8));
                 list.add(hoaDon);
             }
             return list;
@@ -73,32 +72,29 @@ public class HoaDonRepository implements IHoaDonRepository {
     }
 
     @Override
-    public boolean add(HoaDon hoaDon) {
-        int check = 0;
+    public HoaDon add(HoaDon hoaDon) {
         String query = "{call procThemHdTaiQuay(?, ?, ?)}";
         try ( Connection conn = DBConnection.getConnection();  PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setObject(1, hoaDon.getNgayTao());
             ps.setObject(2, hoaDon.getIdNhanVien());
             ps.setObject(3, hoaDon.getTrangThai());
 
-            check = ps.executeUpdate();
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                HoaDon hd = new HoaDon();
+                hd.setIdHoaDon(rs.getString(1));
+                hd.setMaHoaDon(rs.getString(2));
+                return hd;
+            }
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return check > 0;
+        return null;
     }
 
     public static void main(String[] args) {
-        //new HoaDonRepository().getAllHoaDonCho(1).forEach(s -> System.out.println(s.toString()));
-//        HoaDonRepository hdr = new HoaDonRepository();
-
-          String ngayBatDau = "2022-11-29";
-          String ngayKetThuc = "2022-12-02";
-          for (QLHoaDon x : new HoaDonRepository().getFilter(ngayBatDau, ngayKetThuc)) {
-              System.out.println(x.toString());
-        }
-       
+        new HoaDonRepository().getAllHoaDonCho(1).forEach(s -> System.out.println(s.toString()));
     }
 
     @Override
@@ -157,7 +153,7 @@ public class HoaDonRepository implements IHoaDonRepository {
                 hoaDon.setTenNhanVien(rs.getString(5));
                 hoaDon.setTrangThai(rs.getInt(6));
                 hoaDon.setTenKhachHang(rs.getString(7));
-                hoaDon.setSdt(rs.getString(8));
+                hoaDon.setSdtKhachHang(rs.getString(8));
                 list.add(hoaDon);
             }
             return list;
@@ -262,117 +258,4 @@ public class HoaDonRepository implements IHoaDonRepository {
         return Tonghoadon;
 
     }
-
-    public int doanhThuNgay() {
-        int doanhThuNgay = 0;
-        Connection conn = DBConnection.getConnection();
-        String sql = "SELECT  dbo.HoaDon.NgayTao, dbo.HoaDonChiTiet.SoLuong, dbo.HoaDonChiTiet.donGia ,SUM(SoLuong * donGia) As DoanhThu "
-                + "FROM   dbo.HoaDon INNER JOIN dbo.HoaDonChiTiet ON dbo.HoaDon.IdHoaDon = dbo.HoaDonChiTiet.IdHoaDon\n"
-                + "where Day(NgayTao) = day(getDate())\n"
-                + "group by ngaytao,soLuong,DonGia ";
-
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ps.execute();
-
-            ResultSet rs = ps.getResultSet();
-            while (rs.next() == true) {
-                doanhThuNgay = rs.getInt("DoanhThu");
-            }
-
-        } catch (Exception e) {
-        }
-        return doanhThuNgay;
-
-    }
-
-    public int doanhThuQuy() {
-        int doanhThuQuy = 0;
-        int quy = 0;
-        Connection conn = DBConnection.getConnection();
-        String sql = "SELECT   Sum(SoLuong * donGia) As DoanhThuQuy "
-                + "FROM   dbo.HoaDon INNER JOIN\n"
-                + "  dbo.HoaDonChiTiet ON dbo.HoaDon.IdHoaDon = dbo.HoaDonChiTiet.IdHoaDon "
-                + " where DATEPART(quarter, NgayTao) = DATEPART(quarter, getdate())";
-
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ps.execute();
-
-            ResultSet rs = ps.getResultSet();
-            while (rs.next() == true) {
-                doanhThuQuy = rs.getInt("DoanhThuQuy");
-                quy = rs.getInt("Quy");
-            }
-
-        } catch (Exception e) {
-        }
-        return doanhThuQuy;
-
-    }
-
-    @Override
-    public List<QLHoaDon> getAllHD() {
-
-        String query = "select ROW_NUMBER() OVER (ORDER BY hd.Mahd DESC) , hd.IdHoaDon, hd.MaHD, hd.NgayTao, nv.TenNV, hd.TrangThai, kh.Ten, kh.Sdt\n"
-                + "    from NhanVien nv\n"
-                + "	join HoaDon hd on hd.IdNV = nv.IdNV\n"
-                + "    left join KhachHang kh on hd.IdKH = kh.IdKH\n";
-
-        try ( Connection conn = DBConnection.getConnection()) {
-            PreparedStatement ps = conn.prepareStatement(query);
-
-            ResultSet rs = ps.executeQuery();
-            List<QLHoaDon> list = new ArrayList<>();
-            while (rs.next()) {
-                QLHoaDon hoaDon = new QLHoaDon(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4),
-                        rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8));
-                list.add(hoaDon);
-            }
-            return list;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-
-        return null;
-
-    }
-
-
-    @Override
-    public List<QLHoaDon> getFilter(String ngayBatDau, String ngayKetThuc) {
-         String query = "select ROW_NUMBER() OVER (ORDER BY hd.Mahd DESC) , hd.IdHoaDon, hd.MaHD, hd.NgayTao, nv.TenNV, hd.TrangThai, kh.Ten, kh.Sdt\n"
-                + "    from NhanVien nv\n"
-                + "	join HoaDon hd on hd.IdNV = nv.IdNV\n"
-                + "    left join KhachHang kh on hd.IdKH = kh.IdKH\n"
-                + "    where hd.ngaytao between ? and ? ";
-
-        try ( Connection conn = DBConnection.getConnection()) {
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setObject(1, ngayBatDau);
-            ps.setObject(2, ngayKetThuc);
-
-            ResultSet rs = ps.executeQuery();
-            List<QLHoaDon> list = new ArrayList<>();
-            while (rs.next()) {
-                QLHoaDon hoaDon = new QLHoaDon(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4),
-                        rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8));
-                list.add(hoaDon);
-            }
-            return list;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-
-        return null;
-    }
-
-    
-//    public ArrayList<QLHoaDonThongKe> getListHDByNgayTao(){
-//        ArrayList<QLHoaDonThongKe> list = new ArrayList<>();
-//        
-//        String query = "";
-//    }
 }

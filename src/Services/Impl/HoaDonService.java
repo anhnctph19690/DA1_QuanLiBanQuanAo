@@ -22,11 +22,8 @@ public class HoaDonService implements IHoaDonService {
     private HoaDonRepository hoaDonRepository = new HoaDonRepository();
 
     @Override
-    public String add(HoaDon hd) {
-        if (hoaDonRepository.add(hd)) {
-            return "Tạo thành công";
-        }
-        return "Tạo thất bại";
+    public HoaDon add(HoaDon hd) {
+        return hoaDonRepository.add(hd);
     }
 
     @Override
@@ -74,22 +71,13 @@ public class HoaDonService implements IHoaDonService {
         return hoaDonRepository.TongHD();
     }
 
-    public int doanhThuNgay() {
-        return hoaDonRepository.doanhThuNgay();
-    }
-
-    public int doanhThuQuy() {
-        return hoaDonRepository.doanhThuQuy();
-    }
-
-    @Override
-    public List<QLHoaDon> getAllHD() {
-        return hoaDonRepository.getAllHD();
-    }
-
-    @Override
-    public List<QLHoaDon> getFilter(String ngayBatDau, String ngayKetThuc) {
-        return hoaDonRepository.getFilter(ngayBatDau, ngayKetThuc);
+    public QLHoaDon getHoaDonByMa(List<QLHoaDon> list, String ma) {
+        for (QLHoaDon hd : list) {
+            if (hd.getMaHoaDon().equals(ma)) {
+                return hd;
+            }
+        }
+        return null;
     }
 
 }

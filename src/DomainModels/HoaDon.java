@@ -4,6 +4,7 @@
  */
 package DomainModels;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -25,6 +26,8 @@ public class HoaDon {
     private String tenNguoiNhan;
     private String diaChi;
     private String sDT;
+    private BigDecimal tienCoc;
+    private BigDecimal tienShip;
     private int TrangThai;
 
     public HoaDon() {
@@ -159,9 +162,20 @@ public class HoaDon {
         this.TrangThai = TrangThai;
     }
 
-    @Override
-    public String toString() {
-        return "HoaDon{" + "IdHoaDon=" + IdHoaDon + ", IdKhachHang=" + IdKhachHang + ", IdNhanVien=" + IdNhanVien + ", IdPTTT=" + IdPTTT + ", maHoaDon=" + maHoaDon + ", NgayTao=" + NgayTao + ", NgayThanhToan=" + NgayThanhToan + ", NgayHen=" + NgayHen + ", NgayShip=" + NgayShip + ", NgayNhan=" + NgayNhan + ", tenNguoiNhan=" + tenNguoiNhan + ", diaChi=" + diaChi + ", sDT=" + sDT + ", TrangThai=" + TrangThai + '}';
+    public BigDecimal getTienCoc() {
+        return tienCoc;
+    }
+
+    public void setTienCoc(BigDecimal tienCoc) {
+        this.tienCoc = tienCoc;
+    }
+
+    public BigDecimal getTienShip() {
+        return tienShip;
+    }
+
+    public void setTienShip(BigDecimal tienShip) {
+        this.tienShip = tienShip;
     }
 
 }

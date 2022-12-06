@@ -93,7 +93,6 @@ public class SanPhamView extends javax.swing.JFrame {
 
         _listChiTietSP = _iChiTietSanPhamService.getAll();
         showDataTableChiTietSanPham(_listChiTietSP);
-
     }
 
     public void loadSize() {
@@ -907,14 +906,14 @@ public class SanPhamView extends javax.swing.JFrame {
 
     private void txtTenSPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTenSPKeyReleased
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_txtTenSPKeyReleased
 
     private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
         // TODO add your handling code here:
-         _listChiTietSP = new ArrayList<>();
+        _listChiTietSP = new ArrayList<>();
         String name = txtTimKiem.getText();
-        _listChiTietSP = _iChiTietSanPhamService.searchByName(name);
+        _listChiTietSP = _iChiTietSanPhamService.searchByName(_listChiTietSP, name);
         showDataTableChiTietSanPham(_listChiTietSP);
     }//GEN-LAST:event_txtTimKiemKeyReleased
 

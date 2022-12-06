@@ -21,7 +21,7 @@ import java.util.Map;
 public class ChiTietSanPhamService implements IChiTietSanPhamService {
 
     private IChiTietSanPhamRepository _iChiTietSanPhamRepository = new ChiTietSanPhamRepository();
-    ChiTietSanPhamRepository chiTietSanPhamRepository = new ChiTietSanPhamRepository();
+
     @Override
     public List<QLChiTietSanPham> getAll() {
         return _iChiTietSanPhamRepository.getAll();
@@ -90,20 +90,65 @@ public class ChiTietSanPhamService implements IChiTietSanPhamService {
     }
 
     @Override
-    public List<QLChiTietSanPham> searchByName(String name) {
-        return _iChiTietSanPhamRepository.searchByName(name);
+    public List<QLChiTietSanPham> searchByName(List<QLChiTietSanPham> list, String name) {
+        List<QLChiTietSanPham> listFound = new ArrayList<>();
+        for (QLChiTietSanPham sp : list) {
+            if (sp.getTenSanPham().toLowerCase().contains(name.toLowerCase())) {
+                listFound.add(sp);
+            }
+        }
+        return listFound;
     }
 
     @Override
-    public List<QLChiTietSanPham> searchByMa(String ma) {
-        return _iChiTietSanPhamRepository.searchByMa(ma);
+    public List<QLChiTietSanPham> searchByMa(List<QLChiTietSanPham> list, String ma) {
+        List<QLChiTietSanPham> listFound = new ArrayList<>();
+        for (QLChiTietSanPham sp : list) {
+            if (sp.getMaSanPham().toLowerCase().contains(ma.toLowerCase())) {
+                listFound.add(sp);
+            }
+        }
+        return listFound;
     }
-    
-    public ArrayList<QLChiTietSanPham> getListByLoaiSP(String loaiSP){
-        return this.chiTietSanPhamRepository.getListByLoaiSP(loaiSP);
+
+    @Override
+    public List<QLChiTietSanPham> searchSanPhamFromInput(List<QLChiTietSanPham> _listChiTietSanPham, String searchData) {
+        List<QLChiTietSanPham> listNull = new ArrayList<>();
+        List<QLChiTietSanPham> listSanPhamByName = this.searchByName(_listChiTietSanPham, searchData);
+        List<QLChiTietSanPham> listSanPhamByMa = this.searchByMa(_listChiTietSanPham, searchData);
+        if (!listSanPhamByName.isEmpty()) {
+            return listSanPhamByName;
+        } else if (!listSanPhamByMa.isEmpty()) {
+            return listSanPhamByMa;
+        }
+        return listNull;
     }
-    
-    public List<QLChiTietSanPham> getListSPByKhoangGia(double min, double max){
-        return this.chiTietSanPhamRepository.getListSPByKhoangGia(min, max);
+
+    @Override
+    public QLChiTietSanPham getProductByMa(List<QLChiTietSanPham> list, String ma) {
+        for (QLChiTietSanPham sp : list) {
+            if (sp.getMaSanPham().equals(ma)) {
+                return sp;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void updateSoLuongProductKhiRemove(List<QLChiTietSanPham> list, String maSP, int soLuong) {
+        for (QLChiTietSanPham ctsp : list) {
+            if (ctsp.getMaSanPham().equals(maSP)) {
+                ctsp.setSoLuongTonKho(ctsp.getSoLuongTonKho() + soLuong);
+            }
+        }
+    }
+
+    public Integer getSoLuongProduct(List<QLChiTietSanPham> list, String ma) {
+        for (QLChiTietSanPham ctsp : list) {
+            if (ctsp.getMaSanPham().equals(ma)) {
+                return ctsp.getSoLuongTonKho();
+            }
+        }
+        return null;
     }
 }

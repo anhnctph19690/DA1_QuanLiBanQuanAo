@@ -89,11 +89,22 @@ public class QLKhachHang {
         this.trangThai = trangThai;
     }
 
+    public String displayCustomer() {
+        if (this.ten.isEmpty() && !this.sdt.isEmpty()) {
+            return this.sdt;
+        }
+        if (this.sdt.isEmpty() && !this.ten.isEmpty()) {
+            return this.ten;
+        }
+        if (!this.sdt.isEmpty() && !this.ten.isEmpty()) {
+            return this.ten + " - " + this.sdt;
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return "QLKhachHang{" + "idKhachHang=" + idKhachHang + ", maKhachHang=" + maKhachHang + ", ten=" + ten + ", ngaySinh=" + ngaySinh + ", sdt=" + sdt + ", diaChi=" + diaChi + ", trangThai=" + trangThai + '}';
     }
-
-    
 
 }

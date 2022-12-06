@@ -34,8 +34,17 @@ public interface IChiTietSanPhamService {
     public int demSoLuongSPHH();
 
     public int TongSP();
-    
-    List<QLChiTietSanPham> searchByName(String name);
-    
-    List<QLChiTietSanPham> searchByMa(String ma);
+
+    List<QLChiTietSanPham> searchByName(List<QLChiTietSanPham> list, String name);
+
+    List<QLChiTietSanPham> searchByMa(List<QLChiTietSanPham> list, String ma);
+
+    List<QLChiTietSanPham> searchSanPhamFromInput(List<QLChiTietSanPham> _listChiTietSanPham, String searchData);
+
+    QLChiTietSanPham getProductByMa(List<QLChiTietSanPham> list, String ma);
+
+    void updateSoLuongProductKhiRemove(List<QLChiTietSanPham> list, String maSP, int soLuong);
+
+    Integer getSoLuongProduct(List<QLChiTietSanPham> list, String ma);
+
 }
