@@ -36,5 +36,14 @@ public interface IHoaDonService {
     public int Tonghoadon();
 
     QLHoaDon getHoaDonByMa(List<QLHoaDon> list, String ma);
+    
+    List<QLHoaDon> getAllHD();
+    
+    List<QLHoaDon> getFilter(String ngayBatDau,String ngayKetThuc);
+    
+//    List<QLHoaDon> getTrangThai();
+    
+    List<QLHoaDon> getByName(String name);
+    
 
 }

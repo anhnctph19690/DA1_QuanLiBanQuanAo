@@ -27,4 +27,8 @@ public interface IHoaDonChiTietService {
     void update(Map<QLHoaDonChiTiet, String> hdct);
 
     public int doanhthu();
+    
+      List<QLHoaDonChiTiet> getAllHDCT();
+     
+
 }

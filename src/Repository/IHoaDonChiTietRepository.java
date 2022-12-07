@@ -22,5 +22,9 @@ public interface IHoaDonChiTietRepository {
     boolean updateListInvoiceDetails(String idCTSP, String idHoaDon);
 
     public int doanhthu();
+    
+     List<QLHoaDonChiTiet> getAllHDCT();
+    
+
 
 }

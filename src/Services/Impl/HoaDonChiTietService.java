@@ -66,4 +66,11 @@ public class HoaDonChiTietService implements IHoaDonChiTietService {
 
     }
 
+    @Override
+    public List<QLHoaDonChiTiet> getAllHDCT() {
+        return hoaDonChiTietRepository.getAllHDCT();
+    }
+
+
+
 }

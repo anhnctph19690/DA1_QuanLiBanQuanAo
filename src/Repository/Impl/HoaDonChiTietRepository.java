@@ -103,4 +103,25 @@ public class HoaDonChiTietRepository implements IHoaDonChiTietRepository {
 
     }
 
+    @Override
+    public List<QLHoaDonChiTiet> getAllHDCT() {
+          ArrayList<QLHoaDonChiTiet> HDCTList = new ArrayList<>();
+        String query = "select HoaDonChiTiet.IdHoaDon,HoaDonChiTiet.IdCTSP,SanPham.MaSP,SanPham.Ten,HoaDonChiTiet.SoLuong,HoaDonChiTiet.DonGia\n"
+                + "from SanPham join ChiTietSP on SanPham.IdSP = ChiTietSP.IdSP \n"
+                + "join HoaDonChiTiet on ChiTietSP.IdCTSP = HoaDonChiTiet.IdCTSP";
+        try ( Connection conn = DBConnection.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                HDCTList.add(new QLHoaDonChiTiet(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getBigDecimal(6)));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return HDCTList;
+    }
+    
+
+
 }

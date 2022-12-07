@@ -25,6 +25,14 @@ public class HoaDonService implements IHoaDonService {
     public HoaDon add(HoaDon hd) {
         return hoaDonRepository.add(hd);
     }
+    
+      public int doanhThuNgay() {
+        return hoaDonRepository.doanhThuNgay();
+    }
+
+    public int doanhThuQuy() {
+        return hoaDonRepository.doanhThuQuy();
+    }
 
     @Override
     public List<QLHoaDon> getAllHoaDonCho(int trangThai) {
@@ -78,6 +86,26 @@ public class HoaDonService implements IHoaDonService {
             }
         }
         return null;
+    }
+
+    @Override
+    public List<QLHoaDon> getAllHD() {
+          return hoaDonRepository.getAllHD();
+    }
+
+    @Override
+    public List<QLHoaDon> getFilter(String ngayBatDau, String ngayKetThuc) {
+         return hoaDonRepository.getFilter(ngayBatDau, ngayKetThuc);
+    }
+
+//    @Override
+//    public List<QLHoaDon> getTrangThai() {
+//         return hoaDonRepository.getTrangThai();
+//    }
+
+    @Override
+    public List<QLHoaDon> getByName(String name) {
+         return hoaDonRepository.getByName(name);
     }
 
 }

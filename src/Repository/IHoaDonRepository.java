@@ -29,5 +29,13 @@ public interface IHoaDonRepository {
     boolean updateNgayNhan(HoaDon hd, String id);
 
     boolean updateHoaDon(HoaDon hd, String id);
+    
+      List<QLHoaDon> getAllHD();
+
+    List<QLHoaDon> getFilter(String ngayBatDau,String ngayKetThuc);
+    
+    List<QLHoaDon> getByName(String name);
+    
+
 
 }
