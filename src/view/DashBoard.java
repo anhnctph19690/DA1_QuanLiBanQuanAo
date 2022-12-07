@@ -31,12 +31,16 @@ public class DashBoard extends javax.swing.JFrame {
      * Creates new form DashBoard
      */
 
+    static QLNhanVien getEmployeeByLogin;
     NhanVien nv = this.nhanVienRepository.getNhanVienByStatus(3);
 
     public DashBoard() {
         initComponents();
 
-        lblTenNv.setText(nv.getTenNV());
+        if (getEmployeeByLogin != null) {
+            BanHangView.getEmployeeByDashBoard = getEmployeeByLogin;
+            lblTenNv.setText(getEmployeeByLogin.getTenNV());
+        }
 
 //        new DashBoard().add(new HoaDonView()).setVisible(true);
     }
@@ -356,14 +360,14 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void btnHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoaDonActionPerformed
         // TODO add your handling code here:
-        ViewHoaDon hoaDonView = new ViewHoaDon();
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
-        Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
-        int x = (int) rect.getMaxX() - hoaDonView.getWidth();
-        int y = 0;
-        hoaDonView.setLocation(x, y);
-        hoaDonView.setVisible(true);
+//        ViewHoaDon hoaDonView = new ViewHoaDon();
+//        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+//        GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
+//        Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
+//        int x = (int) rect.getMaxX() - hoaDonView.getWidth();
+//        int y = 0;
+//        hoaDonView.setLocation(x, y);
+//        hoaDonView.setVisible(true);
     }//GEN-LAST:event_btnHoaDonActionPerformed
 
     private void btnSanPham1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSanPham1ActionPerformed

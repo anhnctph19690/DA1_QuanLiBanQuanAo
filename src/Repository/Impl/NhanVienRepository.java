@@ -77,10 +77,9 @@ public class NhanVienRepository implements INhanVienRepository {
         }
 
     }
-//    public static void main(String[] args) {
-//        NhanVienRepository nhanVienRepository = new NhanVienRepository();
-//        nhanVienRepository.insert(new NhanVien("", "", "Tuan Anh", "uhdsfuds", "gfsdgs", "Nam", "2022-12-12", "frsgfs", 1, "D1C3E9A0-A6A8-4AA7-A6EA-D5A08874AE75"));
-//    }
+    public static void main(String[] args) {
+        new NhanVienRepository().getAll().forEach(s -> System.out.println(s.toString()));
+    }
 
     @Override
     public void update(NhanVien nv, String maNV) {

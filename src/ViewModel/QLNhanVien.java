@@ -111,6 +111,9 @@ public class QLNhanVien {
         this.trangThai = trangThai;
     }
 
-
+    @Override
+    public String toString() {
+        return "QLNhanVien{" + "idNhanVien=" + idNhanVien + ", maNV=" + maNV + ", tenNV=" + tenNV + ", tenChucVu=" + tenChucVu + ", diaChi=" + diaChi + ", sDT=" + sDT + ", gioiTinh=" + gioiTinh + ", ngaySinh=" + ngaySinh + ", matKhau=" + matKhau + ", trangThai=" + trangThai + '}';
+    }
 
 }

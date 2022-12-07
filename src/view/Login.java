@@ -5,86 +5,103 @@
 package view;
 
 import Repository.Impl.NhanVienRepository;
+import Services.INhanVienServicer;
+import Services.Impl.NhanVienServicer;
+import ViewModel.QLNhanVien;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author ADMIN
  */
-
-
-
 public class Login extends javax.swing.JFrame {
+
     Connection conn = null;
-    ResultSet rs ;
+    ResultSet rs;
     PreparedStatement pst;
     /**
      * Creates new form Login
      */
-    
-    NhanVienRepository nhanVienRepository =new NhanVienRepository();
-    
+    private List<QLNhanVien> listNV;
+    NhanVienRepository nhanVienRepository = new NhanVienRepository();
+
     public Login() {
         initComponents();
-        
+        listNV = new ArrayList<>();
+
         conn = Ultilities.DBConnection.getConnection();
     }
-    
-    
-    
-    public void checklogin(){
+
+    private QLNhanVien checkUserAccount() {
+        listNV = nhanVienRepository.getAll();
+        for (QLNhanVien nv : listNV) {
+            if (txt_user.getText().equals(nv.getMaNV()) && txt_pass.getText().equals(nv.getMatKhau())) {
+                return nv;
+            }
+        }
+        return null;
+    }
+
+    private void login() {
+        if (checkUserAccount() != null) {
+            DashBoard.getEmployeeByLogin = checkUserAccount();
+            JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
+            DashBoard dashBoard = new DashBoard();
+            dashBoard.show();
+            dashBoard.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Tài khoản hoặc mậu khẩu không chính xác");
+        }
+    }
+
+    public void checklogin() {
         String user = txt_user.getText();
-        String pass   = txt_pass.getText();
-           
+        String pass = txt_pass.getText();
+
         try {
-            
+
             String sql = "SELECT * FROM nhanvien WHERE manv = ? AND matkhau = ? ";
-            
-            pst =conn.prepareStatement(sql);
-            
-            
-           
+
+            pst = conn.prepareStatement(sql);
+
             pst.setString(1, user);
             pst.setString(2, pass);
-           
-            
+
             rs = pst.executeQuery();
-            
-            if(rs.next()){
-            
-            
-              this.dispose();
-              JOptionPane.showMessageDialog(this, "Đăng nhập thành công !!!", "Đăng Nhập", JOptionPane.INFORMATION_MESSAGE);
+
+            if (rs.next()) {
+
+                this.dispose();
+                JOptionPane.showMessageDialog(this, "Đăng nhập thành công !!!", "Đăng Nhập", JOptionPane.INFORMATION_MESSAGE);
                 this.nhanVienRepository.updateStatusLogin(user, 3);
-              DashBoard ds = new DashBoard();
-              ds.setVisible(true);
-                   
-                
-                
-            }else {
-            
+                DashBoard ds = new DashBoard();
+                ds.setVisible(true);
+
+            } else {
+
                 JOptionPane.showMessageDialog(this, "Tên Đăng Nhập hoặc Mật Khẩu bị Sai???? ");
-                 txt_pass.requestFocus();
-                        
+                txt_pass.requestFocus();
+
             }
-            
+
         } catch (Exception e) {
             System.out.println(e);
         }
-        
+
         txt_user.setText("");
         txt_pass.setText("");
-         
-        
-        
-    
-    
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -380,9 +397,9 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_passFocusGained
 
     private void ckb_checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckb_checkActionPerformed
-        if(ckb_check.isSelected()){
-            txt_pass.setEchoChar((char)0);
-        }else{
+        if (ckb_check.isSelected()) {
+            txt_pass.setEchoChar((char) 0);
+        } else {
             txt_pass.setEchoChar('*');
         }
     }//GEN-LAST:event_ckb_checkActionPerformed
@@ -393,12 +410,12 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel7MousePressed
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-      
+
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        checklogin();
+        login();
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

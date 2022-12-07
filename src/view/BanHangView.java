@@ -95,6 +95,7 @@ import javax.swing.DefaultListModel;
  */
 public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadFactory {
 
+    static QLNhanVien getEmployeeByDashBoard;
     /**
      * Creates new form From_BanHang
      */
@@ -197,49 +198,43 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
 
         menu.add(panelListSearchCustomer);
 
-        NhanVien nv = nvRepo.getNhanVienByStatus(3);
-        labelTenNguoiBan.setText(nv.getTenNV());
-        labelTenNguoiBan1.setText(nv.getTenNV());
+        if (getEmployeeByDashBoard != null) {
+            QLNhanVien nv = getEmployeeByDashBoard;
+            labelTenNguoiBan.setText(nv.getTenNV());
+            labelTenNguoiBan1.setText(nv.getTenNV());
+        }
         loadTienThuaHoaDon();
         loadTienThuaDatHang();
         showListHoaDonByTabbedPane();
-        setDateDefault();
+        setJDateChooserDefaultToday();
         cbTienMat.setSelected(true);
         txtTienChuyenKhoan.setEditable(false);
         if (!_listHoaDon.isEmpty()) {
             showListHoaDonByCombobox();
 //            fillHoaDon(0);
         }
-//        loadTienThuaHoaDonKhiThanhToanBangChuyenKhoanVaTienMat();
-//        onlyNumberTotal();
+        onlyNumber();
     }
 
-    private void loadNgayTao() {
-    }
-
-    private void setDateDefault() {
+    private void setJDateChooserDefaultToday() {
         Date d = new Date();
         jDateChooser1.setDate(d);
     }
 
-    private void onlyNumberTotal() {
+    private void onlyNumber() {
         txtTienKhachDua.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent ke) {
                 if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == VK_BACK_SPACE) {
                     txtTienKhachDua.setEditable(true);
-                } else {
-                    txtTienKhachDua.setEditable(false);
                 }
             }
         });
-        txtTienKhachDua1.addKeyListener(new KeyAdapter() {
+        txtTienCoc.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent ke) {
                 if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == VK_BACK_SPACE) {
-                    txtTienKhachDua1.setEditable(true);
-                } else {
-                    txtTienKhachDua1.setEditable(false);
+                    txtTienCoc.setEditable(true);
                 }
             }
         });
@@ -248,8 +243,6 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
             public void keyPressed(KeyEvent ke) {
                 if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == VK_BACK_SPACE) {
                     txtGiamGia.setEditable(true);
-                } else {
-                    txtGiamGia.setEditable(false);
                 }
             }
         });
@@ -258,8 +251,6 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
             public void keyPressed(KeyEvent ke) {
                 if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == VK_BACK_SPACE) {
                     txtGiamGia1.setEditable(true);
-                } else {
-                    txtGiamGia1.setEditable(false);
                 }
             }
         });
@@ -283,7 +274,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         labelKhachCanTra1.setText("0");
         txtGiamGia1.setText("0");
         txtTienShip.setText("0");
-        txtTienKhachDua1.setText("0");
+        txtTienCoc.setText("0");
         labelTienThua1.setText("0");
     }
 
@@ -325,7 +316,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
     }
 
     private void loadTienThuaDatHang() {
-        txtTienKhachDua1.addCaretListener(new CaretListener() {
+        txtTienCoc.addCaretListener(new CaretListener() {
             @Override
             public void caretUpdate(CaretEvent e) {
                 tinhTienThuaDatHang();
@@ -456,7 +447,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         jLabel11 = new javax.swing.JLabel();
         labelTongTienHang1 = new javax.swing.JLabel();
         labelKhachCanTra1 = new javax.swing.JLabel();
-        txtTienKhachDua1 = new javax.swing.JTextField();
+        txtTienCoc = new javax.swing.JTextField();
         labelTienThua1 = new javax.swing.JLabel();
         btnThanhToan1 = new javax.swing.JButton();
         btnDaGiao = new javax.swing.JButton();
@@ -652,6 +643,9 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtTienKhachDuaKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTienKhachDuaKeyTyped(evt);
+            }
         });
 
         jLabel45.setText("Tiền thừa: ");
@@ -667,6 +661,9 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         txtGiamGia.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtGiamGiaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtGiamGiaKeyTyped(evt);
             }
         });
 
@@ -705,6 +702,9 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         txtTienChuyenKhoan.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtTienChuyenKhoanKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTienChuyenKhoanKeyTyped(evt);
             }
         });
 
@@ -995,7 +995,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
 
         jLabel7.setText("Khách cần trả:");
 
-        jLabel9.setText("Tiền chuyển khoản:");
+        jLabel9.setText("Tiền cọc:");
 
         jLabel11.setText("Tiền thừa:");
 
@@ -1007,9 +1007,12 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         labelKhachCanTra1.setForeground(new java.awt.Color(255, 0, 0));
         labelKhachCanTra1.setText("0");
 
-        txtTienKhachDua1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtTienCoc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtTienKhachDua1KeyReleased(evt);
+                txtTienCocKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTienCocKeyTyped(evt);
             }
         });
 
@@ -1039,6 +1042,9 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtGiamGia1KeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtGiamGia1KeyTyped(evt);
+            }
         });
 
         jLabel25.setText("Tiền ship: ");
@@ -1046,6 +1052,9 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         txtTienShip.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtTienShipKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTienShipKeyTyped(evt);
             }
         });
 
@@ -1078,22 +1087,15 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
                             .addComponent(btnThanhToan1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel7Layout.createSequentialGroup()
-                                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel7)
-                                        .addComponent(jLabel25))
-                                    .addGap(35, 35, 35))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                                    .addComponent(jLabel9)
-                                    .addGap(18, 18, 18)))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(66, 66, 66)))
+                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel25)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel9))
+                        .addGap(35, 35, 35)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelTienThua1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTienKhachDua1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTienCoc, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTienShip, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelKhachCanTra1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtGiamGia1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -1121,12 +1123,12 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(txtTienKhachDua1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addComponent(txtTienCoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(labelTienThua1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDaGiao, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHuy1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1756,7 +1758,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
                     labelKhachCanTra1.setText("0");
                     txtGiamGia1.setText("0");
                     txtTienShip.setText("0");
-                    txtTienKhachDua1.setText("0");
+                    txtTienCoc.setText("0");
                     labelTienThua1.setText("0");
                 }
             }
@@ -2029,10 +2031,58 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         }
     }//GEN-LAST:event_btnHuy1ActionPerformed
 
-    private void txtTienKhachDua1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienKhachDua1KeyReleased
+    private void txtTienCocKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienCocKeyReleased
         // TODO add your handling code here:
         tinhTienCanTraKhiGiamGiaDonHang();
-    }//GEN-LAST:event_txtTienKhachDua1KeyReleased
+    }//GEN-LAST:event_txtTienCocKeyReleased
+
+    private void txtGiamGiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGiamGiaKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtGiamGiaKeyTyped
+
+    private void txtTienKhachDuaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienKhachDuaKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtTienKhachDuaKeyTyped
+
+    private void txtTienChuyenKhoanKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienChuyenKhoanKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtTienChuyenKhoanKeyTyped
+
+    private void txtGiamGia1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGiamGia1KeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtGiamGia1KeyTyped
+
+    private void txtTienShipKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienShipKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtTienShipKeyTyped
+
+    private void txtTienCocKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienCocKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtTienCocKeyTyped
 
     public void showDataTableGioHang(List<QLHoaDonChiTiet> list) {
         dtmGioHang = (DefaultTableModel) tableGioHang.getModel();
@@ -2087,7 +2137,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
     private void tinhTienThuaDatHang() {
         try {
             Double khachCanTra = Double.valueOf(labelKhachCanTra1.getText());
-            Double tienKhachDua = Double.valueOf(txtTienKhachDua1.getText());
+            Double tienKhachDua = Double.valueOf(txtTienCoc.getText());
             Double tienChuyenKhoan = Double.valueOf(txtTienChuyenKhoan.getText());
             Double tienThua = (tienChuyenKhoan + tienKhachDua) - khachCanTra;
             labelTienThua1.setText(String.valueOf(tienThua));
@@ -2161,7 +2211,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
                 Double khachCanTraKhiGiamGia = (tongTien + phiShip) - giamGia;
                 labelKhachCanTra1.setText(formatter.format(khachCanTraKhiGiamGia));
                 tienKhachCanTra1 = khachCanTraKhiGiamGia;
-                Double tienCK = Double.valueOf(txtTienKhachDua1.getText());
+                Double tienCK = Double.valueOf(txtTienCoc.getText());
                 labelTienThua1.setText(formatter.format(tienCK - khachCanTraKhiGiamGia));
             }
             if (txtGiamGia1.getText().isEmpty() && !txtTienShip.getText().isEmpty()) {
@@ -2172,7 +2222,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
             }
             if (txtGiamGia1.getText().isEmpty() && txtTienShip.getText().isEmpty()) {
                 Double tongTien = _iHoaDonChiTietService.totalMoneyOfInvoice(_listHoaDonChiTiet);
-                Double tienCK = Double.valueOf(txtTienKhachDua1.getText());
+                Double tienCK = Double.valueOf(txtTienCoc.getText());
                 labelTienThua1.setText(formatter.format(tienCK - tongTien));
                 labelKhachCanTra1.setText(formatter.format(tongTien));
             }
@@ -2543,8 +2593,8 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
     private javax.swing.JTextField txtTenKhachHang;
     private javax.swing.JTextField txtTenNguoiNhan;
     private javax.swing.JTextField txtTienChuyenKhoan;
+    private javax.swing.JTextField txtTienCoc;
     private javax.swing.JTextField txtTienKhachDua;
-    private javax.swing.JTextField txtTienKhachDua1;
     private javax.swing.JTextField txtTienShip;
     // End of variables declaration//GEN-END:variables
 
