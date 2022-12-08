@@ -198,11 +198,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
 
         menu.add(panelListSearchCustomer);
 
-        if (getEmployeeByDashBoard != null) {
-            QLNhanVien nv = getEmployeeByDashBoard;
-            labelTenNguoiBan.setText(nv.getTenNV());
-            labelTenNguoiBan1.setText(nv.getTenNV());
-        }
+        setNameEmployee();
         loadTienThuaHoaDon();
         loadTienThuaDatHang();
         showListHoaDonByTabbedPane();
@@ -214,6 +210,22 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
 //            fillHoaDon(0);
         }
         onlyNumber();
+    }
+
+    private QLNhanVien getEmployeeByLogin() {
+        if (getEmployeeByDashBoard != null) {
+            QLNhanVien nv = getEmployeeByDashBoard;
+            return nv;
+        }
+        return null;
+    }
+
+    private void setNameEmployee() {
+        QLNhanVien nv = getEmployeeByLogin();
+        if (getEmployeeByLogin() != null) {
+            labelTenNguoiBan.setText(nv.getTenNV());
+            labelTenNguoiBan1.setText(nv.getTenNV());
+        }
     }
 
     private void setJDateChooserDefaultToday() {
