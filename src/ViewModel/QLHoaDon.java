@@ -59,11 +59,7 @@ public class QLHoaDon {
         this.trangThai = trangThai;
         this.tenKhachHang = tenKhachHang;
         this.sdtKhachHang = sdtKhachHang;
-      
-      
-    
     }
-    
 
     public int getSoThuTu() {
         return soThuTu;
@@ -178,10 +174,11 @@ public class QLHoaDon {
     }
 
     public Object[] toDataRow() {
-        return new Object[]{soThuTu, maHoaDon, ngayTao, tenNhanVien, tenKhachHang == null ? "Khách lẻ" : tenKhachHang, trangThai == 0 ? "Chờ thanh toán" : trangThai == 1 ? "Đã thanh toán" : trangThai == 2 ? "Đang tạo" : trangThai == 3 ? "Đang giao" : trangThai == 4 ? "Đã giao" : "Đã hủy"};
+        return new Object[]{soThuTu, maHoaDon, ngayTao, tenNhanVien, tenKhachHang == null ? "Khách lẻ" : tenKhachHang, trangThai == 0 ? "Chờ thanh toán" : trangThai == 1 ? "Đã thanh toán" : trangThai == 2 ? "Đang tạo" : trangThai == 3 ? "Đang giao" : trangThai == 4 ? "Đã giao" : trangThai == 5 ? "Đã hủy" : trangThai == 6 ? "Chờ cọc" : trangThai == 7 ? "Chờ giao hàng" : ""};
     }
-      public Object[] dataRow() {
-        return new Object[]{soThuTu, maHoaDon, tenNhanVien, ngayTao,trangThai == 0 ? "Chờ thanh toán" : trangThai == 1 ? "Đã thanh toán" : trangThai == 2 ? "Đang tạo" : trangThai == 3 ? "Đang giao" : trangThai == 4 ? "Đã giao" : "Đã hủy"};
+
+    public Object[] dataRow() {
+        return new Object[]{soThuTu, maHoaDon, tenNhanVien, ngayTao, trangThai == 0 ? "Chờ thanh toán" : trangThai == 1 ? "Đã thanh toán" : trangThai == 2 ? "Đang tạo" : trangThai == 3 ? "Đang giao" : trangThai == 4 ? "Đã giao" : "Đã hủy"};
     }
 
 }

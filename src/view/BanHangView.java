@@ -199,8 +199,6 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         menu.add(panelListSearchCustomer);
 
         setNameEmployee();
-        loadTienThuaHoaDon();
-        loadTienThuaDatHang();
         showListHoaDonByTabbedPane();
         setJDateChooserDefaultToday();
         cbTienMat.setSelected(true);
@@ -209,7 +207,6 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
             showListHoaDonByCombobox();
 //            fillHoaDon(0);
         }
-        onlyNumber();
     }
 
     private QLNhanVien getEmployeeByLogin() {
@@ -231,41 +228,6 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
     private void setJDateChooserDefaultToday() {
         Date d = new Date();
         jDateChooser1.setDate(d);
-    }
-
-    private void onlyNumber() {
-        txtTienKhachDua.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent ke) {
-                if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == VK_BACK_SPACE) {
-                    txtTienKhachDua.setEditable(true);
-                }
-            }
-        });
-        txtTienCoc.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent ke) {
-                if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == VK_BACK_SPACE) {
-                    txtTienCoc.setEditable(true);
-                }
-            }
-        });
-        txtGiamGia.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent ke) {
-                if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == VK_BACK_SPACE) {
-                    txtGiamGia.setEditable(true);
-                }
-            }
-        });
-        txtGiamGia1.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent ke) {
-                if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == VK_BACK_SPACE) {
-                    txtGiamGia1.setEditable(true);
-                }
-            }
-        });
     }
 
     private void clearThongTinHoaDon() {
@@ -307,34 +269,6 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
                 }
             }
         });
-    }
-
-    private void loadTienThuaHoaDon() {
-        txtTienKhachDua.addCaretListener(new CaretListener() {
-            @Override
-            public void caretUpdate(CaretEvent e) {
-                tinhTienThuaHoaDon();
-            }
-        });
-    }
-
-    private void loadTienThuaHoaDonKhiThanhToanBangChuyenKhoanVaTienMat() {
-        txtTienChuyenKhoan.addCaretListener(new CaretListener() {
-            @Override
-            public void caretUpdate(CaretEvent e) {
-                tinhTienThuaKhiChuyenKhoanVaTienMat();
-            }
-        });
-    }
-
-    private void loadTienThuaDatHang() {
-        txtTienCoc.addCaretListener(new CaretListener() {
-            @Override
-            public void caretUpdate(CaretEvent e) {
-                tinhTienThuaDatHang();
-            }
-        });
-
     }
 
     public class HeaderColor extends DefaultTableCellRenderer {
@@ -529,7 +463,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         jLabel17.setText("Trạng thái");
 
         cbbTrangThaiHoaDon.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        cbbTrangThaiHoaDon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chờ thanh toán", "Đã thanh toán", "Đang tạo", "Đang giao", "Đã giao", "Đã hủy" }));
+        cbbTrangThaiHoaDon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chờ thanh toán", "Đã thanh toán", "Đang tạo", "Chờ cọc", "Chờ giao hàng", "Đang giao", "Đã giao", "Đã hủy" }));
         cbbTrangThaiHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbbTrangThaiHoaDonActionPerformed(evt);
