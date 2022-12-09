@@ -350,6 +350,11 @@ public class KhuyenMaiView extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jButton3.setForeground(new java.awt.Color(51, 51, 255));
         jButton3.setText("Xoá");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         btnApDungKM.setBackground(new java.awt.Color(255, 255, 255));
         btnApDungKM.setFont(new java.awt.Font("Segoe UI", 1, 23)); // NOI18N
@@ -732,7 +737,8 @@ public class KhuyenMaiView extends javax.swing.JFrame {
         GiamGia gg = khuyenMaiService.getOneByMa(maGiamGia);
 
         lblMaGG.setText(gg.getMaGiamGia());
-
+        txtTenKhuyenMai.setText(tblKhuyenMai.getValueAt(rowsSelected, 2).toString());
+        txtMucGiam.setText(tblKhuyenMai.getValueAt(rowsSelected, 3).toString());
         ArrayList<GiamGia> list = khuyenMaiService.getAlls();
         for (GiamGia o : list) {
             if (o.getTrangThai() == 0) {
@@ -812,6 +818,19 @@ public class KhuyenMaiView extends javax.swing.JFrame {
         for (QLChiTietSanPham o : list) {
             if (o.getMaSanPham().equals(maSP)) {
                 IdSP = o.getIdCTSP();
+                break;
+            }
+        }
+
+        return IdSP;
+    }
+    
+    public String returnIDKMByMa(String maKM) {
+        List<GiamGia> list = khuyenMaiService.getAlls();
+        String IdSP = null;
+        for (GiamGia o : list) {
+            if (o.getMaGiamGia().equals(maKM)) {
+                IdSP = o.getIdGiamGia();
                 break;
             }
         }
@@ -903,7 +922,6 @@ public class KhuyenMaiView extends javax.swing.JFrame {
             if (check == JOptionPane.YES_OPTION) {
                 for (int i = 0; i < khuyenMaiChiTietList.size(); i++) {
                     if (khuyenMaiChiTietList.get(i).getIdSanPham().equals(idSP)) {
-                        System.out.println(khuyenMaiChiTietList.get(i).toString());
                         khuyenMaiChiTietList.remove(i);
                     }
                 }
@@ -967,6 +985,27 @@ public class KhuyenMaiView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAddListActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        
+        String maKM = lblMaGG.getText();
+        
+        int check = JOptionPane.showConfirmDialog(this, "Bạn có chắn chắn muốn xoá Khuyến này ???", "Xác Nhận Xoá???", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (maKM.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn Khuyến Mãi bạn muốn xoá???", "Thông báo", JOptionPane.YES_OPTION);
+        }else{
+                    if (check == JOptionPane.YES_OPTION) {
+            khuyenMaiChiTietServices.delete(returnIDKMByMa(maKM));
+            khuyenMaiService.delete(returnIDKMByMa(maKM));
+            JOptionPane.showMessageDialog(this, "Xoá Thành Công???", "Thông báo", JOptionPane.YES_OPTION);
+            
+            defaultTableModel = (DefaultTableModel) tblChiTietKhuyenMai.getModel();
+            defaultTableModel.setColumnCount(0);
+            loadTableKhuyenMai();
+        }
+                }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     public void LoadToTableCTKM() {
 
         defaultTableModel = (DefaultTableModel) tblChiTietKhuyenMai.getModel();
@@ -982,7 +1021,6 @@ public class KhuyenMaiView extends javax.swing.JFrame {
                 o.trangThaiString()
             });
 
-            System.out.println(o.toString());
             count++;
         }
     }

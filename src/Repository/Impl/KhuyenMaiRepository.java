@@ -100,8 +100,20 @@ public class KhuyenMaiRepository {
         }
     }
     
-    public static void main(String[] args) {
-        KhuyenMaiRepository khuyenMaiRepository = new KhuyenMaiRepository();
-        khuyenMaiRepository.updateStatus(0, "GG00006");
+    public void delete(String IdKM) {
+        String query = "DELETE FROM dbo.GiamGia WHERE IdGiamGia = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, IdKM);
+            ps.execute();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
     }
+    
+//    public static void main(String[] args) {
+//        KhuyenMaiRepository khuyenMaiRepository = new KhuyenMaiRepository();
+//        khuyenMaiRepository.updateStatus(0, "GG00006");
+//    }
 }

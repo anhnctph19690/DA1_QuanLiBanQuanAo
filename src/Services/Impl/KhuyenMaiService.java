@@ -30,4 +30,8 @@ public class KhuyenMaiService {
     public void updateStatus(int status, String maGiamGia){
         this.khuyenMaiRepository.updateStatus(status, maGiamGia);
     }
+    
+    public void delete(String IdKM) {
+        this.khuyenMaiRepository.delete(IdKM);
+    }
 }

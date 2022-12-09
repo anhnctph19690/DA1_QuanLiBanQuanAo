@@ -32,4 +32,7 @@ public class KhuyenMaiChiTietServices {
      public void updateStatusSPGiamGia(int status, String maSPGiamGia){
          this.khuyenMaiChiTietRepository.updateStatusSPGiamGia(status, maSPGiamGia);
      }
+     public void delete(String IdKM) {
+        this.khuyenMaiChiTietRepository.delete(IdKM);
+    }
 }
