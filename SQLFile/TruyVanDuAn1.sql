@@ -1265,4 +1265,80 @@ EXEC dbo.insertKhuyenMai @TenGiamGia = N'Combo1',           -- nvarchar(50)
 	ALTER TABLE dbo.SPGiamGia
 	DROP CONSTRAINT FK_IdSP
 	ALTER TABLE dbo.SPGiamGia
-	ADD CONSTRAINT FK_IdSP FOREIGN KEY(IdSP) REFERENCES dbo.SanPham(IdSP)
+	ADD CONSTRAINT FK_IdSP FOREIGN KEY(IdSP) REFERENCES dbo.ChiTietSP(IdCTSP)
+
+	DELETE FROM HoaDon
+	DELETE FROM HoaDonChiTiet
+
+	select * from NhanVien
+	update ChiTietSP set SoLuong = 10000 where SoLuong = 0
+
+
+	drop proc procThemHdTaiQuay
+	create proc procThemHdTaiQuay
+		@NgayTao date,
+		@IdNV UNIQUEIDENTIFIER,
+		@TrangThai int
+	as
+	begin
+		Declare @MaHD char(7)
+		if not exists (select * from HoaDon) 
+			Set @MaHD=1
+		else
+			Set @MaHD=(select RIGHT(MAX(MaHD),5) from HoaDon)+1
+		Set @MaHD='HD'+REPLICATE('0',5-LEN(@MaHD))+@MaHD
+		insert into HoaDon(MaHD, NgayTao, IdNV, TrangThai) values(@MaHD,@NgayTao, @IdNV, @TrangThai)
+		select IdHoaDon ,MaHD
+		from HoaDon
+		where MaHD = @MaHD
+		return
+	end
+
+	SELECT * FROM dbo.GiamGia
+	SELECT * FROM dbo.SPGiamGia
+	SELECT * FROM dbo.ChiTietSP
+
+
+	INSERT INTO dbo.SPGiamGia
+	(
+	    Id,
+	    IdGiamGia,
+	    IdSP,
+	    DonGia,
+	    SoTienConLai,
+	    TrangThai
+	)
+	VALUES (DEFAULT,'1C7B310A-58B1-4403-9945-5DCE3FB166D4','',NULL,NULL,DEFAULT)
+
+
+	EXEC dbo.insertKhuyenMaiChiTiet @idGiamGia = N'1C7B310A-58B1-4403-9945-5DCE3FB166D4', -- nvarchar(50)
+	                                @idSP = N'3C8C0ECD-D661-43A4-ABCE-153E38C97AED',      -- nvarchar(50)
+	                                @TrangThai = 1    -- int
+	EXEC dbo.insertKhuyenMaiChiTiet @idGiamGia = N'1C7B310A-58B1-4403-9945-5DCE3FB166D4', -- nvarchar(50)
+	                                @idSP = N'AE436EEA-C99C-4832-89F3-4240363473D2',      -- nvarchar(50)
+	                                @TrangThai = 1    -- int
+	EXEC dbo.insertKhuyenMaiChiTiet @idGiamGia = N'1C7B310A-58B1-4403-9945-5DCE3FB166D4', -- nvarchar(50)
+	                                @idSP = N'5A73F480-48B3-4035-8C69-806A300E36A7',      -- nvarchar(50)
+	                                @TrangThai = 1    -- int
+	EXEC dbo.insertKhuyenMaiChiTiet @idGiamGia = N'1C7B310A-58B1-4403-9945-5DCE3FB166D4', -- nvarchar(50)
+	                                @idSP = N'BAC9FD8E-5796-4F8C-8DD5-984EC8A38F87',      -- nvarchar(50)
+	                                @TrangThai = 1    -- int
+
+									
+	
+		
+						SELECT * FROM dbo.GiamGia
+						SELECT * FROM dbo.ChiTietSP
+
+						DELETE FROM dbo.GiamGia WHERE TrangThai = 0
+
+						SELECT * FROM dbo.SPGiamGia
+						SELECT * FROM dbo.GiamGia
+						SELECT * FROM dbo.ChiTietSP
+
+						INSERT INTO dbo.SPGiamGia ( Id,IdGiamGia,IdSP,DonGia,SoTienConLai,TrangThai ) VALUES (   DEFAULT, NULL,    NULL,    NULL,    NULL,    DEFAULT  )
+
+						DELETE FROM dbo.SPGiamGia WHERE IdGiamGia = '2E133AD9-46E0-40FC-8172-D731E8F9EC63'
+						DELETE FROM dbo.GiamGia
+						UPDATE dbo.GiamGia SET TrangThai = 1 WHERE MaGiamGia = ''
+						UPDATE dbo.SPGiamGia SET  TrangThai = 1 WHERE MaGiamGia = 

@@ -94,4 +94,26 @@ public class KhuyenMaiChiTiet {
             return "Huỷ Áp Dụng";
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        
+        if (obj instanceof KhuyenMaiChiTiet) {
+            KhuyenMaiChiTiet temp = (KhuyenMaiChiTiet) obj;
+            
+            if (this.id.equals(temp.id) && this.idSanPham.equals(temp.idSanPham) && this.idGiamGia.equals(temp.idGiamGia) && this.donGia.equals(temp.donGia) && this.soTienConLai.equals(temp.soTienConLai) ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    
+    
+    @Override
+    public int hashCode() {
+        return  this.id.hashCode() + this.idGiamGia.hashCode() + this.idSanPham.hashCode() + this.donGia.hashCode() + this.soTienConLai.hashCode();
+    }
+    
+    
 }
