@@ -74,7 +74,6 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-import Ultilities.DateTime;
 import ViewModel.QLKhachHang;
 import java.awt.Dimension;
 import java.awt.event.FocusEvent;
@@ -82,6 +81,7 @@ import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
 import java.text.DateFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -289,20 +289,16 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         loadTienThuaHoaDon();
         loadTienThuaDatHang();
         getHoaDonByTabbedPane();
-        loadDateTime();
         setDateDefault();
         selectedTableHoaDon();
 //        onlyNumberTotal();
     }
 
-    private void loadDateTime() {
-        DateTime dt = new DateTime(labelNgayTao);
-        Thread t1 = new Thread(dt);
-        t1.start();
-
-        DateTime dt1 = new DateTime(labelNgayTao1);
-        Thread t2 = new Thread(dt1);
-        t2.start();
+    private String getDate() {
+        Locale locale = new Locale("vi", "VN");
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, locale);
+        String date = dateFormat.format(new Date());
+        return date;
     }
 
     private void setDateDefault() {
@@ -335,6 +331,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
                     showDataTableHoaDon(_listHoaDon);
                     _listChiTietSanPham = _iChiTietSanPhamService.getAll();
                     showDataTableSanPham(_listChiTietSanPham);
+                    labelNgayTao.setText(String.valueOf(getDate()));
                     txtTenKhachHang.setText(null);
                     txtSDT.setText(null);
                     labelTongTienHang.setText("0");
@@ -349,6 +346,7 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
                     showDataTableHoaDon(_listHoaDon);
                     _listChiTietSanPham = _iChiTietSanPhamService.getAll();
                     showDataTableSanPham(_listChiTietSanPham);
+                    labelNgayTao1.setText(String.valueOf(getDate()));
                     txtTenNguoiNhan.setText(null);
                     txtSDT1.setText(null);
                     txtDiaChi.setText(null);
@@ -1580,11 +1578,12 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         NhanVien nv = this.nhanVienRepository.getNhanVienByStatus(3);
 
         HoaDon hd = new HoaDon();
-        hd.setNgayTao(new Date(labelNgayTao.getText()));
-        hd.setIdNhanVien(nv.getIdNhanVien());
+        hd.setNgayTao(new Date());
+        hd.setIdNhanVien("410DDF58-4BDC-4C6A-BB33-21BBDDF3CC72");
         hd.setTrangThai(0);
 
         JOptionPane.showMessageDialog(this, _iHoaDonService.add(hd));
+        labelNgayTao.setText(String.valueOf(getDate()));
         _listHoaDon = _iHoaDonService.getAllHoaDonCho(0);
         showDataTableHoaDon(_listHoaDon);
         tableHoaDon.setRowSelectionInterval(0, 0);
@@ -1654,11 +1653,12 @@ public class BanHangView extends javax.swing.JFrame implements Runnable, ThreadF
         // TODO add your handling code here:
         HoaDon hd = new HoaDon();
         hd.setNgayTao(new Date());
-        hd.setIdNhanVien("318A8FCB-C228-405B-B5B5-2B2C59042345");
+        hd.setIdNhanVien("410DDF58-4BDC-4C6A-BB33-21BBDDF3CC72");
         hd.setTrangThai(2);
 
         JOptionPane.showMessageDialog(this, _iHoaDonService.add(hd));
         _listHoaDon = _iHoaDonService.getAllHoaDonCho(2);
+        labelNgayTao1.setText(String.valueOf(getDate()));
         showDataTableHoaDon(_listHoaDon);
         tableHoaDon.setRowSelectionInterval(0, 0);
 

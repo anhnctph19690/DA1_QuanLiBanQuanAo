@@ -5,6 +5,8 @@
 package Repository.Impl;
 
 import DomainModels.GiamGia;
+import DomainModels.KhuyenMaiChiTiet;
+import Services.Impl.KhuyenMaiService;
 import Ultilities.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
@@ -54,5 +56,52 @@ public class KhuyenMaiRepository {
         }
         
         return khuyenMaiList;
+    }
+    
+    
+    
+    public GiamGia getOneByMa(String maKM){
+        String query = "SELECT * FROM dbo.GiamGia WHERE MaGiamGia = ? ";
+        GiamGia giamGia = new GiamGia();
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, maKM);
+            ps.execute();
+            ResultSet rs = ps.getResultSet();
+            while (rs.next()) {     
+                giamGia.setIdGiamGia(rs.getString("IdGiamGia"));
+                giamGia.setMaGiamGia(rs.getString("MaGiamGia"));
+                giamGia.setTenGiamGia(rs.getString("TenGiamGia"));
+                giamGia.setNgayBatDau(rs.getString("NgayBatDau"));
+                giamGia.setNgayKetThuc(rs.getString("NgayKetThuc"));
+                giamGia.setMucGiamGia(rs.getDouble("MucGiamGiaPhanTram"));
+                giamGia.setDieuKienGiamGia(rs.getString("DieuKienGiamGia"));
+                giamGia.setTrangThai(rs.getInt("TrangThai"));
+                giamGia.setLoaiGiamGia(rs.getString("LoaiGiamGia"));
+                
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return giamGia;
+    }
+    
+    public void updateStatus(int status, String maGiamGia){
+        String query = "UPDATE dbo.GiamGia SET TrangThai = ? WHERE MaGiamGia = ?";
+        try {
+            PreparedStatement ps =conn.prepareStatement(query);
+            ps.setInt(1, status);
+            ps.setString(2, maGiamGia);
+           
+            ps.execute();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public static void main(String[] args) {
+        KhuyenMaiRepository khuyenMaiRepository = new KhuyenMaiRepository();
+        khuyenMaiRepository.updateStatus(0, "GG00006");
     }
 }

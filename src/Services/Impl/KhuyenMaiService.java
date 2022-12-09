@@ -22,4 +22,12 @@ public class KhuyenMaiService {
     public ArrayList<GiamGia> getAlls(){
         return this.khuyenMaiRepository.getAlls();
     }
+    
+    public GiamGia getOneByMa(String maKM){
+        return khuyenMaiRepository.getOneByMa(maKM);
+    }
+    
+    public void updateStatus(int status, String maGiamGia){
+        this.khuyenMaiRepository.updateStatus(status, maGiamGia);
+    }
 }

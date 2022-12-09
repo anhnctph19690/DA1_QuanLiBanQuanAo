@@ -6,6 +6,7 @@ package Repository.Impl;
 
 import DomainModels.ChiTietSanPham;
 import Repository.IChiTietSanPhamRepository;
+import Services.Impl.ChiTietSanPhamService;
 import Ultilities.DBConnection;
 import ViewModel.QLChiTietSanPham;
 import ViewModel.QLThongKe;
@@ -512,4 +513,26 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
         }
         return list;
     }
+    
+    
+    public String getMabyId(String maCTSP){
+        String query = "SELECT MaSP FROM dbo.ChiTietSP JOIN dbo.SanPham ON SanPham.IdSP = ChiTietSP.IdSP WHERE IdCTSP = ? ";
+        String maSP = null;
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, maCTSP);
+            ps.execute();
+            ResultSet rs = ps.getResultSet();
+            while (rs.next()) {                
+                maSP = rs.getString("MaSP");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return maSP;
+        
+    }
+    
+   
 }

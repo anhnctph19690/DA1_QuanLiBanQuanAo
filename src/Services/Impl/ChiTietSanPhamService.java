@@ -106,4 +106,10 @@ public class ChiTietSanPhamService implements IChiTietSanPhamService {
     public List<QLChiTietSanPham> getListSPByKhoangGia(double min, double max){
         return this.chiTietSanPhamRepository.getListSPByKhoangGia(min, max);
     }
+    
+     public String getMabyId(String maCTSP){
+         return this.chiTietSanPhamRepository.getMabyId(maCTSP);
+     }
+     
+     
 }

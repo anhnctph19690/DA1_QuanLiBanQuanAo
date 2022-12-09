@@ -113,9 +113,18 @@ public class GiamGia {
     public String loadTrangThaiString (){
         if (this.trangThai == 1) {
             return "Đang hoạt động";
+        } else if (this.trangThai == 0) {
+            return "Chờ hoạt động";
         } else {
-            return "Đang hoạt động";
+            return "Dừng hoạt động";
         }
     }
+
+    @Override
+    public String toString() {
+        return "GiamGia{" + "IdGiamGia=" + IdGiamGia + ", maGiamGia=" + maGiamGia + ", tenGiamGia=" + tenGiamGia + ", ngayBatDau=" + ngayBatDau + ", ngayKetThuc=" + ngayKetThuc + ", dieuKienGiamGia=" + dieuKienGiamGia + ", mucGiamGia=" + mucGiamGia + ", trangThai=" + trangThai + ", loaiGiamGia=" + loaiGiamGia + '}';
+    }
+    
+    
     
 }
