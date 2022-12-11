@@ -49,6 +49,9 @@ public class QLChiTietSanPham {
         this.trangThai = trangThai;
     }
 
+   
+    
+
     public int getSTT() {
         return STT;
     }
