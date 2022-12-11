@@ -9,6 +9,7 @@ import Services.Impl.ChucVuServicer;
 import Services.Impl.NhanVienServicer;
 import ViewModel.QLChucVu;
 import ViewModel.QLNhanVien;
+import java.awt.Color;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -37,6 +40,7 @@ public class NhanVienVIew extends javax.swing.JFrame {
         initComponents();
         loadTable();
         loadChucVuCBB();
+
     }
 
     public void loadChucVuCBB() {
@@ -68,10 +72,28 @@ public class NhanVienVIew extends javax.swing.JFrame {
                 QLnv.getTrangThai(),};
             dtm.addRow(rowData);
         }
-
+        
+        jDateChooser1.setDate(Calendar.getInstance().getTime());
+        
     }
 
     @SuppressWarnings("unchecked")
+
+    boolean checkTen(String text) {
+        Pattern pattern = Pattern.compile("[a-zA-Z ]{6,}");
+        Matcher matcher = pattern.matcher(text);
+        return matcher.matches();
+    }
+
+    public boolean checkSDT() {
+        Pattern p1 = Pattern.compile("^0\\d{9}$");
+        Matcher matcher1 = p1.matcher(txtSdt.getText().trim());
+        if (matcher1.matches() == false) {
+            JOptionPane.showMessageDialog(this, "sdt khong dung dinh dang(sdt gồm 10 số bắt đầu số 0)");
+            return false;
+        }
+        return true;
+    }
 
     public QLNhanVien getData() {
 
@@ -100,14 +122,47 @@ public class NhanVienVIew extends javax.swing.JFrame {
         } else {
             tenChucVu = "Admin";
         }
+        // check trống
+        if (ten.isBlank() || diaChi.isEmpty() || sDt.isEmpty() || matKhau.isEmpty() || ngaySinh == null) {
+            if (ten.isEmpty()) {
+                txtTen.setBackground(Color.yellow);
 
-        if (ten.equals("") || diaChi.equals("") || sDt.equals("") || matKhau.equals("") || ngaySinh == null) {
-            JOptionPane.showMessageDialog(this, "Một số trường thông tin nhân viên chưa đủ???", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            }
+            if (diaChi.isEmpty()) {
+                txtdiaChi.setBackground(Color.yellow);
+            }
+            if (sDt.isEmpty()) {
+                txtSdt.setBackground(Color.yellow);
+            }
+            if (matKhau.isEmpty()) {
+                txtMK.setBackground(Color.yellow);
+            }
+            if (ngaySinh == null) {
+                jDateChooser1.setBackground(Color.yellow);
+            }
+
+            JOptionPane.showMessageDialog(this, "Trường Thông tin Màu Vàng đang Trống");
             return null;
-        } else {
-            QLNhanVien qlNV = new QLNhanVien(id, "", ten, tenChucVu, diaChi, sDt, gioiTinh, ngaySinhString, matKhau, trangThai);
-            return qlNV;
         }
+        if (!checkTen(ten)) {
+            JOptionPane.showMessageDialog(this, "Tên ít nhất phải có 6 kí tự");
+            return null;
+        }
+
+        try {
+            int sdtSo = Integer.parseInt(sDt);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Số Điện Thoại Phải là số");
+            return null;
+        }
+        if (checkSDT() == false) {
+
+            return null;
+        }
+
+        QLNhanVien qlNV = new QLNhanVien(id, "", ten, tenChucVu, diaChi, sDt, gioiTinh, ngaySinhString, matKhau, trangThai);
+        return qlNV;
 
     }
 
@@ -122,6 +177,10 @@ public class NhanVienVIew extends javax.swing.JFrame {
         cboChucVu.setSelectedIndex(0);
         chkTrangThai.setSelected(false);
 
+        txtTen.setBackground(Color.WHITE);
+        txtdiaChi.setBackground(Color.WHITE);
+        txtSdt.setBackground(Color.WHITE);
+        txtMK.setBackground(Color.WHITE);
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -133,7 +192,7 @@ public class NhanVienVIew extends javax.swing.JFrame {
         btnXoa = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnThem = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableNhanVien = new javax.swing.JTable();
@@ -177,7 +236,6 @@ public class NhanVienVIew extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Thông Tin", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
-        btnXoa.setBackground(new java.awt.Color(255, 255, 255));
         btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         btnXoa.setForeground(new java.awt.Color(0, 0, 255));
         btnXoa.setText("Xóa");
@@ -187,7 +245,6 @@ public class NhanVienVIew extends javax.swing.JFrame {
             }
         });
 
-        btnSua.setBackground(new java.awt.Color(255, 255, 255));
         btnSua.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         btnSua.setForeground(new java.awt.Color(0, 0, 255));
         btnSua.setText("Sửa ");
@@ -197,7 +254,6 @@ public class NhanVienVIew extends javax.swing.JFrame {
             }
         });
 
-        btnThem.setBackground(new java.awt.Color(255, 255, 255));
         btnThem.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         btnThem.setForeground(new java.awt.Color(0, 0, 255));
         btnThem.setText("Thêm ");
@@ -207,13 +263,12 @@ public class NhanVienVIew extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(51, 51, 255));
-        jButton1.setText("Refresh");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnClear.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        btnClear.setForeground(new java.awt.Color(51, 51, 255));
+        btnClear.setText("Refresh");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnClearActionPerformed(evt);
             }
         });
 
@@ -227,7 +282,7 @@ public class NhanVienVIew extends javax.swing.JFrame {
                     .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(54, 54, 54))
         );
         jPanel2Layout.setVerticalGroup(
@@ -240,13 +295,12 @@ public class NhanVienVIew extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(jButton1)
+                .addComponent(btnClear)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        tableNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         tableNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
@@ -282,7 +336,6 @@ public class NhanVienVIew extends javax.swing.JFrame {
         lbMaNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbMaNhanVien.setText("-------------------------------");
 
-        txtTen.setBackground(new java.awt.Color(255, 255, 255));
         txtTen.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtTen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -296,7 +349,6 @@ public class NhanVienVIew extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Tên Nhân Viên");
 
-        txtdiaChi.setBackground(new java.awt.Color(255, 255, 255));
         txtdiaChi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtdiaChi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -307,7 +359,6 @@ public class NhanVienVIew extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("Địa chỉ");
 
-        txtSdt.setBackground(new java.awt.Color(255, 255, 255));
         txtSdt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtSdt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -342,7 +393,6 @@ public class NhanVienVIew extends javax.swing.JFrame {
         rdoNu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         rdoNu.setText("Nữ");
 
-        txtMK.setBackground(new java.awt.Color(255, 255, 255));
         txtMK.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtMK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -350,7 +400,6 @@ public class NhanVienVIew extends javax.swing.JFrame {
             }
         });
 
-        cboChucVu.setBackground(new java.awt.Color(255, 255, 255));
         cboChucVu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cboChucVu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -496,10 +545,15 @@ public class NhanVienVIew extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        btnThem.setBackground(Color.orange);
+        btnSua.setBackground(Color.white);
+        btnXoa.setBackground(Color.white);
+        btnClear.setBackground(Color.white);
 
         QLNhanVien qlNV = getData();
         if (qlNV == null) {
-            JOptionPane.showMessageDialog(this, "Thêm KHÔNG Thành Công!!!!", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(this, "Thêm KHÔNG Thành Công!!!!", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            return;
         } else {
             String idcv = nhanVienRepository.getIDChucVu(qlNV.getTenChucVu());
             NhanVien nv = new NhanVien("", "", qlNV.getTenNV(), qlNV.getDiaChi(), qlNV.getsDT(), qlNV.getGioiTinh(), qlNV.getNgaySinh(), qlNV.getMatKhau(), qlNV.getTrangThai(), idcv);
@@ -511,6 +565,11 @@ public class NhanVienVIew extends javax.swing.JFrame {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        btnThem.setBackground(Color.white);
+        btnSua.setBackground(Color.orange);
+        btnXoa.setBackground(Color.white);
+        btnClear.setBackground(Color.white);
+
         QLNhanVien qlNV = getData();
         String maNV = lbMaNhanVien.getText().trim();
         String idCV = this.nhanVienRepository.getIDChucVu(qlNV.getTenChucVu());
@@ -530,6 +589,11 @@ public class NhanVienVIew extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        btnThem.setBackground(Color.white);
+        btnSua.setBackground(Color.white);
+        btnXoa.setBackground(Color.orange);
+        btnClear.setBackground(Color.white);
+
         String maNV = lbMaNhanVien.getText();
         if (maNV.equals("-------------------------------")) {
             JOptionPane.showMessageDialog(this, "Click vào Nhân Viên Để Xóa Nhân Viên");
@@ -543,7 +607,9 @@ public class NhanVienVIew extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void tableNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableNhanVienMouseClicked
+
         int row = tableNhanVien.getSelectedRow();
+
         if (row == -1) {
             return;
         }
@@ -600,11 +666,14 @@ public class NhanVienVIew extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSdtActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        btnThem.setBackground(Color.white);
+        btnSua.setBackground(Color.white);
+        btnXoa.setBackground(Color.white);
+        btnClear.setBackground(Color.orange);
 
-        // TODO add your handling code here:
         clearForm();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnClearActionPerformed
 
     private void txtdiaChiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdiaChiActionPerformed
         // TODO add your handling code here:
@@ -617,12 +686,13 @@ public class NhanVienVIew extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int check = JOptionPane.showConfirmDialog(this, "Bạn có chắn chắn muốn trở lại màn hình chính !!!!", "Trờ lại màn hình chính", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (check == JOptionPane.YES_OPTION) {
-            this.dispose();}
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
-         * @param args the command line arguments
-         */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -651,18 +721,19 @@ public class NhanVienVIew extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new NhanVienVIew().setVisible(true);
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cboChucVu;
     private javax.swing.JCheckBox chkTrangThai;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel10;
