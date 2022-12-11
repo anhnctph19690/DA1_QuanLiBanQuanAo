@@ -44,7 +44,7 @@ public class HoaDonRepository implements IHoaDonRepository {
                 hoaDon.setTenNhanVien(rs.getString(5));
                 hoaDon.setTrangThai(rs.getInt(6));
                 hoaDon.setTenKhachHang(rs.getString(7));
-                hoaDon.setSdt(rs.getString(8));
+                hoaDon.setSdtKhachHang(rs.getString(8));
                 list.add(hoaDon);
             }
             return list;
@@ -93,11 +93,16 @@ public class HoaDonRepository implements IHoaDonRepository {
         //new HoaDonRepository().getAllHoaDonCho(1).forEach(s -> System.out.println(s.toString()));
 //        HoaDonRepository hdr = new HoaDonRepository();
 
-          String ngayBatDau = "2022-11-29";
-          String ngayKetThuc = "2022-12-02";
-          for (QLHoaDon x : new HoaDonRepository().getFilter(ngayBatDau, ngayKetThuc)) {
-              System.out.println(x.toString());
-        }
+//          String ngayBatDau = "2022-11-29";
+//          String ngayKetThuc = "2022-12-02";
+//          for (QLHoaDon x : new HoaDonRepository().getNgayTao(ngayBatDau, ngayKetThuc)) {
+//              System.out.println(x.toString());
+//  
+//        }
+//     for (QLHoaDon x: new HoaDonRepository().getAllHD()) {
+//                  System.out.println(x.toString());
+//              }
+   
        
     }
 
@@ -157,7 +162,7 @@ public class HoaDonRepository implements IHoaDonRepository {
                 hoaDon.setTenNhanVien(rs.getString(5));
                 hoaDon.setTrangThai(rs.getInt(6));
                 hoaDon.setTenKhachHang(rs.getString(7));
-                hoaDon.setSdt(rs.getString(8));
+                hoaDon.setSdtKhachHang(rs.getString(8));
                 list.add(hoaDon);
             }
             return list;
@@ -342,7 +347,7 @@ public class HoaDonRepository implements IHoaDonRepository {
 
 
     @Override
-    public List<QLHoaDon> getFilter(String ngayBatDau, String ngayKetThuc) {
+    public List<QLHoaDon> getNgayTao(String ngayBatDau, String ngayKetThuc) {
          String query = "select ROW_NUMBER() OVER (ORDER BY hd.Mahd DESC) , hd.IdHoaDon, hd.MaHD, hd.NgayTao, nv.TenNV, hd.TrangThai, kh.Ten, kh.Sdt\n"
                 + "    from NhanVien nv\n"
                 + "	join HoaDon hd on hd.IdNV = nv.IdNV\n"
@@ -369,10 +374,33 @@ public class HoaDonRepository implements IHoaDonRepository {
         return null;
     }
 
+    @Override
+    public List<QLHoaDon> getByName(String name) {
+         String sql = "select ROW_NUMBER() OVER (ORDER BY hd.Mahd DESC) , hd.IdHoaDon, hd.MaHD, hd.NgayTao, nv.TenNV, hd.TrangThai, kh.Ten, kh.Sdt\n"
+                + "                 from NhanVien nv\n"
+                + "                	join HoaDon hd on hd.IdNV = nv.IdNV\n"
+                + "                    left join KhachHang kh on hd.IdKH = kh.IdKH\n"
+                + "                    where nv.TenNV like ?";
+        try ( Connection conn = DBConnection.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setObject(1, "%" + name + "%");
+            ResultSet rs = ps.executeQuery();
+            List<QLHoaDon> list = new ArrayList<>();
+            while (rs.next()) {
+                QLHoaDon hoaDon = new QLHoaDon(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4),
+                        rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8));
+                list.add(hoaDon);
+            }
+            return list;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+
     
-//    public ArrayList<QLHoaDonThongKe> getListHDByNgayTao(){
-//        ArrayList<QLHoaDonThongKe> list = new ArrayList<>();
-//        
-//        String query = "";
-//    }
+
 }

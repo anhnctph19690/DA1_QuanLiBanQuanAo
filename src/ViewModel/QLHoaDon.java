@@ -4,6 +4,7 @@
  */
 package ViewModel;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -19,12 +20,20 @@ public class QLHoaDon {
     private String tenNhanVien;
     private int trangThai;
     private String tenKhachHang;
-    private String sdt;
+    private String sdtKhachHang;
+    private String tenNguoiNhan;
+    private int soLuong;
+    private BigDecimal donGia1;
+    private String diaChiNguoiNhan;
+    private String sdtNguoiNhan;
+    private BigDecimal tienCoc;
+    private BigDecimal tienShip;
+    private BigDecimal tongTien;
 
     public QLHoaDon() {
     }
 
-    public QLHoaDon(int soThuTu, String idHoaDon, String maHoaDon, Date ngayTao, String tenNhanVien, int trangThai, String tenKhachHang, String sdt) {
+    public QLHoaDon(int soThuTu, String idHoaDon, String maHoaDon, Date ngayTao, String tenNhanVien, int trangThai, String tenKhachHang, String sdtKhachHang, String tenNguoiNhan, String diaChiNguoiNhan, String sdtNguoiNhan, BigDecimal tienCoc, BigDecimal tienShip, BigDecimal tongTien) {
         this.soThuTu = soThuTu;
         this.idHoaDon = idHoaDon;
         this.maHoaDon = maHoaDon;
@@ -32,9 +41,28 @@ public class QLHoaDon {
         this.tenNhanVien = tenNhanVien;
         this.trangThai = trangThai;
         this.tenKhachHang = tenKhachHang;
-        this.sdt = sdt;
+        this.sdtKhachHang = sdtKhachHang;
+        this.tenNguoiNhan = tenNguoiNhan;
+        this.diaChiNguoiNhan = diaChiNguoiNhan;
+        this.sdtNguoiNhan = sdtNguoiNhan;
+        this.tienCoc = tienCoc;
+        this.tienShip = tienShip;
+        this.tongTien = tongTien;
     }
+
+    public QLHoaDon(int soThuTu, String idHoaDon, String maHoaDon, Date ngayTao, String tenNhanVien, int trangThai, String tenKhachHang, String sdtKhachHang) {
+        this.soThuTu = soThuTu;
+        this.idHoaDon = idHoaDon;
+        this.maHoaDon = maHoaDon;
+        this.ngayTao = ngayTao;
+        this.tenNhanVien = tenNhanVien;
+        this.trangThai = trangThai;
+        this.tenKhachHang = tenKhachHang;
+        this.sdtKhachHang = sdtKhachHang;
+      
+      
     
+    }
     
 
     public int getSoThuTu() {
@@ -93,25 +121,67 @@ public class QLHoaDon {
         this.tenKhachHang = tenKhachHang;
     }
 
-    public String getSdt() {
-        return sdt;
+    public String getSdtKhachHang() {
+        return sdtKhachHang;
     }
 
-    public void setSdt(String sdt) {
-        this.sdt = sdt;
+    public void setSdtKhachHang(String sdtKhachHang) {
+        this.sdtKhachHang = sdtKhachHang;
+    }
+
+    public String getTenNguoiNhan() {
+        return tenNguoiNhan;
+    }
+
+    public void setTenNguoiNhan(String tenNguoiNhan) {
+        this.tenNguoiNhan = tenNguoiNhan;
+    }
+
+    public String getDiaChiNguoiNhan() {
+        return diaChiNguoiNhan;
+    }
+
+    public void setDiaChiNguoiNhan(String diaChiNguoiNhan) {
+        this.diaChiNguoiNhan = diaChiNguoiNhan;
+    }
+
+    public String getSdtNguoiNhan() {
+        return sdtNguoiNhan;
+    }
+
+    public void setSdtNguoiNhan(String sdtNguoiNhan) {
+        this.sdtNguoiNhan = sdtNguoiNhan;
+    }
+
+    public BigDecimal getTienCoc() {
+        return tienCoc;
+    }
+
+    public void setTienCoc(BigDecimal tienCoc) {
+        this.tienCoc = tienCoc;
+    }
+
+    public BigDecimal getTienShip() {
+        return tienShip;
+    }
+
+    public void setTienShip(BigDecimal tienShip) {
+        this.tienShip = tienShip;
+    }
+
+    public BigDecimal getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(BigDecimal tongTien) {
+        this.tongTien = tongTien;
     }
 
     public Object[] toDataRow() {
-        return new Object[]{soThuTu, maHoaDon, ngayTao,tenNhanVien, tenKhachHang == null ? "Khách lẻ" : tenKhachHang, trangThai == 0 ? "Chờ thanh toán" : trangThai == 1 ? "Đã thanh toán" : trangThai == 2 ? "Đang tạo" : trangThai == 3 ? "Đang giao" : "Đã giao"};
+        return new Object[]{soThuTu, maHoaDon, ngayTao, tenNhanVien, tenKhachHang == null ? "Khách lẻ" : tenKhachHang, trangThai == 0 ? "Chờ thanh toán" : trangThai == 1 ? "Đã thanh toán" : trangThai == 2 ? "Đang tạo" : trangThai == 3 ? "Đang giao" : trangThai == 4 ? "Đã giao" : "Đã hủy"};
     }
-    
-    public Object[] dataRow(){
-          return new Object[]{soThuTu,maHoaDon,tenNhanVien,ngayTao,trangThai == 0 ? "Chờ thanh toán" : trangThai == 1 ? "Đã thanh toán" : trangThai == 2 ? "Đang tạo" : trangThai == 3 ? "Đang giao" : "Đã giao"};
-    }
-
-    @Override
-    public String toString() {
-        return "QLHoaDon{" + "soThuTu=" + soThuTu + ", idHoaDon=" + idHoaDon + ", maHoaDon=" + maHoaDon + ", ngayTao=" + ngayTao + ", tenNhanVien=" + tenNhanVien + ", trangThai=" + trangThai + ", tenKhachHang=" + tenKhachHang + ", sdt=" + sdt + '}';
+      public Object[] dataRow() {
+        return new Object[]{soThuTu, maHoaDon, tenNhanVien, ngayTao,trangThai == 0 ? "Chờ thanh toán" : trangThai == 1 ? "Đã thanh toán" : trangThai == 2 ? "Đang tạo" : trangThai == 3 ? "Đang giao" : trangThai == 4 ? "Đã giao" : "Đã hủy"};
     }
 
 }

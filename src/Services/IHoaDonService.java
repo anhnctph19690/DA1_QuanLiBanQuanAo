@@ -37,6 +37,8 @@ public interface IHoaDonService {
     
     List<QLHoaDon> getAllHD();
     
-    List<QLHoaDon> getFilter(String ngayBatDau,String ngayKetThuc);
+    List<QLHoaDon> getNgayTao(String ngayBatDau,String ngayKetThuc);
+    
+    List<QLHoaDon> getByName(String name);
 
 }

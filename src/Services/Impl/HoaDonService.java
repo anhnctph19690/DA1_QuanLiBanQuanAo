@@ -88,8 +88,13 @@ public class HoaDonService implements IHoaDonService {
     }
 
     @Override
-    public List<QLHoaDon> getFilter(String ngayBatDau, String ngayKetThuc) {
-        return hoaDonRepository.getFilter(ngayBatDau, ngayKetThuc);
+    public List<QLHoaDon> getNgayTao(String ngayBatDau, String ngayKetThuc) {
+        return hoaDonRepository.getNgayTao(ngayBatDau, ngayKetThuc);
+    }
+
+    @Override
+    public List<QLHoaDon> getByName(String name) {
+        return hoaDonRepository.getByName(name);
     }
 
 }
