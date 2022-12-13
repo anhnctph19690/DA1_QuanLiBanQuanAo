@@ -791,27 +791,27 @@ public class SanPhamView extends javax.swing.JFrame {
                 || txtMota.getText().isEmpty()) {
             if (txtTenSP.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ tên");
-                txtTenSP.setBackground(Color.yellow);
+                
                 return false;
             }
             if (txtSoLuong.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng");
-                txtSoLuong.setBackground(Color.yellow);
+              
                 return false;
             }
             if (txtGiaNhap.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập giá nhập");
-                txtGiaNhap.setBackground(Color.yellow);
+                
                 return false;
             }
             if (txtGiaBan.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập gia bán ");
-                txtGiaBan.setBackground(Color.yellow);
+                
                 return false;
             }
             if (txtMota.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập mota ");
-                txtMota.setBackground(Color.yellow);
+                
                 return false;
             }
             return true;
