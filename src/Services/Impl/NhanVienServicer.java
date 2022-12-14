@@ -8,13 +8,14 @@ import ViewModel.QLNhanVien;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NhanVienServicer implements INhanVienServicer{
+public class NhanVienServicer implements INhanVienServicer {
 
     INhanVienRepository nhanVienRepo;
 
     public NhanVienServicer() {
 
         nhanVienRepo = new NhanVienRepository();
+
     }
 
     @Override
@@ -33,14 +34,15 @@ public class NhanVienServicer implements INhanVienServicer{
     }
 
     @Override
-    public void delete(String IdNV) {
-        this.nhanVienRepo.delete(IdNV);
-    }
-
-   
-    @Override
     public void update(NhanVien nV, String IdNV) {
         this.nhanVienRepo.update(nV, IdNV);
     }
 
+    @Override
+    public boolean deleteBoolean(String IdNV) {
+        if(nhanVienRepo.deleteBoolean(IdNV)== true){
+            return true;
+        }else
+            return false;
+    }
 }

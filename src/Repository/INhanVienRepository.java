@@ -13,5 +13,5 @@ public interface INhanVienRepository {
 
     public void update(NhanVien nv , String maNV);
 
-    public void delete(String maNv);
+    public boolean deleteBoolean(String maNv);
 }

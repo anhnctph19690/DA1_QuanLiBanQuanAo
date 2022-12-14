@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import view.NhanVienVIew;
 
 public class NhanVienRepository implements INhanVienRepository {
 
@@ -110,16 +112,17 @@ public class NhanVienRepository implements INhanVienRepository {
     }
 
     @Override
-    public void delete(String maNv) {
+    public boolean deleteBoolean(String maNv) {
+        NhanVienVIew nvv = new NhanVienVIew();
         try {
-
             String query = "DELETE NhanVien Where maNV = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, maNv);
             ps.execute();
-
+            return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("loi xoa nv");
+            return false;
 
         }
     }
@@ -174,7 +177,7 @@ public class NhanVienRepository implements INhanVienRepository {
                 String NgaySinh = rs.getString("NgaySinh");
                 String matKhau = rs.getString("MatKhau");
                 Integer trangThai = rs.getInt("TrangThai");
-                
+
                 nv = new NhanVien(id, ma, ten, diaChi, sDT, gioiTinh, NgaySinh, matKhau, trangThai, idCV);
             }
         } catch (SQLException ex) {

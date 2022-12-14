@@ -12,6 +12,6 @@ public interface INhanVienServicer {
 
     public void update(NhanVien nv, String maNV);
 
-    public void delete(String IdNV);
+    public boolean deleteBoolean(String IdNV);
 
 }

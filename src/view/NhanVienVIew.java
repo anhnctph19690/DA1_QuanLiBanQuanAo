@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -72,9 +73,9 @@ public class NhanVienVIew extends javax.swing.JFrame {
                 QLnv.getTrangThai(),};
             dtm.addRow(rowData);
         }
-        
+
         jDateChooser1.setDate(Calendar.getInstance().getTime());
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -89,12 +90,40 @@ public class NhanVienVIew extends javax.swing.JFrame {
         Pattern p1 = Pattern.compile("^0\\d{9}$");
         Matcher matcher1 = p1.matcher(txtSdt.getText().trim());
         if (matcher1.matches() == false) {
-            JOptionPane.showMessageDialog(this, "sdt khong dung dinh dang(sdt gồm 10 số bắt đầu số 0)");
+
             return false;
         }
         return true;
     }
 
+    public boolean checNgay() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        Date now = new Date();
+        String Ygetdate = sdf.format(now);
+        String jdate = sdf.format(jDateChooser1.getDate());
+
+        int yerGetDate = Integer.parseInt(Ygetdate);
+        int yerJdate = Integer.parseInt(jdate);
+        int tuoi = yerGetDate - yerJdate;
+        if (tuoi > 18) {
+            return true;
+
+        } else {
+            return false;
+        }
+
+    }
+
+//public void run() {
+//        SimpleDateFormat sdf = new SimpleDateFormat();
+//        while (true) {
+//            Date now = new Date();
+//            String time = sdf.format(now);
+//            lbTime.setText(time);
+//        }
+//        
+//        
+//    }
     public QLNhanVien getData() {
 
         String id = lbMaNhanVien.getText();
@@ -103,20 +132,22 @@ public class NhanVienVIew extends javax.swing.JFrame {
         String diaChi = txtdiaChi.getText().trim();
         String sDt = txtSdt.getText().trim();
         String gioiTinh;
+        String matKhau = txtMK.getText().trim();
+        Integer trangThai = chkTrangThai.isSelected() ? 1 : 0;
+        String tenChucVu;
+
+        //gioi tinh
         if (rdoNam.isSelected()) {
             gioiTinh = "Nam";
         } else {
             gioiTinh = "Nữ";
         }
 
+        //getdate
         Date ngaySinh = jDateChooser1.getDate();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
         String ngaySinhString = dateFormat.format(ngaySinh);
 
-        String matKhau = txtMK.getText().trim();
-        Integer trangThai = chkTrangThai.isSelected() ? 1 : 0;
-        String tenChucVu;
         if (cboChucVu.getSelectedIndex() == 0) {
             tenChucVu = "NhanVien";
         } else {
@@ -157,8 +188,13 @@ public class NhanVienVIew extends javax.swing.JFrame {
             return null;
         }
         if (checkSDT() == false) {
-
+            JOptionPane.showMessageDialog(this, "sdt khong dung dinh dang(sdt gồm 10 số bắt đầu số 0)");
             return null;
+        }
+        if (checNgay() == false) {
+            JOptionPane.showMessageDialog(this, "Nhân Viên phải đủ 18 tuổi !!!");
+            return null;
+
         }
 
         QLNhanVien qlNV = new QLNhanVien(id, "", ten, tenChucVu, diaChi, sDt, gioiTinh, ngaySinhString, matKhau, trangThai);
@@ -435,6 +471,12 @@ public class NhanVienVIew extends javax.swing.JFrame {
                             .addComponent(txtSdt))
                         .addGap(72, 72, 72)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(162, 162, 162)
+                                .addComponent(rdoNam)
+                                .addGap(40, 40, 40)
+                                .addComponent(rdoNu))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
@@ -444,13 +486,7 @@ public class NhanVienVIew extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(txtMK, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cboChucVu, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)))
-                            .addComponent(jLabel6)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(162, 162, 162)
-                                .addComponent(rdoNam)
-                                .addGap(40, 40, 40)
-                                .addComponent(rdoNu))))
+                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)))))
                     .addComponent(chkTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(211, Short.MAX_VALUE))
         );
@@ -571,6 +607,9 @@ public class NhanVienVIew extends javax.swing.JFrame {
         btnClear.setBackground(Color.white);
 
         QLNhanVien qlNV = getData();
+        if (qlNV == null) {
+            return;
+        }
         String maNV = lbMaNhanVien.getText().trim();
         String idCV = this.nhanVienRepository.getIDChucVu(qlNV.getTenChucVu());
         NhanVien nv = new NhanVien("", qlNV.getMaNV(), qlNV.getTenNV(), qlNV.getDiaChi(), qlNV.getsDT(), qlNV.getGioiTinh(), qlNV.getNgaySinh(), qlNV.getMatKhau(), qlNV.getTrangThai(), idCV);
@@ -593,17 +632,24 @@ public class NhanVienVIew extends javax.swing.JFrame {
         btnSua.setBackground(Color.white);
         btnXoa.setBackground(Color.orange);
         btnClear.setBackground(Color.white);
-
         String maNV = lbMaNhanVien.getText();
+
         if (maNV.equals("-------------------------------")) {
             JOptionPane.showMessageDialog(this, "Click vào Nhân Viên Để Xóa Nhân Viên");
 
         } else if (JOptionPane.showConfirmDialog(this, "Xác Nhận ", "Xóa", JOptionPane.OK_CANCEL_OPTION) == 0) {
-            nhanVienServicer.delete(maNV);
-            JOptionPane.showMessageDialog(this, "Đã Xoá Thành Công!!!!");
+
+            if (nhanVienServicer.deleteBoolean(maNV) == true) {
+                JOptionPane.showMessageDialog(this, "Đã Xoá Thành Công!!!!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Nhân Viên Đang có trong 'Hóa Đơn' Khổng Thể xóa ");
+            }
+
             loadTable();
             clearForm();
         }
+
+
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void tableNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableNhanVienMouseClicked

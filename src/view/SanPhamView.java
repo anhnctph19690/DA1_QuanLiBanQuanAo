@@ -791,27 +791,27 @@ public class SanPhamView extends javax.swing.JFrame {
                 || txtMota.getText().isEmpty()) {
             if (txtTenSP.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ tên");
-                txtTenSP.setBackground(Color.yellow);
+                
                 return false;
             }
             if (txtSoLuong.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng");
-                txtSoLuong.setBackground(Color.yellow);
+              
                 return false;
             }
             if (txtGiaNhap.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập giá nhập");
-                txtGiaNhap.setBackground(Color.yellow);
+                
                 return false;
             }
             if (txtGiaBan.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập gia bán ");
-                txtGiaBan.setBackground(Color.yellow);
+                
                 return false;
             }
             if (txtMota.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập mota ");
-                txtMota.setBackground(Color.yellow);
+                
                 return false;
             }
             return true;
@@ -820,9 +820,9 @@ public class SanPhamView extends javax.swing.JFrame {
         String ten = txtTenSP.getText().trim();
         String soluongstr = txtSoLuong.getText().trim();
         String giabanstr = txtGiaBan.getText().trim();  
-         Float giaban = Float.parseFloat(giabanstr);
+         Double giaban = Double.parseDouble(giabanstr);
         String gianhapstr = txtGiaNhap.getText().trim();
-        Float gianhap = Float.parseFloat(gianhapstr);
+        Double gianhap = Double.parseDouble(gianhapstr);
         
         //soluong
         try {
@@ -833,31 +833,19 @@ public class SanPhamView extends javax.swing.JFrame {
            }     
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Vui lòng số nhập vào phải là số nguyên");
-            return true;
+            return false;
         }
         //giaban
-         try {
-          
            if(giaban <= 0 ){
                JOptionPane.showMessageDialog(this, "Giá bán không được là số âm");
                return false;
            }     
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Vui lòng giá bán phải là số");
-            return true;
-        }
          //gianhap
-          try {
-           
            if(gianhap <= 0 ){
                JOptionPane.showMessageDialog(this, "Giá nhập không được là số âm");
                return false;
            }     
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Vui lòng giá nhập phải là số");
-            return true;
-        }
-         
+           // giá bán phải lớn hơn giá nhập 
        if(giaban < gianhap){
            JOptionPane.showMessageDialog(this, "giá bán phải lớn hơn giá nhập");
            return false;
