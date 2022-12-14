@@ -27,11 +27,15 @@ public class KhuyenMaiService {
         return khuyenMaiRepository.getOneByMa(maKM);
     }
     
-    public void updateStatus(int status, String maGiamGia){
-        this.khuyenMaiRepository.updateStatus(status, maGiamGia);
+    public void updateStatus(int status, String IdGiamGia){
+        this.khuyenMaiRepository.updateStatus(status, IdGiamGia);
     }
     
     public void delete(String IdKM) {
         this.khuyenMaiRepository.delete(IdKM);
+    }
+    
+    public void updateKM(GiamGia gg){
+        this.khuyenMaiRepository.updateKM(gg);
     }
 }

@@ -70,12 +70,12 @@ public class KhuyenMaiChiTietRepository {
         }
     }
 
-    public void updateStatusSPGiamGia(int status, String maSPGiamGia) {
-        String query = "UPDATE dbo.SPGiamGia SET  TrangThai = ? WHERE MaGiamGia = ?";
+    public void updateStatusSPGiamGia(int status, String IdGiamGia) {
+        String query = "UPDATE dbo.SPGiamGia SET  TrangThai = ? WHERE IdGiamGia = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1, status);
-            ps.setString(2, maSPGiamGia);
+            ps.setString(2, IdGiamGia);
 
             ps.execute();
         } catch (SQLException ex) {
@@ -93,6 +93,19 @@ public class KhuyenMaiChiTietRepository {
             ex.printStackTrace();
         }
 
+    }
+    
+    public void updateKMCT(String IdKM, double PhanTramGG){
+        
+       String query = "UPDATE dbo.SPGiamGia SET SoTienConLai = DonGia - (DonGia * ? /100) WHERE IdGiamGia = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setDouble(1, PhanTramGG);
+            ps.setString(2, IdKM);
+            ps.execute();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 //    public static void main(String[] args) {
 //        KhuyenMaiChiTietRepository chiTietRepository = new KhuyenMaiChiTietRepository();

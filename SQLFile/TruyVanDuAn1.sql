@@ -1294,51 +1294,13 @@ EXEC dbo.insertKhuyenMai @TenGiamGia = N'Combo1',           -- nvarchar(50)
 		return
 	end
 
-	SELECT * FROM dbo.GiamGia
-	SELECT * FROM dbo.SPGiamGia
-	SELECT * FROM dbo.ChiTietSP
-
-
-	INSERT INTO dbo.SPGiamGia
-	(
-	    Id,
-	    IdGiamGia,
-	    IdSP,
-	    DonGia,
-	    SoTienConLai,
-	    TrangThai
-	)
-	VALUES (DEFAULT,'1C7B310A-58B1-4403-9945-5DCE3FB166D4','',NULL,NULL,DEFAULT)
-
-
-	EXEC dbo.insertKhuyenMaiChiTiet @idGiamGia = N'1C7B310A-58B1-4403-9945-5DCE3FB166D4', -- nvarchar(50)
-	                                @idSP = N'3C8C0ECD-D661-43A4-ABCE-153E38C97AED',      -- nvarchar(50)
-	                                @TrangThai = 1    -- int
-	EXEC dbo.insertKhuyenMaiChiTiet @idGiamGia = N'1C7B310A-58B1-4403-9945-5DCE3FB166D4', -- nvarchar(50)
-	                                @idSP = N'AE436EEA-C99C-4832-89F3-4240363473D2',      -- nvarchar(50)
-	                                @TrangThai = 1    -- int
-	EXEC dbo.insertKhuyenMaiChiTiet @idGiamGia = N'1C7B310A-58B1-4403-9945-5DCE3FB166D4', -- nvarchar(50)
-	                                @idSP = N'5A73F480-48B3-4035-8C69-806A300E36A7',      -- nvarchar(50)
-	                                @TrangThai = 1    -- int
-	EXEC dbo.insertKhuyenMaiChiTiet @idGiamGia = N'1C7B310A-58B1-4403-9945-5DCE3FB166D4', -- nvarchar(50)
-	                                @idSP = N'BAC9FD8E-5796-4F8C-8DD5-984EC8A38F87',      -- nvarchar(50)
-	                                @TrangThai = 1    -- int
+	
 
 									
-	
-		
-						SELECT * FROM dbo.GiamGia
-						SELECT * FROM dbo.ChiTietSP
+	SELECT * FROM dbo.GiamGia
+	SELECT * FROM dbo.SPGiamGia
+	UPDATE dbo.SPGiamGia SET SoTienConLai = DonGia - (DonGia * 1 /100) WHERE IdGiamGia = '7036AB5D-C054-4089-8B45-4AA10C56AF43'
+					UPDATE dbo.GiamGia SET TenGiamGia = '', NgayBatDau = '', NgayKetThuc = '', MucGiamGiaPhanTram = '', TrangThai = ''	WHERE IdGiamGia
+						
 
-						DELETE FROM dbo.GiamGia WHERE TrangThai = 0
-
-						SELECT * FROM dbo.SPGiamGia
-						SELECT * FROM dbo.GiamGia
-						SELECT * FROM dbo.ChiTietSP
-
-						INSERT INTO dbo.SPGiamGia ( Id,IdGiamGia,IdSP,DonGia,SoTienConLai,TrangThai ) VALUES (   DEFAULT, NULL,    NULL,    NULL,    NULL,    DEFAULT  )
-
-						DELETE FROM dbo.SPGiamGia WHERE IdGiamGia = '2E133AD9-46E0-40FC-8172-D731E8F9EC63'
-						DELETE FROM dbo.GiamGia
-						UPDATE dbo.GiamGia SET TrangThai = 1 WHERE MaGiamGia = ''
-						UPDATE dbo.SPGiamGia SET  TrangThai = 1 WHERE MaGiamGia = 
+						

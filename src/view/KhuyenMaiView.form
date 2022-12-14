@@ -448,13 +448,12 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="8" rowCount="0">
+                      <Table columnCount="7" rowCount="0">
                         <Column editable="true" title="STT" type="java.lang.Object"/>
                         <Column editable="true" title="M&#xe3; KM" type="java.lang.Object"/>
                         <Column editable="true" title="T&#xea;n KM" type="java.lang.Object"/>
                         <Column editable="true" title="Ng&#xe0;y B&#x1eaf;t &#x110;&#x1ea7;u" type="java.lang.Object"/>
                         <Column editable="true" title="Ng&#xe0;y K&#x1ebf;t Th&#xfa;c" type="java.lang.Object"/>
-                        <Column editable="true" title="Lo&#x1ea1;i SP" type="java.lang.Object"/>
                         <Column editable="true" title="Gi&#x1ea3;m Gi&#xe1;" type="java.lang.Object"/>
                         <Column editable="true" title="Tr&#x1ea1;ng Th&#xe1;i" type="java.lang.Object"/>
                       </Table>
@@ -487,17 +486,12 @@
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title value="Lo&#x1ea1;i SP"/>
+                          <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title value="Gi&#x1ea3;m Gi&#xe1;"/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title value="Tr&#x1ea1;ng Th&#xe1;i"/>
+                          <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
@@ -572,8 +566,8 @@
                                       <Component id="btnApDungKM" min="-2" pref="257" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jButton2" alignment="1" min="-2" pref="158" max="-2" attributes="0"/>
-                                          <Component id="jButton3" alignment="1" min="-2" pref="158" max="-2" attributes="0"/>
+                                          <Component id="btnCapNhat" alignment="1" min="-2" pref="158" max="-2" attributes="0"/>
+                                          <Component id="btnXoa" alignment="1" min="-2" pref="158" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -635,9 +629,9 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                              <Component id="jButton2" min="-2" pref="61" max="-2" attributes="0"/>
+                              <Component id="btnCapNhat" min="-2" pref="61" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnXoa" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -705,6 +699,7 @@
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
+                <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
               </Properties>
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="jdcBatDau">
@@ -712,6 +707,7 @@
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
+                <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnTaoKhuyenMai">
@@ -731,7 +727,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTaoKhuyenMaiActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="btnCapNhat">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -744,8 +740,11 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="C&#x1ead;p Nh&#x1ead;t"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCapNhatActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton3">
+            <Component class="javax.swing.JButton" name="btnXoa">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -759,7 +758,7 @@
                 <Property name="text" type="java.lang.String" value="Xo&#xe1;"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnApDungKM">
