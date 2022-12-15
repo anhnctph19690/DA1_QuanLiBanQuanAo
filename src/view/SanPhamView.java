@@ -780,78 +780,94 @@ public class SanPhamView extends javax.swing.JFrame {
         showDataTableChiTietSanPham(_listChiTietSP);
 
     }//GEN-LAST:event_btnThemActionPerformed
-
     public boolean checksp() {
 
         //check trong
+        String ten = txtTenSP.getText().trim();
+        String soluongstr = txtSoLuong.getText().trim();
+        String giabanstr = txtGiaBan.getText().trim();
+        String gianhapstr = txtGiaNhap.getText().trim();
+
         if (txtTenSP.getText().isEmpty()
                 || txtSoLuong.getText().isEmpty()
                 || txtGiaNhap.getText().isEmpty()
                 || txtGiaBan.getText().isEmpty()
                 || txtMota.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông Tin!!!");
             if (txtTenSP.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ tên");
-                
-                return false;
+
+                txtTenSP.setBackground(Color.yellow);
+                // return false;
             }
             if (txtSoLuong.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng");
-              
-                return false;
+//                 JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng");
+                txtSoLuong.setBackground(Color.yellow);
+                // return false;
             }
             if (txtGiaNhap.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Vui lòng nhập giá nhập");
-                
-                return false;
+//                JOptionPane.showMessageDialog(this, "Vui lòng nhập giá nhập");
+                txtGiaNhap.setBackground(Color.yellow);
+                // return false;
             }
             if (txtGiaBan.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Vui lòng nhập gia bán ");
-                
-                return false;
+//                JOptionPane.showMessageDialog(this, "Vui lòng nhập gia bán ");
+                txtGiaBan.setBackground(Color.yellow);
+                // return false;
             }
             if (txtMota.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Vui lòng nhập mota ");
-                
-                return false;
+//                 JOptionPane.showMessageDialog(this, "Vui lòng nhập mota ");
+                txtMota.setBackground(Color.yellow);
+                // return false;
             }
-            return true;
+            return false;
 
         }
-        String ten = txtTenSP.getText().trim();
-        String soluongstr = txtSoLuong.getText().trim();
-        String giabanstr = txtGiaBan.getText().trim();  
-         Double giaban = Double.parseDouble(giabanstr);
-        String gianhapstr = txtGiaNhap.getText().trim();
-        Double gianhap = Double.parseDouble(gianhapstr);
-        
+
         //soluong
         try {
-           Integer soluong = Integer.parseInt(soluongstr);
-           if(soluong <= 0 ){
-               JOptionPane.showMessageDialog(this, "Số lượng không được là số âm");
-               return false;
-           }     
+            Integer soluong = Integer.parseInt(soluongstr);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Vui lòng số nhập vào phải là số nguyên");
+            JOptionPane.showMessageDialog(this, "Vui lòng số lượng nhập vào phải là số nguyên");
             return false;
         }
-        //giaban
-           if(giaban <= 0 ){
-               JOptionPane.showMessageDialog(this, "Giá bán không được là số âm");
-               return false;
-           }     
-         //gianhap
-           if(gianhap <= 0 ){
-               JOptionPane.showMessageDialog(this, "Giá nhập không được là số âm");
-               return false;
-           }     
-           // giá bán phải lớn hơn giá nhập 
-       if(giaban < gianhap){
-           JOptionPane.showMessageDialog(this, "giá bán phải lớn hơn giá nhập");
-           return false;
-       }
+        try {
+            Float giaNhap = Float.parseFloat(gianhapstr);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Vui lòng giá nhập phải là số");
+            return false;
+        }
+        try {
+            Float giaban = Float.parseFloat(giabanstr);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Vui lòng giá bán phải là số");
+            return false;
+        }
+
+        Integer soluong = Integer.parseInt(soluongstr);
+        Float giaban = Float.parseFloat(giabanstr);
+        Float gianhap = Float.parseFloat(gianhapstr);
+        if (soluong <= 0) {
+            JOptionPane.showMessageDialog(this, "Số lượng không được là số âm và phải lớn hơn 0");
+            return false;
+        }
+        if (giaban <= 0) {
+            JOptionPane.showMessageDialog(this, "Giá bán không được là số âm và phải lớn hơn 0");
+            return false;
+        }
+        if (gianhap <= 0) {
+            JOptionPane.showMessageDialog(this, "Giá nhập không được là số âm và phải lớn hơn 0");
+            return false;
+        }
+
+        if (giaban < gianhap) {
+            JOptionPane.showMessageDialog(this, "giá bán phải lớn hơn giá nhập");
+            return false;
+        }
+
         return true;
     }
+
+  
 
     public ChiTietSanPham getChiTietSanPhamByForm() {
         ChiTietSanPham ctsp = new ChiTietSanPham();
