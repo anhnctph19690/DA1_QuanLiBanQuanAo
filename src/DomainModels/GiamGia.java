@@ -112,11 +112,11 @@ public class GiamGia {
     
     public String loadTrangThaiString (){
         if (this.trangThai == 1) {
-            return "Đang hoạt động";
+            return "Đang Hoạt Động";
         } else if (this.trangThai == 0) {
-            return "Chờ hoạt động";
+            return "Chờ Hoạt Động";
         } else {
-            return "Dừng hoạt động";
+            return "Dừng Hoạt Động";
         }
     }
 

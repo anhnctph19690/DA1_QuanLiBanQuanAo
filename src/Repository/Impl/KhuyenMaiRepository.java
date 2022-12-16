@@ -115,15 +115,14 @@ public class KhuyenMaiRepository {
     
     public void updateKM(GiamGia gg){
         
-       String query = "UPDATE dbo.GiamGia SET TenGiamGia = ?, NgayBatDau = ?, NgayKetThuc = ?, MucGiamGiaPhanTram = ?, TrangThai = ? WHERE IdGiamGia = ?	";
+       String query = "UPDATE dbo.GiamGia SET TenGiamGia = ?, NgayBatDau = ?, NgayKetThuc = ?, MucGiamGiaPhanTram = ?WHERE IdGiamGia = ?	";
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, gg.getTenGiamGia());
             ps.setString(2, gg.getNgayBatDau());
             ps.setString(3, gg.getNgayKetThuc());
             ps.setDouble(4, gg.getMucGiamGia());
-            ps.setInt(5, gg.getTrangThai());
-            ps.setString(6, gg.getIdGiamGia());
+            ps.setString(5, gg.getIdGiamGia());
             ps.execute();
         } catch (SQLException ex) {
             ex.printStackTrace();
