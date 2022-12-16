@@ -189,7 +189,7 @@ public class HoaDonView extends javax.swing.JFrame {
 
         jLabel2.setText("Đến");
 
-        cbbTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chờ thanh toán", "Đã thanh toán", "Đang tạo", "Đang giao", "Đã giao", "Đã hủy" }));
+        cbbTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chờ thanh toán", "Đã thanh toán", "Chờ cọc", "Chờ giao hàng", "Đang giao", "Đã giao", "Đã hủy" }));
         cbbTrangThai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbbTrangThaiActionPerformed(evt);
