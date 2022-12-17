@@ -36,7 +36,7 @@ public class Login extends javax.swing.JFrame {
     }
     
     
-    
+   //kiem tra dang nhap 
     public void checklogin(){
         String user = txt_user.getText();
         String pass   = txt_pass.getText();
@@ -69,7 +69,8 @@ public class Login extends javax.swing.JFrame {
             }else {
             
                 JOptionPane.showMessageDialog(this, "Tên Đăng Nhập hoặc Mật Khẩu bị Sai???? ");
-                 txt_pass.requestFocus();
+                
+                txt_pass.requestFocus();
                         
             }
             
