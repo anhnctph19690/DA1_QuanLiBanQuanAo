@@ -13,6 +13,7 @@ public class SanPham {
     private String MaSP;
     private String tenSP;
 
+    
     public SanPham() {
     }
 
